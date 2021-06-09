@@ -1,0 +1,110 @@
+body{
+    margin: 0;
+    font-family: optima;
+}
+
+.open-sentence {
+    color: #0884d6;
+    line-height: 2;
+    font-size: 30px;
+    text-align: center;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: 200px;
+  }
+
+  #writer{
+    color: #0884d6;
+    font-size: 15px;
+    padding-left: 30%;
+    padding-top: 0%;
+    font-weight: unset;
+  }
+
+  .section1{
+    display: flex;
+    flex-direction: column;
+    background:url("meal.png");
+    height: 700px;
+    padding-left: 10%;
+    font-family: optima;
+    font-size: 30px;
+  }
+
+  #row1{
+      color: #002C9B;
+      letter-spacing: 2px;
+  }
+
+  #row2{
+    color: #0884d6;
+  }
+
+  #row3{
+      font-size: 14px;
+      width: 400px;
+      line-height: 30px;
+      letter-spacing: 2px;
+  }
+
+  #view-btn{
+    background: #002C9B;
+    color: rgb(255,255,255)!important;
+    font-weight: 700;
+    height: 2.8125rem;
+    width: 11.25rem;
+    border-radius: 40px;
+    border: 0px;
+    letter-spacing: 2px;
+  }
+  #view-btn:hover{
+    background-color: #0884d6;
+  }
+
+  #submit{
+      color: #0839b6;
+      text-align: center;
+      padding-top: 10%;
+
+  }
+
+  .footer{
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #0884d663;
+      height: 500px;
+
+  }
+
+  .email-input{
+      display: flex;
+  }
+
+  #email{
+    color: rgb(106,109,117);
+    border-color: rgb(177,181,189);
+    font-weight: 400;
+    border-radius: 30px 0px 0px 30px;
+    height: 2rem;
+    width: 13rem;
+    padding-left: 1.25rem;
+    border: 0px;
+
+  }
+
+  #submit-btn{
+    background: #002C9B;
+    color: rgb(255,255,255);
+    font-size: 0.8669rem;
+    font-weight: 700;
+    height: 2rem;
+    width: 7.4375rem;
+    border-radius: 0px 30px 30px 0px;
+    white-space: normal;
+    background-color: rgb(0,38,132);
+    border: 0px;
+    letter-spacing: 3px;
+  }
+
+
