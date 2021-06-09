@@ -1,6 +1,8 @@
 body{
-    margin: 0;
-    font-family: optima;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: optima;
 }
 
 /* Section 1 */
@@ -47,10 +49,12 @@ body{
   border-radius: 40px;
   border: 0px;
   letter-spacing: 2px;
+  transition: all 0.25s;
 }
 
 #view-btn:hover{
   background-color: #0884d6;
+  transform: translateY(-0.25em);
 }
 
 /* Section 2 */
@@ -138,5 +142,16 @@ body{
   background-color: #0884d6;
 }
 
-
+@media (max-width:650px)
+{
+  #logo-img{
+    height: 3em;
+  }
+  h1, h2, p, .quote-div, #submit-h1:nth-of-type(2){
+    font-size: 1em;
+  }
+  #writer-span{
+    font-size: 0.3em;
+  }
+}
 
