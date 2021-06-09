@@ -15,6 +15,10 @@ body{
   background-size: cover;
 }
 
+#logo-img{
+  height: 180px;
+}
+
 #row1-h2{
   color: #002C9B;
   letter-spacing: 2px;
