@@ -111,6 +111,14 @@ body{
   margin-top: 5%;
 }
 
+#invalid-mail{
+  color: red;
+  font-family: Didot;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 2%;
+}
+
 .email-div{
   display: flex;
   padding-left: 16%;
@@ -142,6 +150,7 @@ body{
 
 #submit-btn:hover{
   background-color: #0884d6;
+  transform: translateX(-0.25em);
 }
 
 @media (max-width:650px)

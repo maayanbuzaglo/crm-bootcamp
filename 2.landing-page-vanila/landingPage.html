@@ -10,9 +10,8 @@
 </head>
 
 <body>
-
     <!-- First section -->
-    <form action="" class="section1-form">
+    <form class="section1-form">
         <span class="logo">
             <img src="logo.svg" alt="logo picture" id="logo-img">
         </span>
@@ -36,15 +35,16 @@
     </div>
 
     <!-- Third section -->
-    <form action="" class="submit-form">
+    <form class="submit-form" name="form1" onsubmit="validateEmail()">
         <span id="submit-span">
             <h1 id="submit-h1">MAKE YOUR DAY BETTER</h1>
             <h1 id="submit-h1">Get 15% off for first order</h1>
             <div class="email-div">
-                <label for = "email-input"> </label>
-                <input id="email-input" type="email" placeholder="Email address" name="email" required>
-                <button id="submit-btn">SUBMIT</button>
+                <label for = "email"> </label>
+                <input id="email-input" type="text" placeholder="Email address" name="email" required />
+                <input type="submit" id="submit-btn" />
             </div>
+            <h1 id="invalid-mail">maa</h2>
         </span>
     </form>
     <!-- <form action = "landingPage.html">
@@ -56,5 +56,6 @@
         <!-- </div> -->
         <!-- <button> SUBMIT </button>
     </form> -->
+    <script defer src="landingPage.js"></script>
 </body>
 </html>
