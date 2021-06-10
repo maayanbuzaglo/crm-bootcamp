@@ -153,6 +153,11 @@ body{
   height: 2rem;
   width: 10rem;
   padding-left: 1.25rem;
+  outline: none;
+}
+
+#email-input:focus{
+  border-color: #002C9B;
 }
 
 /* edit submit button */

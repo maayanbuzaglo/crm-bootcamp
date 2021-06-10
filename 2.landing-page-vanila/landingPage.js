@@ -7,12 +7,14 @@ function validateEmail(e) {
     if (emailInput.match(validRegex)){
         alert("We sent the details to your email\n Have a nice day :)");
         location.reload();
+        return true;
     }
     //else - invalid mail text.
     else
     {
         document.getElementById("email-input").innerHTML = "";
-        var invalidMail = document.getElementById("invalid-mail").innerHTML = "Invalid email. please try again";
+        document.getElementById("invalid-mail").innerHTML = "Invalid email. please try again";
         document.form1.email.focus();
+        return false;
     }
   }
