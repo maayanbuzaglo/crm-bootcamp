@@ -1,10 +1,10 @@
 function validateEmail(e) {
     e.preventDefault();
     var emailInput = document.form1.email.value;
-    var validRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var validRegex = /^([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)@(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})$/;
     if (emailInput.match(validRegex)){
-      alert("We sent the details to your email\n Have a nice day :)");
-      location.reload();
+        alert("We sent the details to your email\n Have a nice day :)");
+        location.reload();
     }
     else
     {
