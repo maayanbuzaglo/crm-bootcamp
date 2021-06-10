@@ -5,7 +5,9 @@ body{
   font-family: optima;
 }
 
-/* Section 1 */
+/*--- Section 1 ---*/
+
+/* For the background img */
 .section1-form{
   display: flex;
   flex-direction: column;
@@ -17,23 +19,27 @@ body{
   background-size: cover;
 }
 
+/* edit logo img */
 #logo-img{
-  height: 180px;
+  height: 220px;
   /* position: fixed; */
   top:0;
 }
 
+/* row 1 */
 #row1-h2{
   color: #002C9B;
   letter-spacing: 2px;
   padding-top: 0%;
 }
 
+/* row 2 */
 #row2-h1{
   color: #0884d6;
   margin-top: -20px;
 }
 
+/* row 3 */
 #row3-p{
   font-size: 14px;
   width: 400px;
@@ -41,6 +47,7 @@ body{
   letter-spacing: 2px;
 }
 
+/* edit view button */
 #view-btn{
   background: #002C9B;
   color: rgb(255,255,255)!important;
@@ -58,7 +65,9 @@ body{
   transform: translateY(-0.25em);
 }
 
-/* Section 2 */
+/*--- Section 2 ---*/
+
+/* edit quote */
 .quote-div{
   color: #0884d6;
   line-height: 2;
@@ -77,7 +86,9 @@ body{
   font-weight: unset;
 }
 
-/* Section 3 */
+/*--- Section 3 ---*/
+
+/* For the background img and flex items */
 .submit-form{
   display:flex;
   flex-direction: column;
@@ -87,6 +98,7 @@ body{
   background-size: cover;
 }
 
+/* For the white background border */
 #submit-span{
   border-style: outset;
   background: white;
@@ -96,6 +108,7 @@ body{
   border-radius: 100px 100px 100px 100px;
 }
 
+/* row 1 */
 #submit-h1{
   color: #002C9B;
   text-align: center;
@@ -103,6 +116,7 @@ body{
   letter-spacing: 1px;
 }
 
+/* row 1 */
 #submit-h1:nth-of-type(2){
   color: #0884d6;
   font-size: 30px;
@@ -112,6 +126,7 @@ body{
   margin-top: -5px;
 }
 
+/* invalid text massage */
 #invalid-mail{
   color: red;
   font-family: Didot;
@@ -122,12 +137,14 @@ body{
   text-align: center;
 }
 
+/* connect the email buttons in row */
 .email-div{
   display: flex;
   justify-content: center;
   margin-top: 10%;
 }
 
+/* edit email input border */
 #email-input{
   color: rgb(106,109,117);
   border-color: rgb(177,181,189);
@@ -138,6 +155,7 @@ body{
   padding-left: 1.25rem;
 }
 
+/* edit submit button */
 #submit-btn{
   background: #002C9B;
   color: rgb(255,255,255)!important;
@@ -156,6 +174,7 @@ body{
   transform: translateX(-0.25em);
 }
 
+/* relative text to page size */
 @media (max-width:650px)
 {
   #logo-img{
