@@ -35,27 +35,18 @@
     </div>
 
     <!-- Third section -->
-    <form class="submit-form" name="form1" onsubmit="validateEmail()">
+    <form class="submit-form" name="form1" onsubmit="validateEmail(event)">
         <span id="submit-span">
             <h1 id="submit-h1">MAKE YOUR DAY BETTER</h1>
             <h1 id="submit-h1">Get 15% off for first order</h1>
             <div class="email-div">
                 <label for = "email"> </label>
                 <input id="email-input" type="text" placeholder="Email address" name="email" required />
-                <input type="submit" id="submit-btn" />
+                <button id="submit-btn">SUBMIT</button>
             </div>
-            <h1 id="invalid-mail">maa</h2>
+            <h1 id="invalid-mail"><br></h2>
         </span>
     </form>
-    <!-- <form action = "landingPage.html">
-        <input type = "text" placeholder = "full name"> -->
-        <!-- <input type = "text" placeholder = "phone number"> -->
-        <!-- <div> -->
-            <!-- <label for = "email"> </label> -->
-            <!-- <input id="email" type="email" placeholder="Email address" name="email" required> -->
-        <!-- </div> -->
-        <!-- <button> SUBMIT </button>
-    </form> -->
     <script defer src="landingPage.js"></script>
 </body>
 </html>

@@ -19,14 +19,14 @@ body{
 
 #logo-img{
   height: 180px;
-  position: fixed;
+  /* position: fixed; */
   top:0;
 }
 
 #row1-h2{
   color: #002C9B;
   letter-spacing: 2px;
-  padding-top: 15%;
+  padding-top: 0%;
 }
 
 #row2-h1{
@@ -114,14 +114,16 @@ body{
 #invalid-mail{
   color: red;
   font-family: Didot;
-  font-size: 20px;
+  font-size: 13px;
   font-weight: 600;
   margin-top: 2%;
+  margin-bottom: 0%;
+  text-align: center;
 }
 
 .email-div{
   display: flex;
-  padding-left: 16%;
+  justify-content: center;
   margin-top: 10%;
 }
 
