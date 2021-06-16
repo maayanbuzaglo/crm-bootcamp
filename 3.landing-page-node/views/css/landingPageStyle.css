@@ -1,0 +1,214 @@
+body{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: optima;
+}
+
+/*--- Section 1 ---*/
+
+/* For the background img */
+.section1-form{
+  display: flex;
+  flex-direction: column;
+  background:url("../img/meal.png");
+  height: 800px;
+  padding-left: 10%;
+  font-family: optima;
+  font-size: 40px;
+  background-size: cover;
+}
+
+/* edit logo img */
+#logo-img{
+  height: 220px;
+  /* position: fixed; */
+  top:0;
+}
+
+#flag-img{
+  height: 20px;
+  margin-right: 10px;
+}
+
+.userDetails{
+  position: absolute;
+  letter-spacing: 1px;
+  word-spacing: 3px;
+  font-size: 30px;
+  font-weight: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: -20px;
+}
+
+/* row 1 */
+#row1-h2{
+  color: #002C9B;
+  letter-spacing: 2px;
+  padding-top: 0%;
+  margin-top: 70px;
+}
+
+/* row 2 */
+#row2-h1{
+  color: #0884d6;
+  margin-top: -40px;
+}
+
+/* row 3 */
+#row3-p{
+  font-size: 14px;
+  width: 400px;
+  line-height: 30px;
+  letter-spacing: 2px;
+}
+
+/* edit view button */
+#view-btn{
+  background: #002C9B;
+  color: rgb(255,255,255)!important;
+  font-weight: 700;
+  height: 2.8125rem;
+  width: 11.25rem;
+  border-radius: 40px;
+  border: 0px;
+  letter-spacing: 2px;
+  transition: all 0.25s;
+}
+
+#view-btn:hover{
+  background-color: #0884d6;
+  transform: translateY(-0.25em);
+}
+
+/*--- Section 2 ---*/
+
+/* edit quote */
+.quote-div{
+  color: #0884d6;
+  line-height: 2;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;  
+  padding: 100px;  
+}
+
+#writer-span{
+  color: #0884d6;
+  font-size: 15px;
+  padding-left: 30%;
+  padding-top: 0%;
+  font-weight: unset;
+}
+
+/*--- Section 3 ---*/
+
+/* For the background img and flex items */
+.submit-form{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  height: 800px;
+  background:url("../img/footer.jpeg");
+  background-size: cover;
+}
+
+/* For the white background border */
+#submit-span{
+  height: 43%;
+  border-style: outset;
+  background: white;
+  border: none;
+  padding: 5% 16% 5% 16%;
+  margin-top: 170px;
+  border-radius: 100px 100px 100px 100px;
+}
+
+/* row 1 */
+#submit-h1{
+  color: #002C9B;
+  text-align: center;
+  margin-top: 0px;
+  letter-spacing: 1px;
+}
+
+/* row 1 */
+#submit-h1:nth-of-type(2){
+  color: #0884d6;
+  font-size: 30px;
+  word-spacing: 2px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  margin-top: -5px;
+}
+
+/* invalid text */
+#invalid{
+  color: red;
+  font-family: Didot;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 0%;
+  margin-bottom: 0%;
+  text-align: center;
+}
+
+/* connect the submit input buttons in columns */
+.submit-details-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+}
+
+/* edit name input border */
+#input{
+  color: rgb(106,109,117);
+  border-color: rgb(177,181,189);
+  font-weight: 400;
+  border-radius: 30px 30px 30px 30px;
+  height: 2rem;
+  width: 10rem;
+  padding-left: 1.25rem;
+  outline: none;
+}
+
+#input:focus{
+  border-color: #002C9B;
+}
+
+/* edit submit button */
+#submit-btn{
+  background: #002C9B;
+  color: rgb(255,255,255)!important;
+  font-weight: 700;
+  height: 2.4rem;
+  width: 7.4375rem;
+  border-radius: 30px 30px 30px 30px;
+  white-space: normal;
+  background-color: #002C9B;
+  letter-spacing: 2px;
+  border: none;
+  margin-bottom: 0px;
+}
+
+#submit-btn:hover{
+  background-color: #0884d6;
+  transform: translateX(-0.25em);
+}
+/* relative text to page size */
+@media (max-width:650px)
+{
+  #logo-img{
+    height: 3em;
+  }
+  h1, h2, p, .quote-div, #submit-h1:nth-of-type(2){
+    font-size: 1em;
+  }
+  #writer-span{
+    font-size: 0.3em;
+  }
+}

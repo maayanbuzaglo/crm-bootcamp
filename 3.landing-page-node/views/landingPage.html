@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homemade Deliveries</title>
+    <link rel="stylesheet" href="css/landingPageStyle.css">
+</head>
+
+<body>
+    <!-- First block -->
+    <form class="section1-form">
+        <span class="logo">
+            <img src="img/logo.svg" alt="logo picture" id="logo-img">
+        </span>
+        
+        <div class="details">
+            <div class="userDetails">
+                {{{getFlag}}}
+                <h5>{{addName}}</h5>
+            </div>
+            <h2 id="row1-h2">{{titleRow1}}</h2>
+            <h1 id="row2-h1">{{titleRow2}}</h1>
+            <p id="row3-p">{{view}}</p>
+            <button id="view-btn">{{viewBtn}}</button>
+         </div>
+    </form>
+
+    <!-- Second block -->
+    <section class="quote-div">
+        <p>{{{quote}}}<span id="writer-span">{{writer}}</span>
+        </p>
+    </section>
+
+    <!-- Third block -->
+    <!-- <form class="submit-form" name="form1" onsubmit="validateEmail(event)"> -->
+        <form class="submit-form" name="form1" onclick={{{validate}}}>
+        <span id="submit-span">
+            <h1 id="submit-h1">{{submitRow1}}</h1>
+            <h1 id="submit-h1">{{submitRow2}}</h1>
+            <div class="submit-details-div">
+                {{{getInputs}}}
+                <button id="submit-btn">{{submitBtn}}</button>
+            </div>
+        </span>
+    </form>
+    <!-- <script defer src="../js/landingPage.js"></script> -->
+</body>
+</html>
