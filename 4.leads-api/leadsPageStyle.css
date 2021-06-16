@@ -1,0 +1,24 @@
+body{
+    font-family: optima;
+    background: url("/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/3.landing-page-node/views/img/meal.png");
+    background-size: 100em;
+}
+
+h1{
+    color: #0088ddab;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: left;
+  }
+
+tbody tr:nth-child(odd){
+    background-color: #3ba5ec00;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #3ba5ec46;
+  }

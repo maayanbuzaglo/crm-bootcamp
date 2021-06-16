@@ -35,8 +35,8 @@
     </section>
 
     <!-- Third block -->
-    <!-- <form class="submit-form" name="form1" onsubmit="validateEmail(event)"> -->
-        <form class="submit-form" name="form1" onclick={{{validate}}}>
+    <form class="submit-form" name="form1" onsubmit="validateEmail(event)">
+        <!-- <form class="submit-form" name="form1" onclick={{{validate}}}> -->
         <span id="submit-span">
             <h1 id="submit-h1">{{submitRow1}}</h1>
             <h1 id="submit-h1">{{submitRow2}}</h1>
@@ -46,6 +46,8 @@
             </div>
         </span>
     </form>
-    <!-- <script defer src="../js/landingPage.js"></script> -->
+    <script defer src="js/landingPage.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 </html>

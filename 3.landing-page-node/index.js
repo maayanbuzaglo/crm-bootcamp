@@ -13,16 +13,12 @@ app.get('/', function(req, res) {
   const {name, country} = req.query;
 
   const data = {
+
     //Make the input text for submit details.
-    validate: function()
-    {
-      const {name, phone, email} = req.query;
-      if(phone.length < 3) return "invalid phone";
-    },
     getInputs: function(type)
     {
       result = '';
-      types = ["name", "phone", "email"];
+      types = ["first_name", "last_name", "phone", "email"];
       for(type of types)
       {
         result += helpers.getInputsHelper(type);
@@ -35,10 +31,12 @@ app.get('/', function(req, res) {
     {
       if(country) return '<img src="img/flags/' + country + '.png" alt="flag picture" id="flag-img">';
     },
+
     //Says hello if name defined.
     addName: function(){
       if(name) return 'Hello ' + name.toUpperCase() + '!';
     },
+
     titleRow1: 'A GREAT MEAL',
     titleRow2: 'changes everything',
     view: 'Choose from a variety of up to 30 weekly meals with high-quality ingredients and options for every lifestyle including vegetarian, carb conscious, WW™ Approved, and more.',
@@ -52,24 +50,6 @@ app.get('/', function(req, res) {
   res.render('landingPage', data);
 });
 
-app.listen(8080, () => {
+app.listen(process.env.PORT, () => {
   console.log(`Server running at http://localhost:${process.env.PORT}/`);
 });
-
-
-
-
-
-
-// app.get('/m', (req, res) => {
-//   // res.status(200).send(helpers.test());
-//   // try{
-//   // console.log(req.params);
-//   // }
-//   // catch{
-//   //   console.log('error')
-//   // }
-//   //take parameters
-//   //run validation logic
-//   //return is valid or not and correct status
-// })
