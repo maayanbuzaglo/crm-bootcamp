@@ -1,0 +1,46 @@
+body {
+    font-family: optima;
+    background: url("./");
+    background-size: 100em;
+}
+
+
+/* titles */
+
+h2:hover {
+    cursor: pointer;
+    color: #81939e;
+}
+
+
+/* Id column */
+
+#id {
+    color: #0087de;
+}
+
+
+/* table */
+
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 10px;
+    text-align: left;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+
+/* Color of even columns */
+
+tbody th:nth-child(even) {
+    background-color: #3ba5ec46;
+}
+
+tbody td:nth-child(even) {
+    background-color: #3ba5ec46;
+}

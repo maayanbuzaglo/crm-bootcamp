@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leads Page</title>
+    <link rel="stylesheet" href="./css/leadsPageStyle.css">
+</head>
+
+<body>
+    <table style="width:100%">
+        <tr>
+            <tr>
+                <th>
+                    <h2 id="id" name="table" placeholder="column" onclick="onSort(event, 'id')">#</h1>
+                </th>
+                <th>
+                    <h2 id="firstName" name="table" placeholder="column" onclick="onSort(event,'first_name')">First Name</h1>
+                </th>
+                <th>
+                    <h2 id="lastName" name="table" placeholder="column" onclick="onSort(event, 'last_name')">Last name</h1>
+                </th>
+                <th>
+                    <h2 id="phone" name="table" placeholder="column" onclick="onSort(event, 'phone_number')">Phone number</h1>
+                </th>
+                <th>
+                    <h2 id="email" name="table" placeholder="column" onclick="onSort(event, 'email_address')">Email address</h1>
+                </th>
+            </tr>
+            {{{createTable}}}
+            <tr>
+    </table>
+    <script defer src="js/landingPage.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
