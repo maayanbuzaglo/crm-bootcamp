@@ -1,0 +1,25 @@
+$button-color: #002c9b;
+$button-hover-color: #0884d6;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: optima;
+}
+
+button {
+  font-family: optima;
+  background: $button-color;
+  color: rgb(255, 255, 255) !important;
+  border-radius: 30px 30px 30px 30px;
+  white-space: normal;
+  letter-spacing: 2px;
+  border: none;
+}
+
+button:hover {
+  background-color: $button-hover-color;
+  transform: translateX(-0.25em);
+}
