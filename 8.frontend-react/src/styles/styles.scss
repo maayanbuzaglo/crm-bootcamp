@@ -1,5 +1,6 @@
-@import "./base/base";
-@import "./components/header";
-@import "./components/signup";
-@import "./components/body";
-@import "./components/side";
+@import "./base";
+@import "./body";
+@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/NavBar/_header.scss";
+@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Signup/SignUp.module.scss";
+@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Signup/Side.modules.scss";
+@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Login/Login.module.scss";

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
 import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
+import { Link } from "react-router-dom";
 import Side from "./Side";
 import axios from "axios";
 
@@ -88,6 +89,11 @@ const SignUp = () => {
           value={form.phone.value}
           name={"phone"}
           isInvalid={form.phone.isInvalid}
+          text={
+            form.phone.value
+              ? "Invalid phone number."
+              : "A phone number is required."
+          }
           onChange={onChange}
         />
         <Input
@@ -96,17 +102,30 @@ const SignUp = () => {
           value={form.email.value}
           name={"email"}
           isInvalid={form.email.isInvalid}
+          text={
+            form.email.value
+              ? "Invalid email address."
+              : "An email address is required."
+          }
           onChange={onChange}
         />
         <Input
-          placeholder="Password"
+          placeholder="Password (at list 8 characters long)"
           type="password"
           value={form.password.value}
           name={"password"}
           isInvalid={form.password.isInvalid}
+          text={
+            form.password.value
+              ? "Try 8 characters, at list 1 number."
+              : "A password is required."
+          }
           onChange={onChange}
         />
-        <Button placeholder="Sign Up" onClick={onSubmit} />
+        <Button text="Sign Up" onClick={onSubmit} />
+        <h4>
+          Already have an account? <Link to="/login">Login</Link>
+        </h4>
       </div>
       <div>
         <Side />

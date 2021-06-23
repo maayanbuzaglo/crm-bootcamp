@@ -1,0 +1,20 @@
+@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
+
+.header {
+  font-family: optima;
+  display: flex;
+  justify-content: flex-end;
+  background-color: lighten($blue, 60%);
+  color: white;
+  margin-bottom: 4.8rem;
+  padding: 1.5rem 1.5rem;
+  font-size: 3rem;
+  margin: 0;
+}
+
+.header a:-webkit-any-link {
+  color: $blue;
+  font-size: 30px;
+  cursor: pointer;
+  text-decoration: none;
+}

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <div className={styles.container}>
-      <button>
+      <button className="home">
         <Link to="/login">login</Link>
       </button>
       <button>
