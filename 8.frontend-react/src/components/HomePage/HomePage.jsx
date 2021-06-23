@@ -6,10 +6,10 @@ const HomePage = () => {
   return (
     <div className={styles.container}>
       <button>
-        <Link to="/login"> take me to login</Link>
+        <Link to="/login">login</Link>
       </button>
       <button>
-        <Link to="/signUp">take me to signUp</Link>
+        <Link to="/signUp">signUp</Link>
       </button>
     </div>
   );
