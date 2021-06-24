@@ -47,8 +47,7 @@ const SignUp = () => {
     axios
       .post("http://localhost:8005/", { form: formattedForm })
       .then(function (response) {
-        alert("We sent the details to your email \n Have a nice day :)");
-        window.location.reload();
+        window.location.href = "http://localhost:3000/homePage";
       })
       .catch(function (error) {
         //All the invalid data

@@ -28,23 +28,26 @@ const Login = () => {
       email: form.email.value,
       password: form.password.value,
     };
+
     axios
-      .post("http://localhost:8005/", { form: formattedForm })
+      .post("http://localhost:8005/login", { form: formattedForm })
       .then(function (response) {
-        alert("log in");
+        window.location.href = "http://localhost:3000/homePage";
       })
       .catch(function (error) {
-        //All the invalid data
-        const invalid = error.response.data.invalidInput;
-        invalid.forEach((invalidInput) => {
-          setForm((prevForm) => ({
-            ...prevForm,
-            [invalidInput]: {
-              value: prevForm[invalidInput].value,
-              isInvalid: true,
-            },
-          }));
-        });
+        //The incorrect input.
+        let errorType = error.response.data.errors;
+        //If email input is empty.
+        if (!form.email.value) errorType = "email";
+
+        //Sets the invalid input text in the page.
+        setForm((prevForm) => ({
+          ...prevForm,
+          [errorType]: {
+            value: prevForm[errorType].value,
+            isInvalid: true,
+          },
+        }));
       });
   };
 
@@ -72,7 +75,9 @@ const Login = () => {
           name={"password"}
           isInvalid={form.password.isInvalid}
           text={
-            form.password.value ? "Wrong password." : "A password is required."
+            form.password.value
+              ? "Password is incorrect."
+              : "A password is required."
           }
           onChange={onChange}
         />

@@ -3,6 +3,10 @@ const cors = require("cors");
 const helpers = require("./helpers");
 const md5 = require("js-md5");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+
+//Token to sign the JWT token.
+const accessTokenSecret = "youraccesstokensecret";
 
 //mySQL connection.
 var mysql = require("mysql");
@@ -19,6 +23,30 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post("/login", function (req, res) {
+  const emailInput = req.body.form.email;
+  password = req.body.form.password;
+
+  connection.query(
+    `SELECT password FROM accounts WHERE email_address="${emailInput}"`,
+    function (error, results, fields) {
+      if (error) console.log(error);
+      //If email not exist in the data base.
+      else if (!results[0]) {
+        res.send(400, { errors: "email" });
+      }
+      //If the password is incorrect.
+      else if (results[0].password !== md5(password)) {
+        res.send(400, { errors: "password" });
+      }
+      //If all details is correct.
+      else {
+        res.send(200, "login successful");
+      }
+    }
+  );
+});
 
 app.post("/", function (req, res) {
   const firstName = req.body.form.first_name;
