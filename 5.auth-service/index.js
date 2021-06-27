@@ -5,8 +5,26 @@ const md5 = require("js-md5");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 
-//Token to sign the JWT token.
-const accessTokenSecret = "youraccesstokensecret";
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, accessTokenSecret, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
+
+//Secret token to sign the JWT token.
+const accessTokenSecret = "ab4rf5gt7yh2";
 
 //mySQL connection.
 var mysql = require("mysql");
@@ -24,12 +42,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get("/team", authenticateJWT, function (req, res) {
+  res.status(200).send("success!");
+});
+
 app.post("/login", function (req, res) {
   const emailInput = req.body.form.email;
   password = req.body.form.password;
 
   connection.query(
-    `SELECT password FROM accounts WHERE email_address="${emailInput}"`,
+    `SELECT password, id FROM accounts WHERE email_address="${emailInput}"`,
     function (error, results, fields) {
       if (error) console.log(error);
       //If email not exist in the data base.
@@ -42,7 +64,14 @@ app.post("/login", function (req, res) {
       }
       //If all details is correct.
       else {
-        res.send(200, "login successful");
+        const accessToken = jwt.sign(
+          { username: emailInput, user_id: results[0].id },
+          accessTokenSecret
+        );
+
+        res.json({
+          accessToken,
+        });
       }
     }
   );
