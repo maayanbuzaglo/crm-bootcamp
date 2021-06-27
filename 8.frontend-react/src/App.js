@@ -1,7 +1,8 @@
 import Login from "./components/Login/Login";
 import SignUp from "./components/Signup/Signup";
 import HomePage from "./components/HomePage/HomePage";
-import NavBar from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/NavBar/NavBar.jsx";
+import NavBar from "./components/NavBar/NavBar";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import "./styles/styles.scss";
 
@@ -10,15 +11,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
-        <Route path="/signUp">
-          <SignUp />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
+        <Route path="/signUp" component={SignUp} />
+        <Route path="/login" component={Login} />
+        <PrivateRoute path="/homePage" component={HomePage} />
       </Switch>
     </BrowserRouter>
   );

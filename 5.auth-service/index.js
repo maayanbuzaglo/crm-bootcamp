@@ -3,6 +3,7 @@ const cors = require("cors");
 const helpers = require("./helpers");
 const md5 = require("js-md5");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
 
 //Secret token to sign the JWT token.
 const accessTokenSecret = "ab4rf5gt7yh2";

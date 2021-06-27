@@ -6,7 +6,9 @@ const HomePage = () => {
   return (
     <div className={styles.container}>
       <button className="home">
-        <Link to="/login">logout</Link>
+        <Link to="/login" onClick={localStorage.removeItem("user_token")}>
+          logout
+        </Link>
       </button>
     </div>
   );
