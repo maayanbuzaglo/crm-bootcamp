@@ -1,5 +1,10 @@
 // Helpers functions
 
+const jwt = require("jsonwebtoken");
+
+//Secret token to sign the JWT token.
+const accessTokenSecret = "ab4rf5gt7yh2";
+
 //This function validate user submission details.
 module.exports.validateInputs = function (phone, email, password) {
   invalidInputs = [];
@@ -23,4 +28,22 @@ module.exports.validateInputs = function (phone, email, password) {
     invalidInputs.push("password");
   }
   return invalidInputs;
+};
+
+module.exports.authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader) {
+    const token = authHeader.split(" ")[2];
+
+    jwt.verify(token, accessTokenSecret, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
 };

@@ -3,25 +3,6 @@ const cors = require("cors");
 const helpers = require("./helpers");
 const md5 = require("js-md5");
 const bodyParser = require("body-parser");
-const jwt = require("jsonwebtoken");
-
-const authenticateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (authHeader) {
-    const token = authHeader.split(" ")[1];
-
-    jwt.verify(token, accessTokenSecret, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      req.user = user;
-      next();
-    });
-  } else {
-    res.sendStatus(401);
-  }
-};
 
 //Secret token to sign the JWT token.
 const accessTokenSecret = "ab4rf5gt7yh2";
@@ -35,15 +16,16 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/team", authenticateJWT, function (req, res) {
-  res.status(200).send("success!");
+//Gets the users page - only visible to authenticated users.
+app.get("/team", helpers.authenticateJWT, function (req, res) {
+  res.json("Get req succeeded");
+  // res.json(users);
 });
 
 app.post("/login", function (req, res) {
@@ -69,7 +51,7 @@ app.post("/login", function (req, res) {
           accessTokenSecret
         );
 
-        res.json({
+        return res.cookie("jwt", accessToken).json({
           accessToken,
         });
       }
