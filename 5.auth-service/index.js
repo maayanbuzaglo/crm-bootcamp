@@ -4,9 +4,13 @@ const helpers = require("./helpers");
 const md5 = require("js-md5");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+const MailGun = require("mailgun-js");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 //Secret token to sign the JWT token.
-const accessTokenSecret = "ab4rf5gt7yh2";
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 //mySQL connection.
 var mysql = require("mysql");
@@ -60,6 +64,84 @@ app.post("/login", function (req, res) {
   );
 });
 
+app.post("/forgotPassword", function (req, res) {
+  const emailInput = req.body.form.email;
+
+  connection.query(
+    `SELECT id, first_name FROM accounts WHERE email_address="${emailInput}"`,
+    function (error, results, fields) {
+      if (error) console.log(error);
+      //If not exist in the data base.
+      else if (!results[0]) {
+        res.send(400, { errors: "email" });
+      }
+      //If email is correct.
+      else {
+        //For sending the token in the link.
+        const accessToken = jwt.sign(
+          { user_id: results[0].id },
+          accessTokenSecret
+        );
+        connection.query(
+          `UPDATE accounts SET reset_token="${accessToken}" WHERE email_address="${emailInput}"`
+        );
+
+        const mailGun = new MailGun({
+          apiKey: process.env.MAILGUN_KEY,
+          domain: process.env.MAILGUN_ADMIN,
+        });
+        var data = {
+          //Specify email data.
+          from: "maayan.bzg@gmail.com",
+          //The email to contact.
+          to: emailInput,
+          //Subject and text data.
+          subject: "Reset password",
+          html:
+            "http://localhost:3000/resetPassword?accessToken=" + accessToken,
+        };
+        //Invokes the method to send emails given the above data with the helper library
+        mailGun.messages().send(data, function (err, body) {
+          //If there is an error, render the error page
+          if (err) {
+            res.json({ error: err });
+            console.log("got an error: ", err);
+          } else {
+            res.json({ email: emailInput });
+          }
+        });
+      }
+    }
+  );
+});
+
+app.post("/resetPassword", function (req, res) {
+  password = req.body.form.password;
+
+  const invalidInputs = helpers.validateInputs(null, null, password);
+
+  password = md5(password);
+
+  //if all inputs are valid - insert to mySQL table.
+  if (invalidInputs.length === 0) {
+    connection.query(
+      `UPDATE accounts SET password = "${password}" WHERE id=1`,
+      function (error, results, fields) {
+        if (error) console.log(error);
+      }
+    );
+    res.status(200).send("Valid inputs");
+  }
+  //else - return error with the invalid inputs.
+  else {
+    res.status(500).json({
+      msg: "Error creating",
+      invalidInput: invalidInputs,
+    });
+  }
+});
+
+//Sign up server handle
 app.post("/", function (req, res) {
   const firstName = req.body.form.first_name;
   const lastName = req.body.form.last_name;
@@ -92,6 +174,25 @@ app.post("/", function (req, res) {
       invalidInput: invalidInputs,
     });
   }
+});
+
+app.get("/resetPassword", async function (req, res) {
+  const accessToken = req.query[0];
+  await connection.query(
+    `SELECT id FROM accounts WHERE reset_token="${accessToken}"`,
+    function (error, results, fields) {
+      if (error) console.log("Access token is not valid");
+      else if (results.length > 0) {
+        connection.query(
+          `UPDATE accounts SET reset_token=null WHERE id="${results[0].id}"`,
+          function (error, results, fields) {
+            if (error) console.log("Could not remove token from data base");
+            else res.status(200).send("Access token is not valid");
+          }
+        );
+      }
+    }
+  );
 });
 
 app.listen(process.env.PORT, () => {

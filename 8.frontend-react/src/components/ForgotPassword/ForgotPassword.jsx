@@ -2,15 +2,11 @@ import React, { useState } from "react";
 import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
 import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
 import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
+import "./ForgotPassword.scss";
 
-const Login = () => {
+const ForgotPassword = () => {
   const [form, setForm] = useState({
     email: {
-      value: "",
-      isInvalid: false,
-    },
-    password: {
       value: "",
       isInvalid: false,
     },
@@ -23,20 +19,20 @@ const Login = () => {
     });
   };
 
-  const onSubmit = () => {
+  const sendEmail = async () => {
     const formattedForm = {
       email: form.email.value,
-      password: form.password.value,
     };
 
     axios
-      .post("http://localhost:8005/login", { form: formattedForm })
+      .post("http://localhost:8005/forgotPassword", { form: formattedForm })
       .then(function (response) {
-        window.localStorage.setItem("user_token", response.data.accessToken);
-        window.location.href = "http://localhost:3000/homePage";
+        alert("We sent a reset link to your email");
+        window.location.reload();
       })
       .catch(function (error) {
-        //The incorrect input.
+        console.log(error);
+        //The incorrect email.
         let errorType = error.response.data.errors;
         //If email input is empty.
         if (!form.email.value) errorType = "email";
@@ -55,7 +51,7 @@ const Login = () => {
   return (
     <div className="body">
       <div className="log-in">
-        <h1>Login</h1>
+        <h1>Enter your email address</h1>
         <Input
           placeholder="Email address"
           type="email"
@@ -69,29 +65,10 @@ const Login = () => {
           }
           onChange={onChange}
         />
-        <Input
-          placeholder="Password"
-          type="password"
-          value={form.password.value}
-          name={"password"}
-          isInvalid={form.password.isInvalid}
-          text={
-            form.password.value
-              ? "Password is incorrect."
-              : "A password is required."
-          }
-          onChange={onChange}
-        />
-        <Button text="Login" onClick={onSubmit} />
-        <h4>
-          Don't have an account? <Link to="/signUp">Join now</Link>
-        </h4>
-        <h4>
-          <NavLink to="/forgotPassword">Forgot your password?</NavLink>
-        </h4>
+        <Button id="reset-button" text="Reset password" onClick={sendEmail} />
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ForgotPassword;

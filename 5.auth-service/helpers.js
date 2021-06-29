@@ -13,14 +13,18 @@ module.exports.validateInputs = function (phone, email, password) {
     /^([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)@(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})$/; //email Regex.
   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; //minimum eight characters, at least one letter and one number:
 
-  //if invalid phone number - add to invalid inputs list.
-  if (!phone.match(phoneRegex)) {
-    invalidInputs.push("phone");
+  if (phone != null) {
+    //if invalid phone number - add to invalid inputs list.
+    if (!phone.match(phoneRegex)) {
+      invalidInputs.push("phone");
+    }
   }
 
-  //if invalid mail address - add to invalid inputs list.
-  if (!email.match(emailRegex)) {
-    invalidInputs.push("email");
+  if (email != null) {
+    //if invalid mail address - add to invalid inputs list.
+    if (!email.match(emailRegex)) {
+      invalidInputs.push("email");
+    }
   }
 
   //if invalid password number - add to invalid inputs list.

@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 const HomePage = () => {
   return (
     <div className={styles.container}>
-      <button className="home">
-        <Link to="/login" onClick={localStorage.removeItem("user_token")}>
+      <Link to="/homePage">
+        <button
+          className="logout"
+          onClick={() => localStorage.removeItem("user_token")}
+        >
           logout
-        </Link>
-      </button>
+        </button>
+      </Link>
     </div>
   );
 };

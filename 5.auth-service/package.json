@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "js-md5": "^0.7.3",
+    "mailgun-js": "^0.22.0",
     "redis": "^3.1.2"
   }
 }
