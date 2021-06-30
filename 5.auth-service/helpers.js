@@ -1,18 +1,19 @@
-// Helpers functions
-
 const jwt = require("jsonwebtoken");
 const MailGun = require("mailgun-js");
 
 //Secret token to sign the JWT token.
 const accessTokenSecret = "ab4rf5gt7yh2";
 
-//This function validate user submission details.
+/**
+ * This function validate user submission details.
+ * @returns an array of the invalid inputs.
+ */
 module.exports.validateInputs = function (phone, email, password) {
   invalidInputs = [];
   const phoneRegex = /^05\d([-]{0,1})\d{7}$/; //phone Regex.
   const emailRegex =
     /^([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)@(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})$/; //email Regex.
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; //minimum eight characters, at least one letter and one number:
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/; //minimum eight characters, at least one letter and one number.
 
   if (phone != null) {
     //if invalid phone number - add to invalid inputs list.
@@ -37,6 +38,9 @@ module.exports.validateInputs = function (phone, email, password) {
   return invalidInputs;
 };
 
+/**
+ * This function verify token with the accessTokenSecret.
+ */
 module.exports.authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -55,7 +59,9 @@ module.exports.authenticateJWT = (req, res, next) => {
   }
 };
 
-//This function send an email.
+/**
+ * This function send an email.
+ */
 module.exports.sendEmail = (from, to, subject, html) => {
   const mailGun = new MailGun({
     apiKey: process.env.MAILGUN_KEY,

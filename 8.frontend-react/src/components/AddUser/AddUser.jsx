@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
-import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
-import Side from "../Signup/Side";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
+import SideBoardingUsers from "./SideBoardingUsers";
+import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 
 const AddUser = () => {
   const [form, setForm] = useState({
     first_name: {
       value: "",
-      isInvalid: false,
     },
     last_name: {
       value: "",
-      isInvalid: false,
     },
     phone: {
       value: "",
@@ -22,6 +21,9 @@ const AddUser = () => {
       value: "",
       isInvalid: false,
       isExist: false,
+    },
+    account_token: {
+      value: "",
     },
   });
 
@@ -38,7 +40,7 @@ const AddUser = () => {
       last_name: form.last_name.value,
       email: form.email.value,
       phone: form.phone.value,
-      // admin_id: window.localStorage.getItem("user_token")
+      account_token: window.localStorage.getItem("user_token"),
     };
     axios
       .post("http://localhost:8005/addUser", { form: formattedForm })
@@ -72,55 +74,58 @@ const AddUser = () => {
   };
 
   return (
-    <div className="body">
-      <div className="sign-up">
-        <h4>ADD USER</h4>
-        <Input
-          placeholder="First name"
-          type="text"
-          value={form.first_name.value}
-          name={"first_name"}
-          onChange={onChange}
-        />
-        <Input
-          placeholder="Last name"
-          type="text"
-          value={form.last_name.value}
-          name={"last_name"}
-          onChange={onChange}
-        />
-        <Input
-          placeholder="Phone number"
-          type="phone"
-          value={form.phone.value}
-          name={"phone"}
-          isInvalid={form.phone.isInvalid}
-          text={
-            form.phone.value
-              ? "Invalid phone number."
-              : "A phone number is required."
-          }
-          onChange={onChange}
-        />
-        <Input
-          placeholder="Email address"
-          type="email"
-          value={form.email.value}
-          name={"email"}
-          isExist={form.email.isExist}
-          textExist={"Account already exists"}
-          isInvalid={form.email.isInvalid}
-          text={
-            form.email.value
-              ? "Invalid email address."
-              : "An email address is required."
-          }
-          onChange={onChange}
-        />
-        <Button text="Add User" onClick={onSubmit} />
-      </div>
-      <div>
-        <Side />
+    <div>
+      <NavBar />
+      <div className="body">
+        <div className="sign-up">
+          <h4>ADD USER</h4>
+          <Input
+            placeholder="First name"
+            type="text"
+            value={form.first_name.value}
+            name={"first_name"}
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Last name"
+            type="text"
+            value={form.last_name.value}
+            name={"last_name"}
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Phone number"
+            type="phone"
+            value={form.phone.value}
+            name={"phone"}
+            isInvalid={form.phone.isInvalid}
+            text={
+              form.phone.value
+                ? "Invalid phone number."
+                : "A phone number is required."
+            }
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Email address"
+            type="email"
+            value={form.email.value}
+            name={"email"}
+            isExist={form.email.isExist}
+            textExist={"Account already exists"}
+            isInvalid={form.email.isInvalid}
+            text={
+              form.email.value
+                ? "Invalid email address."
+                : "An email address is required."
+            }
+            onChange={onChange}
+          />
+          <Button text="Add User" onClick={onSubmit} />
+        </div>
+        <div>
+          <SideBoardingUsers />
+        </div>
       </div>
     </div>
   );

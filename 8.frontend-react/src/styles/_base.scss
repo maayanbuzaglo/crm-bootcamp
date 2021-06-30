@@ -29,7 +29,7 @@ button {
   letter-spacing: 2px;
   border: none;
   height: 35px;
-  width: 150px;
+  width: 170px;
 }
 
 button:hover {
@@ -54,7 +54,7 @@ input {
 
 input:focus {
   border-color: #002c9b;
-  background-color: lighten($blue, 60%);
+  background-color: lighten($blue, 62%);
 }
 
 // For links

@@ -1,11 +1,4 @@
-import React, { useEffect } from "react";
-import "./LoadingSpinner.scss";
-
-const LoadingSpinner = ({ validToken, text, className }) => {
-  useEffect(() => {
-    validToken();
-  }, []);
-
+const LoadingSpinner = ({ text, className }) => {
   return (
     <div className={className}>
       <h1>{text}</h1>

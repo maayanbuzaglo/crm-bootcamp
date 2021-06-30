@@ -1,8 +1,7 @@
 import React from "react";
 
-// Side boarding.
-const Side = () => {
+const SideBoarding = () => {
   return <div className="side"></div>;
 };
 
-export default Side;
+export default SideBoarding;

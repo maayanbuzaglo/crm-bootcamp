@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
-import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 import { Link } from "react-router-dom";
-import Side from "./Side";
+import SideBoarding from "./SideBoarding";
 import axios from "axios";
 
 const SignUp = () => {
@@ -152,7 +152,7 @@ const SignUp = () => {
         </h4>
       </div>
       <div>
-        <Side />
+        <SideBoarding />
       </div>
     </div>
   );

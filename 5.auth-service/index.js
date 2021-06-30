@@ -29,12 +29,21 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Gets the users page - only visible to authenticated users.
+/**
+ * TEAM get
+ * @returns users table - only visible to authenticated users.
+ **/
 app.get("/team", helpers.authenticateJWT, function (req, res) {
   res.json("Get req succeeded");
   // res.json(users);
 });
 
+/**
+ * LOGIN post
+ * This function makes an access token with user id and email,
+ * and inserts it to his row in users table.
+ * @returns
+ **/
 app.post("/login", function (req, res) {
   const emailInput = req.body.form.email;
   password = req.body.form.password;
@@ -42,7 +51,10 @@ app.post("/login", function (req, res) {
   connection.query(
     `SELECT password, id FROM users WHERE email_address="${emailInput}"`,
     function (error, results, fields) {
-      if (error) console.log(error);
+      if (error) {
+        res.send(400, error);
+        return;
+      }
       //If email not exist in the data base.
       else if (!results[0]) {
         res.send(400, { errors: "email" });
@@ -57,7 +69,6 @@ app.post("/login", function (req, res) {
           { username: emailInput, user_id: results[0].id },
           accessTokenSecret
         );
-
         return res.cookie("jwt", accessToken).json({
           accessToken,
         });
@@ -66,6 +77,10 @@ app.post("/login", function (req, res) {
   );
 });
 
+/**
+ * FORGOT PASSWORD post
+ * This function checks if email input exist and send it a reset link with access Token.
+ **/
 app.post("/forgotPassword", function (req, res) {
   const emailInput = req.body.form.email;
 
@@ -94,20 +109,23 @@ app.post("/forgotPassword", function (req, res) {
           "http://localhost:3000/resetPassword?accessToken=" + accessToken;
         try {
           helpers.sendEmail(from, to, subject, html);
-          res.json({ email: to });
         } catch {
-          console.log("got an error: ", err);
-          res.json({ error: err });
+          res.status(400).send("got an error: ", err);
         }
+        res.status(200).send("successful");
       }
     }
   );
 });
 
+/**
+ * RESET PASSWORD post
+ * This function checks password validation,
+ * and resets the user password in users table.
+ **/
 app.post("/resetPassword", function (req, res) {
   password = req.body.form.password;
   id = req.body.form.id;
-  console.log(id);
 
   const invalidInputs = helpers.validateInputs(null, null, password);
 
@@ -118,13 +136,13 @@ app.post("/resetPassword", function (req, res) {
     connection.query(
       `UPDATE users SET password="${password}", status="${1}", reset_token=null WHERE id="${id}"`,
       function (error, results, fields) {
-        if (error) console.log(error);
-        console.log(
-          `UPDATE users SET password="${password}", status="${1}", reset_token=null WHERE id="${id}"`
-        );
+        if (error) {
+          res.status(200).send("MySQL update error");
+          return;
+        }
       }
     );
-    res.status(200).send("Successful");
+    res.status(200).send("successful");
   }
   //else - return error with the invalid inputs.
   else {
@@ -135,14 +153,23 @@ app.post("/resetPassword", function (req, res) {
   }
 });
 
+/**
+ * ADD USER post
+ * This function gets the new user details,
+ * checks validation
+ * and inserts them to the users table with status code 0.
+ * and send a sign up link to his email.
+ **/
 app.post("/addUser", async function (req, res) {
   const firstName = req.body.form.first_name;
   const lastName = req.body.form.last_name;
   const phoneNumber = req.body.form.phone;
   const emailAddress = req.body.form.email;
-  // const adminId: req.body.form.admin_id;
+  const accountToken = req.body.form.account_token;
 
-  let accountId = 0;
+  const accountDetails = jwt.verify(accountToken, accessTokenSecret);
+  const accountId = accountDetails.user_id;
+  console.log(accountId);
 
   const invalidInputs = helpers.validateInputs(phoneNumber, emailAddress, null);
 
@@ -155,7 +182,7 @@ app.post("/addUser", async function (req, res) {
     try {
       //Insert user to users.
       const results = await asyncConnection.queryAsync(
-        `INSERT INTO users (first_name, last_name, phone_number, email_address, reset_token) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${accessToken}")`
+        `INSERT INTO users (first_name, last_name, phone_number, email_address, reset_token, account_id) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${accessToken}", "${accountId}")`
       );
     } catch (err) {
       res.status(500).send(err.sqlMessage);
@@ -174,7 +201,7 @@ app.post("/addUser", async function (req, res) {
       res.json({ error: err });
       return;
     }
-    res.status(200).send("Valid inputs");
+    res.status(200).send("successful");
   }
   //else - return error with the invalid inputs.
   else {
@@ -185,7 +212,13 @@ app.post("/addUser", async function (req, res) {
   }
 });
 
-//Sign up server handle
+/**
+ * SIGN UP post
+ * This function gets the new user details,
+ * checks validation
+ * and inserts them to the users table with status code 0.
+ * and send a sign up link to his email.
+ **/
 app.post("/", async function (req, res) {
   const firstName = req.body.form.first_name;
   const lastName = req.body.form.last_name;
@@ -247,12 +280,18 @@ app.post("/", async function (req, res) {
   }
 });
 
+/**
+ * RESET PASSWORD post
+ * This function check if access token is valid.
+ * @returns user id
+ **/
 app.get("/resetPassword", async function (req, res) {
   const accessToken = req.query[0];
   await connection.query(
     `SELECT id FROM users WHERE reset_token="${accessToken}"`,
     function (error, results, fields) {
-      if (error) res.status(500).send("Access token is not valid");
+      if (error) res.status(500).send("access token is not valid");
+      //if the query returned an id.
       else if (results.length > 0) {
         res.json({ id: results[0].id });
       } else res.status(500).send("error");

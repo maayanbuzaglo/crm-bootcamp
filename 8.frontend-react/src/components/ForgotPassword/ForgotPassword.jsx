@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
-import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import axios from "axios";
 import "./ForgotPassword.scss";
@@ -30,7 +30,6 @@ const ForgotPassword = () => {
     axios
       .post("http://localhost:8005/forgotPassword", { form: formattedForm })
       .then(function (response) {
-        // alert("We sent a reset link to your email");
         setSentLink(true);
       })
       .catch(function (error) {
@@ -57,25 +56,31 @@ const ForgotPassword = () => {
         <LoadingSpinner
           validToken={() => ""}
           text={"We sent a reset link to your email"}
-          className={"sent-link"}
+          className={"forgot-password"}
         />
       ) : (
-        <div className="log-in">
-          <h1>Enter your email address</h1>
-          <Input
-            placeholder="Email address"
-            type="email"
-            value={form.email.value}
-            name={"email"}
-            isInvalid={form.email.isInvalid}
-            text={
-              form.email.value
-                ? "Email is not exist."
-                : "An email address is required."
-            }
-            onChange={onChange}
-          />
-          <Button id="reset-button" text="Reset password" onClick={sendEmail} />
+        <div className="forgot-password">
+          <div className="form">
+            <h1>Enter your email address</h1>
+            <Input
+              placeholder="Email address"
+              type="email"
+              value={form.email.value}
+              name={"email"}
+              isInvalid={form.email.isInvalid}
+              text={
+                form.email.value
+                  ? "Email is not exist."
+                  : "An email address is required."
+              }
+              onChange={onChange}
+            />
+            <Button
+              id="reset-button"
+              text="Reset password"
+              onClick={sendEmail}
+            />
+          </div>
         </div>
       )}
     </div>

@@ -18,6 +18,7 @@ const Input = ({
         placeholder={placeholder}
         name={name}
         value={value}
+        autocomplete={"off"}
       />
 
       <h5 className="invalid" name={placeholder}>

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
-import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
+import React, { useEffect, useState } from "react";
+import Input from "../Input/Input";
+import Button from "../Button/Button";
 import axios from "axios";
-import LoadingSpinner from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/LoadingSpinner/LoadingSpinner.jsx";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import "./ResetPassword.scss";
 
 const ResetPassword = () => {
   const [form, setForm] = useState({
@@ -18,21 +19,24 @@ const ResetPassword = () => {
 
   const params = new URLSearchParams(window.location.search).get("accessToken");
 
-  const validToken = () => {
-    axios
-      .get("http://localhost:8005/resetPassword", { params })
-      .then((result) => {
-        setIsLoading(false);
-        setIsTokenValid(true);
-        setForm((prevForm) => ({
-          ...prevForm,
-          id: result.data.id,
-        }));
-      })
-      .catch((err) => {
-        setIsLoading(false);
-      });
-  };
+  useEffect(() => {
+    const validToken = () => {
+      axios
+        .get("http://localhost:8005/resetPassword", { params })
+        .then((result) => {
+          setIsLoading(false);
+          setIsTokenValid(true);
+          setForm((prevForm) => ({
+            ...prevForm,
+            id: result.data.id,
+          }));
+        })
+        .catch((err) => {
+          setIsLoading(false);
+        });
+    };
+    validToken();
+  }, []);
 
   const onChange = (e) => {
     setForm({
@@ -70,31 +74,32 @@ const ResetPassword = () => {
   return (
     <div className="body">
       {isLoading ? (
-        <LoadingSpinner
-          validToken={validToken}
-          text={"loading..."}
-          className="loading"
-        />
+        <LoadingSpinner text={"loading..."} className="forgot-password" />
       ) : isTokenValid ? (
-        <div className="log-in">
-          <h1>Enter a new password</h1>
-          <Input
-            placeholder="Password (at list 8 characters long)"
-            type="password"
-            value={form.password.value}
-            name={"password"}
-            isInvalid={form.password.isInvalid}
-            text={
-              form.password.value
-                ? "Try 8 characters, at list 1 number."
-                : "A password is required."
-            }
-            onChange={onChange}
-          />
-          <Button id="login-button" text="Reset" onClick={onSubmit} />
+        <div className="reset-password">
+          <div className="form">
+            <h1>Enter a new password</h1>
+            <Input
+              placeholder="Password (at list 8 characters long)"
+              type="password"
+              value={form.password.value}
+              name={"password"}
+              isInvalid={form.password.isInvalid}
+              text={
+                form.password.value
+                  ? "Try 8 characters, at list 1 number."
+                  : "A password is required."
+              }
+              onChange={onChange}
+            />
+            <Button id="login-button" text="Reset" onClick={onSubmit} />
+          </div>
         </div>
       ) : (
-        <LoadingSpinner text={"Token is not valid"} className="invalid-token" />
+        <LoadingSpinner
+          text={"Token is not valid"}
+          className="forgot-password"
+        />
       )}
     </div>
   );
