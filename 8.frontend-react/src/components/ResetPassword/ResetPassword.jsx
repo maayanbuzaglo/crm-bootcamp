@@ -10,25 +10,30 @@ const ResetPassword = () => {
       value: "",
       isInvalid: false,
     },
+    id: -1,
   });
-  //-------------------------------------------------------
-  const [state, setState] = useState({
-    loading: true,
-  });
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isTokenValid, setIsTokenValid] = useState(false);
 
   const params = new URLSearchParams(window.location.search).get("accessToken");
 
   const validToken = () => {
     axios
       .get("http://localhost:8005/resetPassword", { params })
-      .then((result) =>
-        setState({
-          loading: false,
-          data: [...result.data],
-        })
-      );
+      .then((result) => {
+        setIsLoading(false);
+        setIsTokenValid(true);
+        setForm((prevForm) => ({
+          ...prevForm,
+          id: result.data.id,
+        }));
+      })
+      .catch((err) => {
+        setIsLoading(false);
+      });
   };
-  //-------------------------------------------------------
+
   const onChange = (e) => {
     setForm({
       ...form,
@@ -39,11 +44,12 @@ const ResetPassword = () => {
   const onSubmit = () => {
     const formattedForm = {
       password: form.password.value,
+      id: form.id,
     };
     axios
       .post("http://localhost:8005/resetPassword", { form: formattedForm })
       .then(function (response) {
-        alert("password changed");
+        alert("Password has been changed");
         window.location.href = "http://localhost:3000/login";
       })
       .catch(function (error) {
@@ -63,9 +69,13 @@ const ResetPassword = () => {
 
   return (
     <div className="body">
-      {state.loading ? (
-        <LoadingSpinner validToken={validToken} />
-      ) : (
+      {isLoading ? (
+        <LoadingSpinner
+          validToken={validToken}
+          text={"loading..."}
+          className="loading"
+        />
+      ) : isTokenValid ? (
         <div className="log-in">
           <h1>Enter a new password</h1>
           <Input
@@ -83,6 +93,8 @@ const ResetPassword = () => {
           />
           <Button id="login-button" text="Reset" onClick={onSubmit} />
         </div>
+      ) : (
+        <LoadingSpinner text={"Token is not valid"} className="invalid-token" />
       )}
     </div>
   );

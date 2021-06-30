@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
+import "./LoadingSpinner.scss";
 
-const LoadingSpinner = ({ validToken }) => {
+const LoadingSpinner = ({ validToken, text, className }) => {
   useEffect(() => {
     validToken();
   }, []);
 
   return (
-    <div className="loading">
-      <h1>This page is not valid</h1>
+    <div className={className}>
+      <h1>{text}</h1>
     </div>
   );
 };

@@ -1,6 +1,15 @@
 import React from "react";
 
-const Input = ({ onChange, placeholder, value, name, text, isInvalid }) => {
+const Input = ({
+  onChange,
+  placeholder,
+  value,
+  name,
+  text,
+  isInvalid,
+  textExist,
+  isExist,
+}) => {
   return (
     <div className="input-invalid">
       <input
@@ -13,6 +22,7 @@ const Input = ({ onChange, placeholder, value, name, text, isInvalid }) => {
 
       <h5 className="invalid" name={placeholder}>
         {isInvalid && text}
+        {isExist && textExist}
       </h5>
     </div>
   );

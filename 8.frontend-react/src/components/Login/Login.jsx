@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
 import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
 import axios from "axios";
@@ -54,42 +55,46 @@ const Login = () => {
 
   return (
     <div className="body">
-      <div className="log-in">
-        <h1>Login</h1>
-        <Input
-          placeholder="Email address"
-          type="email"
-          value={form.email.value}
-          name={"email"}
-          isInvalid={form.email.isInvalid}
-          text={
-            form.email.value
-              ? "Email is not exist."
-              : "An email address is required."
-          }
-          onChange={onChange}
-        />
-        <Input
-          placeholder="Password"
-          type="password"
-          value={form.password.value}
-          name={"password"}
-          isInvalid={form.password.isInvalid}
-          text={
-            form.password.value
-              ? "Password is incorrect."
-              : "A password is required."
-          }
-          onChange={onChange}
-        />
-        <Button text="Login" onClick={onSubmit} />
-        <h4>
-          Don't have an account? <Link to="/signUp">Join now</Link>
-        </h4>
-        <h4>
-          <NavLink to="/forgotPassword">Forgot your password?</NavLink>
-        </h4>
-      </div>
+      {localStorage.getItem("user_token") ? (
+        <Redirect to={"/homePage"} />
+      ) : (
+        <div className="log-in">
+          <h1>Login</h1>
+          <Input
+            placeholder="Email address"
+            type="email"
+            value={form.email.value}
+            name={"email"}
+            isInvalid={form.email.isInvalid}
+            text={
+              form.email.value
+                ? "Email is not exist."
+                : "An email address is required."
+            }
+            onChange={onChange}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            value={form.password.value}
+            name={"password"}
+            isInvalid={form.password.isInvalid}
+            text={
+              form.password.value
+                ? "Password is incorrect."
+                : "A password is required."
+            }
+            onChange={onChange}
+          />
+          <Button text="Login" onClick={onSubmit} />
+          <h4>
+            Don't have an account? <Link to="/signUp">Join now</Link>
+          </h4>
+          <h4>
+            <NavLink to="/forgotPassword">Forgot your password?</NavLink>
+          </h4>
+        </div>
+      )}
     </div>
   );
 };

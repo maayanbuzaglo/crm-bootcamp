@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 import Input from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Input/Input.jsx";
 import Button from "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/components/Button/Button.jsx";
-import { Link } from "react-router-dom";
-import Side from "./Side";
+import Side from "../Signup/Side";
 import axios from "axios";
 
-const SignUp = () => {
+const AddUser = () => {
   const [form, setForm] = useState({
     first_name: {
       value: "",
       isInvalid: false,
     },
     last_name: {
-      value: "",
-      isInvalid: false,
-    },
-    account_name: {
       value: "",
       isInvalid: false,
     },
@@ -27,10 +22,6 @@ const SignUp = () => {
       value: "",
       isInvalid: false,
       isExist: false,
-    },
-    password: {
-      value: "",
-      isInvalid: false,
     },
   });
 
@@ -45,15 +36,15 @@ const SignUp = () => {
     const formattedForm = {
       first_name: form.first_name.value,
       last_name: form.last_name.value,
-      account_name: form.account_name.value,
       email: form.email.value,
       phone: form.phone.value,
-      password: form.password.value,
+      // admin_id: window.localStorage.getItem("user_token")
     };
     axios
-      .post("http://localhost:8005/", { form: formattedForm })
+      .post("http://localhost:8005/addUser", { form: formattedForm })
       .then(function (response) {
-        window.location.href = "http://localhost:3000/homePage";
+        alert("User have been added successfully.");
+        window.location.reload();
       })
       .catch(function (error) {
         //All the invalid data
@@ -83,7 +74,7 @@ const SignUp = () => {
   return (
     <div className="body">
       <div className="sign-up">
-        <h1>Sign up and start your trial</h1>
+        <h4>ADD USER</h4>
         <Input
           placeholder="First name"
           type="text"
@@ -96,13 +87,6 @@ const SignUp = () => {
           type="text"
           value={form.last_name.value}
           name={"last_name"}
-          onChange={onChange}
-        />
-        <Input
-          placeholder="Account Name"
-          type="text"
-          value={form.account_name.value}
-          name={"account_name"}
           onChange={onChange}
         />
         <Input
@@ -133,23 +117,7 @@ const SignUp = () => {
           }
           onChange={onChange}
         />
-        <Input
-          placeholder="Password (at list 8 characters long)"
-          type="password"
-          value={form.password.value}
-          name={"password"}
-          isInvalid={form.password.isInvalid}
-          text={
-            form.password.value
-              ? "Try 8 characters, at list 1 number."
-              : "A password is required."
-          }
-          onChange={onChange}
-        />
-        <Button text="Sign Up" onClick={onSubmit} />
-        <h4>
-          Already have an account? <Link to="/login">Login</Link>
-        </h4>
+        <Button text="Add User" onClick={onSubmit} />
       </div>
       <div>
         <Side />
@@ -158,4 +126,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default AddUser;

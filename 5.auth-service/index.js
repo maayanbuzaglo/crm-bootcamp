@@ -4,8 +4,8 @@ const helpers = require("./helpers");
 const md5 = require("js-md5");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
-const MailGun = require("mailgun-js");
 const dotenv = require("dotenv");
+const BlueBird = require("bluebird");
 
 dotenv.config();
 
@@ -19,6 +19,8 @@ var connection = mysql.createConnection({
   user: "root",
   database: "crm",
 });
+
+const asyncConnection = BlueBird.promisifyAll(connection);
 
 connection.connect();
 const app = express();
@@ -38,7 +40,7 @@ app.post("/login", function (req, res) {
   password = req.body.form.password;
 
   connection.query(
-    `SELECT password, id FROM accounts WHERE email_address="${emailInput}"`,
+    `SELECT password, id FROM users WHERE email_address="${emailInput}"`,
     function (error, results, fields) {
       if (error) console.log(error);
       //If email not exist in the data base.
@@ -68,7 +70,7 @@ app.post("/forgotPassword", function (req, res) {
   const emailInput = req.body.form.email;
 
   connection.query(
-    `SELECT id, first_name FROM accounts WHERE email_address="${emailInput}"`,
+    `SELECT id, first_name FROM users WHERE email_address="${emailInput}"`,
     function (error, results, fields) {
       if (error) console.log(error);
       //If not exist in the data base.
@@ -83,33 +85,20 @@ app.post("/forgotPassword", function (req, res) {
           accessTokenSecret
         );
         connection.query(
-          `UPDATE accounts SET reset_token="${accessToken}" WHERE email_address="${emailInput}"`
+          `UPDATE users SET reset_token="${accessToken}" WHERE email_address="${emailInput}"`
         );
-
-        const mailGun = new MailGun({
-          apiKey: process.env.MAILGUN_KEY,
-          domain: process.env.MAILGUN_ADMIN,
-        });
-        var data = {
-          //Specify email data.
-          from: "maayan.bzg@gmail.com",
-          //The email to contact.
-          to: emailInput,
-          //Subject and text data.
-          subject: "Reset password",
-          html:
-            "http://localhost:3000/resetPassword?accessToken=" + accessToken,
-        };
-        //Invokes the method to send emails given the above data with the helper library
-        mailGun.messages().send(data, function (err, body) {
-          //If there is an error, render the error page
-          if (err) {
-            res.json({ error: err });
-            console.log("got an error: ", err);
-          } else {
-            res.json({ email: emailInput });
-          }
-        });
+        const from = "maayan.bzg@gmail.com";
+        const to = emailInput;
+        const subject = "Reset password";
+        const html =
+          "http://localhost:3000/resetPassword?accessToken=" + accessToken;
+        try {
+          helpers.sendEmail(from, to, subject, html);
+          res.json({ email: to });
+        } catch {
+          console.log("got an error: ", err);
+          res.json({ error: err });
+        }
       }
     }
   );
@@ -117,6 +106,8 @@ app.post("/forgotPassword", function (req, res) {
 
 app.post("/resetPassword", function (req, res) {
   password = req.body.form.password;
+  id = req.body.form.id;
+  console.log(id);
 
   const invalidInputs = helpers.validateInputs(null, null, password);
 
@@ -125,11 +116,64 @@ app.post("/resetPassword", function (req, res) {
   //if all inputs are valid - insert to mySQL table.
   if (invalidInputs.length === 0) {
     connection.query(
-      `UPDATE accounts SET password = "${password}" WHERE id=1`,
+      `UPDATE users SET password="${password}", status="${1}", reset_token=null WHERE id="${id}"`,
       function (error, results, fields) {
         if (error) console.log(error);
+        console.log(
+          `UPDATE users SET password="${password}", status="${1}", reset_token=null WHERE id="${id}"`
+        );
       }
     );
+    res.status(200).send("Successful");
+  }
+  //else - return error with the invalid inputs.
+  else {
+    res.status(500).json({
+      msg: "Error creating",
+      invalidInput: invalidInputs,
+    });
+  }
+});
+
+app.post("/addUser", async function (req, res) {
+  const firstName = req.body.form.first_name;
+  const lastName = req.body.form.last_name;
+  const phoneNumber = req.body.form.phone;
+  const emailAddress = req.body.form.email;
+  // const adminId: req.body.form.admin_id;
+
+  let accountId = 0;
+
+  const invalidInputs = helpers.validateInputs(phoneNumber, emailAddress, null);
+
+  //if all inputs are valid - insert to mySQL table.
+  if (invalidInputs.length === 0) {
+    const accessToken = jwt.sign(
+      { emailAddress: emailAddress },
+      accessTokenSecret
+    );
+    try {
+      //Insert user to users.
+      const results = await asyncConnection.queryAsync(
+        `INSERT INTO users (first_name, last_name, phone_number, email_address, reset_token) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${accessToken}")`
+      );
+    } catch (err) {
+      res.status(500).send(err.sqlMessage);
+      return;
+    }
+    const from = "maayan.bzg@gmail.com";
+    const to = emailAddress;
+    const subject = "Sign Up";
+    const html =
+      "http://localhost:3000/resetPassword?accessToken=" + accessToken;
+
+    try {
+      helpers.sendEmail(from, to, subject, html);
+    } catch {
+      console.log("got an error: ", err);
+      res.json({ error: err });
+      return;
+    }
     res.status(200).send("Valid inputs");
   }
   //else - return error with the invalid inputs.
@@ -142,16 +186,19 @@ app.post("/resetPassword", function (req, res) {
 });
 
 //Sign up server handle
-app.post("/", function (req, res) {
+app.post("/", async function (req, res) {
   const firstName = req.body.form.first_name;
   const lastName = req.body.form.last_name;
+  const accountName = req.body.form.account_name;
   const phoneNumber = req.body.form.phone;
-  const emailInput = req.body.form.email;
+  const emailAddress = req.body.form.email;
   password = req.body.form.password;
+
+  let accountId = 0;
 
   const invalidInputs = helpers.validateInputs(
     phoneNumber,
-    emailInput,
+    emailAddress,
     password
   );
 
@@ -159,12 +206,36 @@ app.post("/", function (req, res) {
 
   //if all inputs are valid - insert to mySQL table.
   if (invalidInputs.length === 0) {
-    connection.query(
-      `INSERT INTO accounts (first_name, last_name, phone_number, email_address, password) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailInput}", "${password}")`,
-      function (error, results, fields) {
-        if (error) console.log(error);
-      }
-    );
+    //Insert admin to accounts.
+    try {
+      await asyncConnection.queryAsync(
+        `INSERT INTO accounts (account_name, phone_number, email_address) VALUES ("${accountName}", "${phoneNumber}", "${emailAddress}")`
+      );
+    } catch (err) {
+      res.status(500).send(err.sqlMessage);
+      return;
+    }
+
+    try {
+      //Gets the last inserted id.
+      const results = await asyncConnection.queryAsync(
+        `SELECT id FROM accounts WHERE email_address="${emailAddress}"`
+      );
+      accountId = results[0].id;
+    } catch (err) {
+      res.status(500).send(err.sqlMessage);
+      return;
+    }
+
+    try {
+      //Insert admin to users.
+      const results = await asyncConnection.queryAsync(
+        `INSERT INTO users (first_name, last_name, phone_number, email_address, password, account_id, status) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${password}", "${accountId}", ${1})`
+      );
+    } catch (err) {
+      res.status(500).send(err.sqlMessage);
+      return;
+    }
     res.status(200).send("Valid inputs");
   }
   //else - return error with the invalid inputs.
@@ -179,18 +250,12 @@ app.post("/", function (req, res) {
 app.get("/resetPassword", async function (req, res) {
   const accessToken = req.query[0];
   await connection.query(
-    `SELECT id FROM accounts WHERE reset_token="${accessToken}"`,
+    `SELECT id FROM users WHERE reset_token="${accessToken}"`,
     function (error, results, fields) {
-      if (error) console.log("Access token is not valid");
+      if (error) res.status(500).send("Access token is not valid");
       else if (results.length > 0) {
-        connection.query(
-          `UPDATE accounts SET reset_token=null WHERE id="${results[0].id}"`,
-          function (error, results, fields) {
-            if (error) console.log("Could not remove token from data base");
-            else res.status(200).send("Access token is not valid");
-          }
-        );
-      }
+        res.json({ id: results[0].id });
+      } else res.status(500).send("error");
     }
   );
 });

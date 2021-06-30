@@ -1,6 +1,7 @@
 // Helpers functions
 
 const jwt = require("jsonwebtoken");
+const MailGun = require("mailgun-js");
 
 //Secret token to sign the JWT token.
 const accessTokenSecret = "ab4rf5gt7yh2";
@@ -28,8 +29,10 @@ module.exports.validateInputs = function (phone, email, password) {
   }
 
   //if invalid password number - add to invalid inputs list.
-  if (!password.match(passwordRegex)) {
-    invalidInputs.push("password");
+  if (password != null) {
+    if (!password.match(passwordRegex)) {
+      invalidInputs.push("password");
+    }
   }
   return invalidInputs;
 };
@@ -50,4 +53,28 @@ module.exports.authenticateJWT = (req, res, next) => {
   } else {
     res.sendStatus(401);
   }
+};
+
+//This function send an email.
+module.exports.sendEmail = (from, to, subject, html) => {
+  const mailGun = new MailGun({
+    apiKey: process.env.MAILGUN_KEY,
+    domain: process.env.MAILGUN_ADMIN,
+  });
+  var data = {
+    //Specify email data.
+    from: from,
+    //The email to contact.
+    to: to,
+    //Subject and text data.
+    subject: subject,
+    html: html,
+  };
+  //Invokes the method to send emails given the above data with the helper library
+  mailGun.messages().send(data, function (err, body) {
+    //If there is an error, render the error page
+    if (err) {
+      return err;
+    }
+  });
 };
