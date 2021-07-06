@@ -1,8 +1,11 @@
-const jwt = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 const MailGun = require("mailgun-js");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 //Secret token to sign the JWT token.
-const accessTokenSecret = "ab4rf5gt7yh2";
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 /**
  * This function validate user submission details.
@@ -43,17 +46,17 @@ module.exports.validateInputs = function (phone, email, password) {
  */
 module.exports.authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
-
   if (authHeader) {
-    const token = authHeader.split(" ")[2];
+    const token = authHeader.split(" ")[1];
 
-    jwt.verify(token, accessTokenSecret, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      req.user = user;
-      next();
-    });
+    const details = jwt.verify(token, accessTokenSecret);
+
+    if (!details) {
+      // console.log(err);
+      return res.sendStatus(403);
+    }
+    req.data = details;
+    next();
   } else {
     res.sendStatus(401);
   }

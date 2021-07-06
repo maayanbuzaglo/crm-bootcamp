@@ -11,29 +11,11 @@
   height: 100%;
   background: lighten($bright-blue, 50%);
   border-radius: 0% 0% 0% 50%;
-}
-
-.sideUser {
-  display: inline-block;
-  background: lighten($bright-blue, 50%);
-  height: 100px;
-  width: 100px;
-  font-size: 1px;
-  padding: 1px;
-  color: white;
-  margin-right: 5px;
-  margin-left: 5px;
-  animation: skew 3s infinite;
-  transform: skew(-100);
-  animation-direction: alternate;
   opacity: 0.7;
+  z-index: -1;
 }
 
-// @keyframes skew {
-//   0% {
-//     transform: skewX(20deg);
-//   }
-//   100% {
-//     transform: skewX(-20deg);
-//   }
-// }
+.cell {
+  display: flex;
+  justify-content: center;
+}

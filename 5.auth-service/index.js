@@ -33,9 +33,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
  * TEAM get
  * @returns users table - only visible to authenticated users.
  **/
+//, helpers.authenticateJWT
 app.get("/team", helpers.authenticateJWT, function (req, res) {
-  res.json("Get req succeeded");
-  // res.json(users);
+  const accountId = req.data.user_id;
+
+  connection.query(
+    `SELECT id, first_name, last_name, phone_number, email_address, status FROM users WHERE account_id=${accountId}`,
+    function (error, results, fields) {
+      if (error) {
+        res.send(400, error);
+        return;
+      } else {
+        res.json(results);
+      }
+    }
+  );
 });
 
 /**
@@ -49,7 +61,7 @@ app.post("/login", function (req, res) {
   password = req.body.form.password;
 
   connection.query(
-    `SELECT password, id FROM users WHERE email_address="${emailInput}"`,
+    `SELECT password, id, account_id FROM users WHERE email_address="${emailInput}"`,
     function (error, results, fields) {
       if (error) {
         res.send(400, error);
@@ -66,7 +78,11 @@ app.post("/login", function (req, res) {
       //If all details is correct.
       else {
         const accessToken = jwt.sign(
-          { username: emailInput, user_id: results[0].id },
+          {
+            username: emailInput,
+            user_id: results[0].id,
+            account_id: results[0].account_id,
+          },
           accessTokenSecret
         );
         return res.cookie("jwt", accessToken).json({
@@ -169,7 +185,6 @@ app.post("/addUser", async function (req, res) {
 
   const accountDetails = jwt.verify(accountToken, accessTokenSecret);
   const accountId = accountDetails.user_id;
-  console.log(accountId);
 
   const invalidInputs = helpers.validateInputs(phoneNumber, emailAddress, null);
 
@@ -278,6 +293,24 @@ app.post("/", async function (req, res) {
       invalidInput: invalidInputs,
     });
   }
+});
+
+/**
+ * DELETE USER post
+ * This function deletes user from users table.
+ **/
+app.post("/deleteUser", function (req, res) {
+  id = req.body.id;
+
+  connection.query(
+    `DELETE FROM users WHERE id=${id};`,
+    function (error, results, fields) {
+      if (error) {
+        res.status(200).send("MySQL update error");
+        return;
+      } else res.status(200).send("User deleted successfully");
+    }
+  );
 });
 
 /**

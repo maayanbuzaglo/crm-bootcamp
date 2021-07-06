@@ -1,6 +1,5 @@
 <?php 
-
- 
+echo "My first PHP script!";
     require_once("./Models/Model_test.php");
 
     class test 

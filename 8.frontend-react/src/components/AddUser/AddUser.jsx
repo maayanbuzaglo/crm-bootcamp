@@ -45,7 +45,6 @@ const AddUser = () => {
     axios
       .post("http://localhost:8005/addUser", { form: formattedForm })
       .then(function (response) {
-        alert("User have been added successfully.");
         window.location.reload();
       })
       .catch(function (error) {

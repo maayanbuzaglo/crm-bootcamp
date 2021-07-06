@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import SideBoarding from "./SideBoarding";
 import axios from "axios";
+// import "./SignUp.module.scss";
 
 const SignUp = () => {
   const [form, setForm] = useState({
