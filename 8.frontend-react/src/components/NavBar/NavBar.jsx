@@ -6,15 +6,18 @@ const NavBar = () => {
   return (
     <div className="header">
       <div className="link">
-        <NavLink to="/homePage" id="link1">
+        <NavLink to="/homePage" id="link">
           Home
         </NavLink>
-        <NavLink to="/addUser" id="link2">
+        <NavLink to="/addUser" id="link">
           Users
+        </NavLink>
+        <NavLink to="/clients" id="link">
+          Clients
         </NavLink>
         <NavLink
           to="/login"
-          id="link3"
+          id="link"
           onClick={() => localStorage.removeItem("user_token")}
         >
           Logout

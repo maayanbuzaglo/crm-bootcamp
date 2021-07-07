@@ -35,6 +35,7 @@ const Login = () => {
       .post("http://localhost:8005/login", { form: formattedForm })
       .then(function (response) {
         window.localStorage.setItem("user_token", response.data.accessToken);
+        window.localStorage.setItem("account_id", response.data.accountId);
         window.location.href = "http://localhost:3000/homePage";
       })
       .catch(function (error) {

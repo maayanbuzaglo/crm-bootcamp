@@ -2,7 +2,7 @@ import React from "react";
 import { useTable } from "react-table";
 import "./Table.module.scss";
 
-export default function Table({ columns, data }) {
+export default function Table({ columns, data, onClick }) {
   const {
     getTableProps, // table props from react-table
     getTableBodyProps, // table body props from react-table
@@ -12,6 +12,7 @@ export default function Table({ columns, data }) {
   } = useTable({
     columns,
     data,
+    onClick,
   });
 
   return (
@@ -31,7 +32,11 @@ export default function Table({ columns, data }) {
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return (
+                  <td {...cell.getCellProps()} onClick={() => onClick(row)}>
+                    {cell.render("Cell")}
+                  </td>
+                );
               })}
             </tr>
           );

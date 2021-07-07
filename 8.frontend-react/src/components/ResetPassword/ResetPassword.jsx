@@ -36,7 +36,7 @@ const ResetPassword = () => {
         });
     };
     validToken();
-  }, []);
+  }, [params]);
 
   const onChange = (e) => {
     setForm({

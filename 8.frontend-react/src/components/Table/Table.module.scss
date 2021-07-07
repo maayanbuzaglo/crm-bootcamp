@@ -18,8 +18,16 @@ th {
 }
 
 td {
-  font-size: 90%;
+  font-size: 80%;
   padding: 1% 0% 1% 2%;
+}
+
+td:hover {
+  cursor: pointer;
+}
+
+tr:hover {
+  background-color: lighten($blue, 60%);
 }
 
 table,

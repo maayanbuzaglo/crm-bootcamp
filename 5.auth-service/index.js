@@ -57,6 +57,7 @@ app.get("/team", helpers.authenticateJWT, function (req, res) {
  * @returns
  **/
 app.post("/login", function (req, res) {
+  let accountId = 0;
   const emailInput = req.body.form.email;
   password = req.body.form.password;
 
@@ -77,6 +78,7 @@ app.post("/login", function (req, res) {
       }
       //If all details is correct.
       else {
+        accountId = results[0].account_id;
         const accessToken = jwt.sign(
           {
             username: emailInput,
@@ -87,6 +89,7 @@ app.post("/login", function (req, res) {
         );
         return res.cookie("jwt", accessToken).json({
           accessToken,
+          accountId,
         });
       }
     }

@@ -1,22 +1,21 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
-import "./SideBoardingUsers.modules.scss";
+import "./SideBoardingClients.modules.scss";
 
-const SideBoardingUsers = () => {
+const SideBoardingClients = () => {
   const [data, setData] = useState([]);
-  // Using useEffect to call the API once mounted and set the data
+
+  //Using useEffect to call the API once mounted and set the data.
   useEffect(() => {
     (async () => {
-      const account_token = window.localStorage.getItem("user_token");
+      const account_id = window.localStorage.getItem("account_id");
+      console.log(account_id);
       axios
-        .get("http://localhost:8005/team", {
-          headers: {
-            authorization: "Bearer " + account_token,
-          },
-        })
+        .post("http://localhost:9991//clients/getClients/", { account_id })
         .then((result) => {
-          setData(result.data);
+          console.log(result);
+          setData(result.data.clients);
         })
         .catch((err) => {});
     })();
@@ -24,11 +23,16 @@ const SideBoardingUsers = () => {
 
   const onDelete = (id) => {
     axios
-      .post("http://localhost:8005/deleteUser", { id: id })
+      .post("http://localhost:9991//clients/removeClient/", { id: id })
       .then(function (response) {
         window.location.reload();
       })
       .catch(function (error) {});
+  };
+
+  const update = (row) => {
+    const client_id = row.original.id;
+    window.location.href = `http://localhost:3000/updateClient?id=${client_id}`;
   };
 
   const columns = useMemo(
@@ -50,17 +54,17 @@ const SideBoardingUsers = () => {
         accessor: "email_address",
       },
       {
-        Header: "Status",
-        accessor: "status",
+        Header: "Address",
+        accessor: "address",
       },
       {
         Header: "",
         accessor: "id",
         Cell: ({ row }) => (
-          <div style={{ width: "70px" }}>
+          <div style={{ width: "80px" }}>
             <button
               style={{ width: "80px", height: "30px" }}
-              onClick={(e) => onDelete(row.original.id)}
+              onClick={() => onDelete(row.original.id)}
             >
               Delete
             </button>
@@ -73,10 +77,10 @@ const SideBoardingUsers = () => {
 
   return (
     <div>
-      <Table columns={columns} data={data} onClick={() => ""} />
-      <div className="sideUser"></div>
+      <Table columns={columns} data={data} onClick={(row) => update(row)} />
+      <div className="sideClient"></div>
     </div>
   );
 };
 
-export default SideBoardingUsers;
+export default SideBoardingClients;

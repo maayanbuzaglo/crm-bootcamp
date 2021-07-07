@@ -1,0 +1,42 @@
+@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
+
+.body {
+  display: flex;
+}
+
+.update-client {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0%;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: lighten($bright-blue, 50%);
+  border-radius: 0% 0% 50% 50%;
+}
+
+.update-client h4 {
+  margin-top: -5%;
+}
+
+.update-client input {
+  margin-bottom: 0%;
+  color: rgba(0, 0, 0, 0.473);
+}
+
+.update-client input:focus {
+  color: black;
+}
+
+.update-client .invalid {
+  margin-top: 2%;
+  margin-bottom: 0%;
+}
