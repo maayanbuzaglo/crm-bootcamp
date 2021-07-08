@@ -1,20 +1,65 @@
 @import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
 
 .header {
-  margin-right: 5%;
   font-family: optima;
   background-color: lighten($blue, 60%);
-  padding: 0.5rem 0.5rem;
-  font-size: 3rem;
+  padding: 0.5rem 0rem;
+  font-size: 2.5em;
   margin: 0%;
 }
+
 #link {
-  margin-left: 5.5%;
+  color: #002c9b77;
+  font-size: 0.5em !important;
+  margin-left: 6%;
+  text-decoration: none;
 }
 
-.header a:-webkit-any-link {
+#link:hover {
+  color: $blue;
+}
+
+.header a:-webkit-any-link,
+a {
   color: $blue;
   font-size: 25px;
   cursor: pointer;
   text-decoration: none;
+}
+
+.dropLink {
+  color: white;
+  font-size: 0.4px;
+  border: none;
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  font-size: 1.5em;
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 200%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  text-decoration: none;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content #link:hover {
+  background-color: lighten($bright-blue, 50%);
+}
+
+/* Show the dropdown menu on hover */
+.dropLink:hover .dropdown-content {
+  display: block;
 }

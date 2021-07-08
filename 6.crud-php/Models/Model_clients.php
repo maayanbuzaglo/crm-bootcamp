@@ -11,7 +11,7 @@ class Model_clients extends Model
 
     /*
     getClient - help function.
-    select query to a specific clients.
+    select query to a specific client.
     */
     public function getClientHelp($id)
     {

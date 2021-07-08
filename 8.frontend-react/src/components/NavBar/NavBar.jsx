@@ -9,11 +9,19 @@ const NavBar = () => {
         <NavLink to="/homePage" id="link">
           Home
         </NavLink>
-        <NavLink to="/addUser" id="link">
-          Users
-        </NavLink>
-        <NavLink to="/clients" id="link">
-          Clients
+        <NavLink to="/homePage" class="dropLink" id="link">
+          Options
+          <div class="dropdown-content">
+            <NavLink to="/addUser" id="link">
+              Users
+            </NavLink>{" "}
+            <NavLink to="/clients" id="link">
+              Clients
+            </NavLink>{" "}
+            <NavLink to="/productsTypes" id="link">
+              Meals
+            </NavLink>{" "}
+          </div>
         </NavLink>
         <NavLink
           to="/login"

@@ -1,9 +1,12 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
-import "./SideBoardingClients.modules.scss";
+import "./SideBoardingProducts.modules.scss";
 
-const SideBoardingClients = () => {
+const SideBoardingProducts = () => {
+  const product_type = new URLSearchParams(window.location.search).get(
+    "productType"
+  );
   const [data, setData] = useState([]);
 
   //Using useEffect to call the API once mounted and set the data.
@@ -11,17 +14,21 @@ const SideBoardingClients = () => {
     (async () => {
       const account_id = window.localStorage.getItem("account_id");
       axios
-        .post("http://localhost:9991//clients/getClients/", { account_id })
+        .post("http://localhost:9991//products/getProducts/", {
+          account_id,
+          product_type,
+        })
         .then((result) => {
-          setData(result.data.clients);
+          // console.log(result);
+          setData(result.data.products);
         })
         .catch((err) => {});
     })();
-  }, []);
+  }, [product_type]);
 
   const onDelete = (id) => {
     axios
-      .post("http://localhost:9991//clients/removeClient/", { id: id })
+      .post("http://localhost:9991//products/removePruduct/", { id: id })
       .then(function (response) {
         window.location.reload();
       })
@@ -29,31 +36,19 @@ const SideBoardingClients = () => {
   };
 
   const update = (row) => {
-    const client_id = row.original.id;
-    window.location.href = `http://localhost:3000/updateClient?id=${client_id}`;
+    const product_id = row.original.id;
+    window.location.href = `http://localhost:3000/updateProduct?id=${product_id}&productType=${product_type}`;
   };
 
   const columns = useMemo(
     () => [
       {
-        Header: "First name",
-        accessor: "first_name",
+        Header: "Product",
+        accessor: "product_name",
       },
       {
-        Header: "Last name",
-        accessor: "last_name",
-      },
-      {
-        Header: "Phone number",
-        accessor: "phone_number",
-      },
-      {
-        Header: "Email address",
-        accessor: "email_address",
-      },
-      {
-        Header: "Address",
-        accessor: "address",
+        Header: "Price",
+        accessor: "product_price",
       },
       {
         Header: "",
@@ -81,4 +76,4 @@ const SideBoardingClients = () => {
   );
 };
 
-export default SideBoardingClients;
+export default SideBoardingProducts;
