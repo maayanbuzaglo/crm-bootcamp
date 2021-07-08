@@ -23,7 +23,6 @@ const UpdateProduct = () => {
   const productType = new URLSearchParams(window.location.search).get(
     "productType"
   );
-  console.log(productType);
 
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
@@ -69,6 +68,17 @@ const UpdateProduct = () => {
       .catch(function () {});
   };
 
+  const onDelete = () => {
+    axios
+      .post("http://localhost:9991//products/removeProduct/", { id: id })
+      .then(function (response) {
+        window.location.href = `http://localhost:3000/products?productType=${productType}`;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <div>
       <NavBar />
@@ -96,6 +106,7 @@ const UpdateProduct = () => {
             onChange={onChange}
           />
           <Button text="Update Meal" onClick={onSubmit} />
+          <h5 onClick={onDelete}>Delete Meal</h5>
         </div>
         <div>{/* <SideBoardingClients /> */}</div>
       </div>

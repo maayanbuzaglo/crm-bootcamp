@@ -26,15 +26,6 @@ const SideBoardingProducts = () => {
     })();
   }, [product_type]);
 
-  const onDelete = (id) => {
-    axios
-      .post("http://localhost:9991//products/removePruduct/", { id: id })
-      .then(function (response) {
-        window.location.reload();
-      })
-      .catch(function (error) {});
-  };
-
   const update = (row) => {
     const product_id = row.original.id;
     window.location.href = `http://localhost:3000/updateProduct?id=${product_id}&productType=${product_type}`;
@@ -49,20 +40,6 @@ const SideBoardingProducts = () => {
       {
         Header: "Price",
         accessor: "product_price",
-      },
-      {
-        Header: "",
-        accessor: "id",
-        Cell: ({ row }) => (
-          <div style={{ width: "80px" }}>
-            <button
-              style={{ width: "80px", height: "30px" }}
-              onClick={() => onDelete(row.original.id)}
-            >
-              Delete
-            </button>
-          </div>
-        ),
       },
     ],
     []

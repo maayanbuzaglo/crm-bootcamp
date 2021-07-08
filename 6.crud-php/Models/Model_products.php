@@ -51,19 +51,19 @@ class Model_products extends Model
         return true;
     }
 
-    // /*
-    // removeClient - help function.
-    // delete client from db.
-    // */
-    // public function removeClientHelp($id)
-    // {
-    //     $remove = $this->getDB()->query("DELETE FROM clients WHERE id = '$id'");
-    //     if(!$remove)
-    //     {
-    //         return $this->getDB()->error;
-    //     }
-    //     return "query succeeded";
-    // }
+    /*
+    removeProduct - help function.
+    delete client from db.
+    */
+    public function removeProductHelp($id)
+    {
+        $remove = $this->getDB()->query("DELETE FROM products WHERE id = '$id'");
+        if(!$remove)
+        {
+            return $this->getDB()->error;
+        }
+        return "query succeeded";
+    }
 
     /*
     updateProduct - help function.

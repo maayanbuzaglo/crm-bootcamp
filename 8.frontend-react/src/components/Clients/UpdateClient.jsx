@@ -110,9 +110,19 @@ const UpdateClient = () => {
             });
           }
         }
-        if (invalid.length === 0) window.location.reload();
+        if (invalid.length === 0)
+          window.location.href = "http://localhost:3000/clients";
       })
       .catch(function () {});
+  };
+
+  const onDelete = () => {
+    axios
+      .post("http://localhost:9991//clients/removeClient/", { id: id })
+      .then(function (response) {
+        window.location.href = "http://localhost:3000/clients";
+      })
+      .catch(function (error) {});
   };
 
   return (
@@ -177,6 +187,7 @@ const UpdateClient = () => {
             onChange={onChange}
           />
           <Button text="Update" onClick={onSubmit} />
+          <h5 onClick={onDelete}>Delete Client</h5>
         </div>
         <div>{/* <SideBoardingClients /> */}</div>
       </div>

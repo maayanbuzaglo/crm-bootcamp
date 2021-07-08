@@ -47,17 +47,17 @@ class products extends controller
         return $insert;   
     }
 
-    // /*
-    // This function remove client from clients table.
-    // */
-    // public function removeClient()
-    // {
-    //     $id = $this->data->id;
-
-    //     $remove = $this->model->removeClientHelp($id);
-    //     $this->response = $remove;
-    //     return $this->response;
-    // }
+    /*
+    This function remove product from products table.
+    */
+    public function removeProduct()
+    {
+        $id = $this->data->id;
+        
+        $remove = $this->model->removeProductHelp($id);
+        $this->response = $remove;
+        return $this->response;
+    }
 
     /*
     This function adds a new product to products table.

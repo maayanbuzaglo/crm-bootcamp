@@ -19,15 +19,6 @@ const SideBoardingClients = () => {
     })();
   }, []);
 
-  const onDelete = (id) => {
-    axios
-      .post("http://localhost:9991//clients/removeClient/", { id: id })
-      .then(function (response) {
-        window.location.reload();
-      })
-      .catch(function (error) {});
-  };
-
   const update = (row) => {
     const client_id = row.original.id;
     window.location.href = `http://localhost:3000/updateClient?id=${client_id}`;
@@ -54,20 +45,6 @@ const SideBoardingClients = () => {
       {
         Header: "Address",
         accessor: "address",
-      },
-      {
-        Header: "",
-        accessor: "id",
-        Cell: ({ row }) => (
-          <div style={{ width: "80px" }}>
-            <button
-              style={{ width: "80px", height: "30px" }}
-              onClick={() => onDelete(row.original.id)}
-            >
-              Delete
-            </button>
-          </div>
-        ),
       },
     ],
     []
