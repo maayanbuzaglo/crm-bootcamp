@@ -3,6 +3,7 @@ import "./Input.module.scss";
 
 const Input = ({
   onChange,
+  onClick,
   placeholder,
   value,
   name,
@@ -15,11 +16,12 @@ const Input = ({
     <div className="input-invalid">
       <input
         onChange={onChange}
+        onClick={onClick}
         type={name}
         placeholder={placeholder}
         name={name}
         value={value}
-        autocomplete={"off"}
+        autoComplete={"off"}
       />
 
       <h5 className="invalid" name={placeholder}>

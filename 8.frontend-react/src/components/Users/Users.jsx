@@ -5,7 +5,7 @@ import SideBoardingUsers from "./SideBoardingUsers";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 
-const AddUser = () => {
+const Users = () => {
   const [form, setForm] = useState({
     first_name: {
       value: "",
@@ -43,7 +43,7 @@ const AddUser = () => {
       account_token: window.localStorage.getItem("user_token"),
     };
     axios
-      .post("http://localhost:8005/addUser", { form: formattedForm })
+      .post("http://localhost:8005/users", { form: formattedForm })
       .then(function (response) {
         window.location.reload();
       })
@@ -130,4 +130,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default Users;

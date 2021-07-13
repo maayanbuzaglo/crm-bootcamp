@@ -16,6 +16,7 @@ const SideBoardingUsers = () => {
           },
         })
         .then((result) => {
+          console.log(result.data);
           setData(result.data);
         })
         .catch((err) => {});

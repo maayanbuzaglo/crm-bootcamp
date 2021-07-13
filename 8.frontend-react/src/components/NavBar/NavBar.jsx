@@ -9,10 +9,10 @@ const NavBar = () => {
         <NavLink to="/homePage" id="link">
           Home
         </NavLink>
-        <NavLink to="/homePage" class="dropLink" id="link">
-          Options
-          <div class="dropdown-content">
-            <NavLink to="/addUser" id="link">
+        <div style={{ cursor: "pointer" }} className="dropLink" id="link">
+          Tables
+          <div className="dropdown-content">
+            <NavLink to="/users" id="link">
               Users
             </NavLink>{" "}
             <NavLink to="/clients" id="link">
@@ -21,8 +21,11 @@ const NavBar = () => {
             <NavLink to="/productsTypes" id="link">
               Meals
             </NavLink>{" "}
+            <NavLink to="/orders" id="link">
+              Orders
+            </NavLink>{" "}
           </div>
-        </NavLink>
+        </div>
         <NavLink
           to="/login"
           id="link"

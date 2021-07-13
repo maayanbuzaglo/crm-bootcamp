@@ -108,7 +108,6 @@ const UpdateProduct = () => {
           <Button text="Update Meal" onClick={onSubmit} />
           <h5 onClick={onDelete}>Delete Meal</h5>
         </div>
-        <div>{/* <SideBoardingClients /> */}</div>
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ export default function Table({ columns, data, onClick }) {
 
   return (
     <table {...getTableProps()}>
-      <thead className>
+      <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (

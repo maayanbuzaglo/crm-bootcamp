@@ -179,7 +179,7 @@ app.post("/resetPassword", function (req, res) {
  * and inserts them to the users table with status code 0.
  * and send a sign up link to his email.
  **/
-app.post("/addUser", async function (req, res) {
+app.post("/users", async function (req, res) {
   const firstName = req.body.form.first_name;
   const lastName = req.body.form.last_name;
   const phoneNumber = req.body.form.phone;
