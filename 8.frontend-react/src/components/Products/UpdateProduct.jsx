@@ -24,7 +24,7 @@ const UpdateProduct = () => {
     "productType"
   );
 
-  // Using useEffect to call the API once mounted and set the data
+  //Using useEffect to call the API once mounted and set the data
   useEffect(() => {
     (async () => {
       await axios

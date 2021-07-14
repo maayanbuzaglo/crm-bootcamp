@@ -1,42 +1,64 @@
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
+import { KeyboardDateTimePicker } from "@material-ui/pickers";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import Button from "../Button/Button";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 import "./UpdateOrder.scss";
+import styles from "./Orders.module.scss";
 
 const UpdateOrder = () => {
   const id = new URLSearchParams(window.location.search).get("id");
 
   const [products, setProducts] = useState();
-  const [client, setClient] = useState();
+  const [client, setClient] = useState({
+    value: "",
+    label: "",
+  });
   const [user, setUser] = useState();
-  const [date, setDate] = useState(new Date());
+  const [selectedDate, handleDateChange] = useState(new Date());
 
   //Select style.
   const animatedComponents = makeAnimated();
   const customStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      color: state.isSelected ? "black" : "#0884d6",
-      padding: 20,
-      fontFamily: "Optima",
-      cursor: "pointer",
+    container: (styles) => ({
+      ...styles,
+      width: "100%",
     }),
-    control: () => ({
-      maxWidth: "250px",
-      width: "250px",
-      fontFamily: "Optima",
-      cursor: "default",
-    }),
-    singleValue: (provided, state) => {
-      const opacity = state.isDisabled ? 0.5 : 1;
-      const transition = "opacity 300ms";
-      return { ...provided, opacity, transition };
-    },
   };
+
+  //Using useEffect to call the API once mounted and set the data
+  useEffect(() => {
+    (async () => {
+      await axios
+        .post("http://localhost:9991//orders/getOrder/", { id: id })
+        .then((result) => {
+          const data = result.data.order;
+
+          setProducts(
+            data.map((product) => ({
+              value: product.product_id,
+              label: product.product_name,
+            }))
+          );
+
+          setClient({
+            value: data[0].client_id,
+            label: data[0].client_name.toUpperCase(),
+          });
+
+          setUser({
+            value: data[0].user_id,
+            label: data[0].user_name.toUpperCase(),
+          });
+
+          handleDateChange(new Date(data[0].date));
+        })
+        .catch((err) => {});
+    })();
+  }, []);
 
   //Gets the menu options for the order.
   const [menu, setMenu] = useState();
@@ -106,6 +128,25 @@ const UpdateOrder = () => {
     })();
   }, []);
 
+  const onSubmit = () => {
+    const formattedForm = {
+      products: products,
+      client_id: client.value,
+      delivery_person_id: user.value,
+      date: selectedDate,
+      id: id,
+    };
+    console.log(formattedForm);
+    axios
+      .post("http://localhost:9991//orders/updateOrder/", {
+        form: formattedForm,
+      })
+      .then(function (response) {
+        window.location.href = `http://localhost:3000/orders`;
+      })
+      .catch(function () {});
+  };
+
   const onDelete = () => {
     axios
       .post("http://localhost:9991//orders/removeOrder/", { id: id })
@@ -122,37 +163,48 @@ const UpdateOrder = () => {
       <NavBar />
       <div className="sign-up">
         <h4>UPDATE ORDER</h4>
-        <Select
-          placeholder="Menu"
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          isMulti
-          options={menu}
-          selected={products}
-          onChange={(products) => setProducts(products)}
-          styles={customStyles}
-        />
-        <Select
-          placeholder="Client"
-          components={animatedComponents}
-          options={clients}
-          selected={client}
-          onChange={(client) => setClient(client)}
-          styles={customStyles}
-        />
-        <Select
-          placeholder="Delivery person"
-          components={animatedComponents}
-          options={users}
-          selected={user}
-          onChange={(user) => setUser(user)}
-          styles={customStyles}
-        />
-        <DatePicker
-          selected={date}
-          onChange={(date) => setDate(date)}
-          dateFormat={"dd-MM-yyyy"}
-        />
+        <div className={styles.inputsWrapper}>
+          <Select
+            placeholder="Menu"
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            isMulti
+            value={products}
+            options={menu}
+            onChange={(products) => setProducts(products)}
+            styles={customStyles}
+          />
+          <Select
+            placeholder="Client"
+            components={animatedComponents}
+            value={client}
+            options={clients}
+            onChange={(client) => setClient(client)}
+            styles={customStyles}
+          />
+          <Select
+            placeholder="Delivery person"
+            components={animatedComponents}
+            value={user}
+            options={users}
+            onChange={(user) => setUser(user)}
+            styles={customStyles}
+          />
+          <form>
+            <KeyboardDateTimePicker
+              InputProps={{
+                disableUnderline: true,
+              }}
+              style={{ fontFamily: "optima" }}
+              value={selectedDate}
+              onChange={(date) => handleDateChange(date)}
+              onError={console.log}
+              minDate={new Date()}
+              format="dd/MM/yyyy hh:mm a"
+            />
+          </form>
+        </div>
+        <Button text="Update Order" onClick={onSubmit} />
         <h5 onClick={onDelete}>Delete Order</h5>
       </div>
     </div>

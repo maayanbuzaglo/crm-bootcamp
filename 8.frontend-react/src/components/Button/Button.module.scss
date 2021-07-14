@@ -1,6 +1,6 @@
-@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
+@import "../../styles/base";
 
-button {
+.button {
   font-family: optima;
   font-size: 15px;
   background: lighten($blue, 0%);
@@ -13,7 +13,7 @@ button {
   width: 170px;
 }
 
-button:hover {
+.button:hover {
   background-color: lighten($blue, 50%);
   transform: translateX(-0.25em);
   cursor: pointer;

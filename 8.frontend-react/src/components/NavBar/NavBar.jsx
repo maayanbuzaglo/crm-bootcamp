@@ -10,6 +10,17 @@ const NavBar = () => {
           Home
         </NavLink>
         <div style={{ cursor: "pointer" }} className="dropLink" id="link">
+          Orders
+          <div className="dropdown-content">
+            <NavLink to="/orders" id="link">
+              Orders list
+            </NavLink>{" "}
+            <NavLink to="/ordersCalendar" id="link">
+              Calendar
+            </NavLink>{" "}
+          </div>
+        </div>
+        <div style={{ cursor: "pointer" }} className="dropLink" id="link">
           Tables
           <div className="dropdown-content">
             <NavLink to="/users" id="link">
@@ -20,9 +31,6 @@ const NavBar = () => {
             </NavLink>{" "}
             <NavLink to="/productsTypes" id="link">
               Meals
-            </NavLink>{" "}
-            <NavLink to="/orders" id="link">
-              Orders
             </NavLink>{" "}
           </div>
         </div>

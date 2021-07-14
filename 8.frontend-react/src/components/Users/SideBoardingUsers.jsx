@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
 import "./SideBoardingUsers.modules.scss";
+import Button from "../../components/Button/Button";
 
 const SideBoardingUsers = () => {
   const [data, setData] = useState([]);
@@ -16,7 +17,6 @@ const SideBoardingUsers = () => {
           },
         })
         .then((result) => {
-          console.log(result.data);
           setData(result.data);
         })
         .catch((err) => {});
@@ -58,14 +58,11 @@ const SideBoardingUsers = () => {
         Header: "",
         accessor: "id",
         Cell: ({ row }) => (
-          <div style={{ width: "70px" }}>
-            <button
-              style={{ width: "80px", height: "30px" }}
-              onClick={(e) => onDelete(row.original.id)}
-            >
-              Delete
-            </button>
-          </div>
+          <Button
+            extraStyles={{ width: "80px", height: "30px" }}
+            onClick={(e) => onDelete(row.original.id)}
+            text="delete"
+          />
         ),
       },
     ],

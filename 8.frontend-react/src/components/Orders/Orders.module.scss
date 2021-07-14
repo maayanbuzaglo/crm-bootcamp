@@ -1,0 +1,11 @@
+@import "../../styles/base";
+
+.inputsWrapper {
+  font-family: optima;
+  display: flex;
+  flex-direction: column;
+  > * {
+    margin-bottom: 15%;
+    max-width: 218px;
+  }
+}
