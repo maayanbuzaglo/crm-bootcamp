@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 import Table from "../Table/Table";
+import styles from "./SideBoardingOrders.module.scss";
 
 const SideBoardingOrders = ({ data }) => {
   const update = (row) => {
@@ -36,7 +37,7 @@ const SideBoardingOrders = ({ data }) => {
   return (
     <div>
       <Table columns={columns} data={data} onClick={(row) => update(row)} />
-      <div className="sideClient"></div>
+      <div className={styles.sideOrder}></div>
     </div>
   );
 };

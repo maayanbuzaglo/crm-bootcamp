@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import SideBoardingProducts from "./SideBoardingProducts";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import styles from "./Products.module.scss";
 
 const Products = () => {
   const productType = new URLSearchParams(window.location.search).get(
@@ -51,8 +52,8 @@ const Products = () => {
   return (
     <div>
       <NavBar />
-      <div className="body">
-        <div className="sign-up">
+      <div className={styles.body}>
+        <div className={styles.products}>
           <h4>ADD {productType.toUpperCase()}</h4>
           <Input
             placeholder="Product name"

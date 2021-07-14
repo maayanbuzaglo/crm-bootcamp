@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import SideBoarding from "./SideBoarding";
 import axios from "axios";
-// import "./SignUp.module.scss";
+import styles from "./SignUp.module.scss";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -82,8 +82,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="body">
-      <div className="sign-up">
+    <div className={styles.body}>
+      <div className={styles.signUp}>
         <h1>Sign up and start your trial</h1>
         <Input
           placeholder="First name"

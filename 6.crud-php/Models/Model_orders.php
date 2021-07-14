@@ -63,7 +63,9 @@ class Model_orders extends Model
                                         total_price
                                  FROM  orders
                                  JOIN clients, users
-                                 WHERE orders.client_id = clients.id AND orders.delivery_person_id = users.id
+                                 WHERE orders.client_id = clients.id
+                                 AND orders.delivery_person_id = users.id
+                                 AND date >=  NOW()
                                  ORDER BY date")
                         ->fetch_all(MYSQLI_ASSOC);
         return $orders;

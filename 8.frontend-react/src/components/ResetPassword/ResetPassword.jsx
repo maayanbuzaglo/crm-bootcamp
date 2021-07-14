@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import axios from "axios";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import "./ResetPassword.scss";
+import styles from "./ResetPassword.module.scss";
 
 const ResetPassword = () => {
   const [form, setForm] = useState({
@@ -72,12 +72,12 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="body">
+    <div>
       {isLoading ? (
-        <LoadingSpinner text={"loading..."} className="forgot-password" />
+        <LoadingSpinner text={"loading..."} className={styles.resetPassword} />
       ) : isTokenValid ? (
-        <div className="reset-password">
-          <div className="form">
+        <div className={styles.resetPassword}>
+          <div className={styles.form}>
             <h1>Enter a new password</h1>
             <Input
               placeholder="Password (at list 8 characters long)"
@@ -98,7 +98,7 @@ const ResetPassword = () => {
       ) : (
         <LoadingSpinner
           text={"Token is not valid"}
-          className="forgot-password"
+          className={styles.resetPassword}
         />
       )}
     </div>

@@ -1,8 +1,8 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
-import "./SideBoardingUsers.modules.scss";
 import Button from "../../components/Button/Button";
+import styles from "./SideBoardingUsers.module.scss";
 
 const SideBoardingUsers = () => {
   const [data, setData] = useState([]);
@@ -72,7 +72,7 @@ const SideBoardingUsers = () => {
   return (
     <div>
       <Table columns={columns} data={data} onClick={() => ""} />
-      <div className="sideUser"></div>
+      <div className={styles.sideUser}></div>
     </div>
   );
 };

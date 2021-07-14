@@ -4,7 +4,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
-// import "./Login.module.scss";
+import styles from "./Login.module.scss";
 
 const Login = () => {
   const [form, setForm] = useState({
@@ -56,11 +56,11 @@ const Login = () => {
   };
 
   return (
-    <div className="body">
+    <div>
       {localStorage.getItem("user_token") ? (
         <Redirect to={"/homePage"} />
       ) : (
-        <div className="log-in">
+        <div className={styles.login}>
           <h1>Login</h1>
           <Input
             placeholder="Email address"
@@ -90,10 +90,15 @@ const Login = () => {
           />
           <Button text="Login" onClick={onSubmit} />
           <h4>
-            Don't have an account? <Link to="/signUp">Join now</Link>
+            Don't have an account?{" "}
+            <Link to="/signUp" id="loginLink">
+              Join now
+            </Link>
           </h4>
           <h4>
-            <NavLink to="/forgotPassword">Forgot your password?</NavLink>
+            <NavLink to="/forgotPassword" id="loginLink">
+              Forgot your password?
+            </NavLink>
           </h4>
         </div>
       )}

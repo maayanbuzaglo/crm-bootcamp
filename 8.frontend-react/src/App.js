@@ -14,9 +14,9 @@ import Orders from "./components/Orders/Orders";
 import UpdateOrder from "./components/Orders/UpdateOrder";
 import OrdersCalendar from "./components/OrdersCalendar/OrdersCalendar";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import "./styles/styles.scss";
 import DateFnsUtils from "@date-io/date-fns"; // choose your lib
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import "./styles/_base.scss";
 
 function App() {
   return (

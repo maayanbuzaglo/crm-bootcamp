@@ -1,6 +1,6 @@
 import React from "react";
 import { useTable } from "react-table";
-import "./Table.module.scss";
+import styles from "./Table.module.scss";
 
 export default function Table({ columns, data, onClick }) {
   const {
@@ -16,7 +16,7 @@ export default function Table({ columns, data, onClick }) {
   });
 
   return (
-    <table {...getTableProps()}>
+    <table {...getTableProps()} className={styles.table}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>

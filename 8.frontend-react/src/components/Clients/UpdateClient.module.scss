@@ -1,10 +1,10 @@
-@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
+@import "../../styles/base";
 
 .body {
   display: flex;
 }
 
-.update-client {
+.updateClient {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -21,22 +21,20 @@
   height: 100%;
   background: lighten($bright-blue, 50%);
   border-radius: 0% 50% 0% 50%;
-}
 
-.update-client h4 {
-  margin-top: -5%;
-}
+  h4 {
+    font-size: 20px;
+    color: lighten(black, 50%);
+    margin-top: -8%;
+    letter-spacing: 1px;
+    word-spacing: 10px;
+  }
 
-.update-client input {
-  margin-bottom: 0%;
-  color: rgba(0, 0, 0, 0.473);
-}
+  input {
+    color: rgba(0, 0, 0, 0.473);
+  }
 
-.update-client input:focus {
-  color: black;
-}
-
-.update-client .invalid {
-  margin-top: 2%;
-  margin-bottom: 0%;
+  input:focus {
+    color: black;
+  }
 }

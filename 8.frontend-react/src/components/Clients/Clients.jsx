@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import SideBoardingClients from "./SideBoardingClients";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import styles from "./Clients.module.scss";
 
 const Clients = () => {
   const [form, setForm] = useState({
@@ -86,8 +87,8 @@ const Clients = () => {
   return (
     <div>
       <NavBar />
-      <div className="body">
-        <div className="sign-up">
+      <div className={styles.body}>
+        <div className={styles.clients}>
           <h4>ADD CLIENT</h4>
           <Input
             placeholder="First name"

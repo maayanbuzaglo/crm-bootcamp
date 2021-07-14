@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-// import SideBoardingClients from "./SideBoardingClients";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
-import "./UpdateClient.scss";
+import styles from "./UpdateClient.module.scss";
 
 const UpdateClient = () => {
   const [form, setForm] = useState({
@@ -128,68 +127,65 @@ const UpdateClient = () => {
   return (
     <div>
       <NavBar />
-      <div className="body">
-        <div className="update-client">
-          <h4>UPDATE CLIENT</h4>
-          <Input
-            placeholder="First name"
-            type="text"
-            value={form.first_name.value}
-            name={"first_name"}
-            isInvalid={form.first_name.isInvalid}
-            text={form.first_name.value ? null : "First name is required."}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Last name"
-            type="text"
-            value={form.last_name.value}
-            name={"last_name"}
-            isInvalid={form.last_name.isInvalid}
-            text={form.last_name.value ? null : "Last name is required."}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Phone number"
-            type="phone"
-            value={form.phone.value}
-            name={"phone"}
-            isInvalid={form.phone.isInvalid}
-            text={
-              form.phone.value
-                ? "Invalid phone number."
-                : "A phone number is required."
-            }
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Email address"
-            type="email"
-            value={form.email.value}
-            name={"email"}
-            isExist={form.email.isExist}
-            textExist={"Account already exists"}
-            isInvalid={form.email.isInvalid}
-            text={
-              form.email.value
-                ? "Invalid email address."
-                : "An email address is required."
-            }
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Address"
-            type="address"
-            value={form.address.value}
-            name={"address"}
-            isInvalid={form.address.isInvalid}
-            text={form.address.value ? null : "An address is required."}
-            onChange={onChange}
-          />
-          <Button text="Update" onClick={onSubmit} />
-          <h5 onClick={onDelete}>Delete Client</h5>
-        </div>
-        <div>{/* <SideBoardingClients /> */}</div>
+      <div className={styles.updateClient}>
+        <h4>UPDATE CLIENT</h4>
+        <Input
+          placeholder="First name"
+          type="text"
+          value={form.first_name.value}
+          name={"first_name"}
+          isInvalid={form.first_name.isInvalid}
+          text={form.first_name.value ? null : "First name is required."}
+          onChange={onChange}
+        />
+        <Input
+          placeholder="Last name"
+          type="text"
+          value={form.last_name.value}
+          name={"last_name"}
+          isInvalid={form.last_name.isInvalid}
+          text={form.last_name.value ? null : "Last name is required."}
+          onChange={onChange}
+        />
+        <Input
+          placeholder="Phone number"
+          type="phone"
+          value={form.phone.value}
+          name={"phone"}
+          isInvalid={form.phone.isInvalid}
+          text={
+            form.phone.value
+              ? "Invalid phone number."
+              : "A phone number is required."
+          }
+          onChange={onChange}
+        />
+        <Input
+          placeholder="Email address"
+          type="email"
+          value={form.email.value}
+          name={"email"}
+          isExist={form.email.isExist}
+          textExist={"Account already exists"}
+          isInvalid={form.email.isInvalid}
+          text={
+            form.email.value
+              ? "Invalid email address."
+              : "An email address is required."
+          }
+          onChange={onChange}
+        />
+        <Input
+          placeholder="Address"
+          type="address"
+          value={form.address.value}
+          name={"address"}
+          isInvalid={form.address.isInvalid}
+          text={form.address.value ? null : "An address is required."}
+          onChange={onChange}
+        />
+        <Button text="Update" onClick={onSubmit} />
+        <h5 onClick={onDelete}>Delete Client</h5>
       </div>
     </div>
   );

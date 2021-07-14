@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
-import "./SideBoardingClients.modules.scss";
+import styles from "./SideBoardingClients.module.scss";
 
 const SideBoardingClients = () => {
   const [data, setData] = useState([]);
@@ -53,7 +53,7 @@ const SideBoardingClients = () => {
   return (
     <div>
       <Table columns={columns} data={data} onClick={(row) => update(row)} />
-      <div className="sideClient"></div>
+      <div className={styles.sideClient}></div>
     </div>
   );
 };

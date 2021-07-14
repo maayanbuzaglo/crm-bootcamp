@@ -1,5 +1,5 @@
 import React from "react";
-import "./Input.module.scss";
+import styles from "./Input.module.scss";
 
 const Input = ({
   onChange,
@@ -13,8 +13,9 @@ const Input = ({
   isExist,
 }) => {
   return (
-    <div className="input-invalid">
+    <div className={styles.invalidInput}>
       <input
+        className={styles.input}
         onChange={onChange}
         onClick={onClick}
         type={name}
@@ -24,7 +25,7 @@ const Input = ({
         autoComplete={"off"}
       />
 
-      <h5 className="invalid" name={placeholder}>
+      <h5 className={styles.invalid} name={placeholder}>
         {isInvalid && text}
         {isExist && textExist}
       </h5>

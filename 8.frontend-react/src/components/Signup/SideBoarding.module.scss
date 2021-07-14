@@ -1,4 +1,4 @@
-@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
+@import "../../styles/base";
 
 img {
   display: flex;
@@ -9,10 +9,10 @@ img {
   height: 70%;
   margin-top: 5%;
   position: absolute;
-  // animation: skew 1s infinite;
-  // transform: skew(deg);
-  // animation-direction: alternate;
-  // opacity: 0.7;
+  animation: skew 1s infinite;
+  transform: skew(deg);
+  animation-direction: alternate;
+  opacity: 0.7;
 }
 
 .side {
@@ -42,17 +42,17 @@ img {
   color: white;
   margin-right: 5px;
   margin-left: 5px;
-  animation: skew 3s infinite;
   transform: skew(-20deg);
-  animation-direction: alternate;
   opacity: 0.7;
+  // animation: skew 5s infinite;
+  // animation-direction: alternate;
 }
 
-// @keyframes skew {
-//   0% {
-//     transform: skewX(20deg);
-//   }
-//   100% {
-//     transform: skewX(-20deg);
-//   }
-// }
+@keyframes skew {
+  0% {
+    transform: skewX(20deg);
+  }
+  100% {
+    transform: skewX(-20deg);
+  }
+}

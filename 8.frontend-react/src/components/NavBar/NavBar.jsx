@@ -1,47 +1,45 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-// import "./NavBar.module.scss";
+import styles from "./NavBar.module.scss";
 
 const NavBar = () => {
   return (
-    <div className="header">
-      <div className="link">
-        <NavLink to="/homePage" id="link">
-          Home
-        </NavLink>
-        <div style={{ cursor: "pointer" }} className="dropLink" id="link">
-          Orders
-          <div className="dropdown-content">
-            <NavLink to="/orders" id="link">
-              Orders list
-            </NavLink>{" "}
-            <NavLink to="/ordersCalendar" id="link">
-              Calendar
-            </NavLink>{" "}
-          </div>
+    <div className={styles.header}>
+      <NavLink to="/homePage" id="link">
+        Home
+      </NavLink>
+      <div className={styles.dropLink} id="link">
+        Orders
+        <div className={styles.dropdownContent}>
+          <NavLink to="/orders" id="link">
+            Orders list
+          </NavLink>
+          <NavLink to="/ordersCalendar" id="link">
+            Calendar
+          </NavLink>
         </div>
-        <div style={{ cursor: "pointer" }} className="dropLink" id="link">
-          Tables
-          <div className="dropdown-content">
-            <NavLink to="/users" id="link">
-              Users
-            </NavLink>{" "}
-            <NavLink to="/clients" id="link">
-              Clients
-            </NavLink>{" "}
-            <NavLink to="/productsTypes" id="link">
-              Meals
-            </NavLink>{" "}
-          </div>
-        </div>
-        <NavLink
-          to="/login"
-          id="link"
-          onClick={() => localStorage.removeItem("user_token")}
-        >
-          Logout
-        </NavLink>
       </div>
+      <div className={styles.dropLink} id="link">
+        Tables
+        <div className={styles.dropdownContent}>
+          <NavLink to="/users" id="link">
+            Users
+          </NavLink>
+          <NavLink to="/clients" id="link">
+            Clients
+          </NavLink>
+          <NavLink to="/productsTypes" id="link">
+            Meals
+          </NavLink>
+        </div>
+      </div>
+      <NavLink
+        to="/login"
+        id="link"
+        onClick={() => localStorage.removeItem("user_token")}
+      >
+        Logout
+      </NavLink>
     </div>
   );
 };

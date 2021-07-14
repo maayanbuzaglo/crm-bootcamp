@@ -171,8 +171,8 @@ const Orders = () => {
   return (
     <div>
       <NavBar />
-      <div className="body">
-        <div className="sign-up">
+      <div className={styles.body}>
+        <div className={styles.orders}>
           <h4>ADD ORDER</h4>
           <div className={styles.inputsWrapper}>
             <Select
@@ -186,7 +186,7 @@ const Orders = () => {
               styles={customStyles}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 0,
+                borderRadius: 30,
                 colors: {
                   ...theme.colors,
                   primary25: "AliceBlue",
@@ -203,7 +203,7 @@ const Orders = () => {
               styles={customStyles}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 0,
+                borderRadius: 30,
                 colors: {
                   ...theme.colors,
                   primary25: "AliceBlue",
@@ -220,7 +220,7 @@ const Orders = () => {
               styles={customStyles}
               theme={(theme) => ({
                 ...theme,
-                borderRadius: 0,
+                borderRadius: 30,
                 colors: {
                   ...theme.colors,
                   primary25: "AliceBlue",
@@ -230,7 +230,7 @@ const Orders = () => {
             />
             <ThemeProvider theme={defaultMaterialTheme}>
               <KeyboardDateTimePicker
-                className={styles.inputsWrapper}
+                className={styles.input}
                 InputProps={{
                   disableUnderline: true,
                 }}
@@ -242,12 +242,12 @@ const Orders = () => {
               />
             </ThemeProvider>
           </div>
-          <h5 className="invalid">{isInvalid ? "Invalid order." : ""}</h5>
+          <h5 className={styles.invalid}>
+            {isInvalid ? "Invalid order." : ""}
+          </h5>
           <Button type="reset" text="Add Order" onClick={addOrder} />
         </div>
-        <div>
-          <SideBoardingOrders data={data} />
-        </div>
+        <SideBoardingOrders data={data} />
       </div>
     </div>
   );

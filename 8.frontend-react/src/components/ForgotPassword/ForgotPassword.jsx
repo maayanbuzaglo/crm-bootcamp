@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import axios from "axios";
-import "./ForgotPassword.scss";
+import styles from "./ForgotPassword.module.scss";
 
 const ForgotPassword = () => {
   const [form, setForm] = useState({
@@ -51,16 +51,16 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="body">
+    <div>
       {sentLink ? (
         <LoadingSpinner
           validToken={() => ""}
           text={"We sent a reset link to your email"}
-          className={"forgot-password"}
+          className={styles.forgotPassword}
         />
       ) : (
-        <div className="forgot-password">
-          <div className="form">
+        <div className={styles.forgotPassword}>
+          <div className={styles.form}>
             <h1>Enter your email address</h1>
             <Input
               placeholder="Email address"

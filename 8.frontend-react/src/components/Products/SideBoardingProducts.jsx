@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
-import "./SideBoardingProducts.modules.scss";
+import styles from "./SideBoardingProducts.module.scss";
 
 const SideBoardingProducts = () => {
   const product_type = new URLSearchParams(window.location.search).get(
@@ -48,7 +48,7 @@ const SideBoardingProducts = () => {
   return (
     <div>
       <Table columns={columns} data={data} onClick={(row) => update(row)} />
-      <div className="sideClient"></div>
+      <div className={styles.sideProduct}></div>
     </div>
   );
 };

@@ -2,7 +2,6 @@ $blue: #002c9b;
 $bright-blue: #0884d6;
 
 .body {
-  margin: 0;
   display: flex;
   min-height: 100%;
   min-width: 100%;
@@ -22,8 +21,20 @@ h1 {
 
 h4 {
   font-family: optima;
-  font-size: 18px;
+  font-size: 15px;
   letter-spacing: 0.5px;
+}
+
+h5 {
+  margin: 0%;
+  font-family: optima;
+  font-size: 1em;
+  color: rgba(0, 0, 0, 0.473);
+  cursor: pointer;
+}
+
+h5:hover {
+  color: rgb(218, 3, 3);
 }
 
 // For links
@@ -37,4 +48,15 @@ a:-webkit-any-link:hover {
   color: $blue;
   cursor: pointer;
   text-decoration: underline;
+}
+
+#link {
+  color: #002c9b77;
+  font-size: 0.5em !important;
+  margin-left: 6%;
+  text-decoration: none;
+}
+
+#link:hover {
+  color: $blue;
 }

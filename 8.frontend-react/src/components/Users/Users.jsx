@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import SideBoardingUsers from "./SideBoardingUsers";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import styles from "./Users.module.scss";
 
 const Users = () => {
   const [form, setForm] = useState({
@@ -75,8 +76,8 @@ const Users = () => {
   return (
     <div>
       <NavBar />
-      <div className="body">
-        <div className="sign-up">
+      <div className={styles.body}>
+        <div className={styles.users}>
           <h4>ADD USER</h4>
           <Input
             placeholder="First name"

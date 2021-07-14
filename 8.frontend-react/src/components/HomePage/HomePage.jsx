@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./HomePage.module.scss";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
+import styles from "./HomePage.module.scss";
 
 const HomePage = () => {
   return (

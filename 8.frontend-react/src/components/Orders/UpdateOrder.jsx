@@ -6,8 +6,7 @@ import makeAnimated from "react-select/animated";
 import Button from "../Button/Button";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
-import "./UpdateOrder.scss";
-import styles from "./Orders.module.scss";
+import styles from "./UpdateOrder.module.scss";
 
 const UpdateOrder = () => {
   const id = new URLSearchParams(window.location.search).get("id");
@@ -25,7 +24,9 @@ const UpdateOrder = () => {
   const customStyles = {
     container: (styles) => ({
       ...styles,
-      width: "100%",
+      minWidth: "218px",
+      maxWidth: "218px",
+      marginBottom: "10%",
     }),
     control: (base, state) => ({
       ...base,
@@ -189,78 +190,78 @@ const UpdateOrder = () => {
   return (
     <div>
       <NavBar />
-      <div className="sign-up">
-        <h4>UPDATE ORDER</h4>
-        <div className={styles.inputsWrapper}>
-          <Select
-            placeholder="Menu"
-            closeMenuOnSelect={false}
-            components={animatedComponents}
-            isMulti
-            value={products}
-            options={menu}
-            onChange={(products) => setProducts(products)}
-            styles={customStyles}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 0,
-              colors: {
-                ...theme.colors,
-                primary25: "AliceBlue",
-                primary: "lightBlue",
-              },
-            })}
-          />
-          <Select
-            placeholder="Client"
-            components={animatedComponents}
-            value={client}
-            options={clients}
-            onChange={(client) => setClient(client)}
-            styles={customStyles}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 0,
-              colors: {
-                ...theme.colors,
-                primary25: "AliceBlue",
-                primary: "lightBlue",
-              },
-            })}
-          />
-          <Select
-            placeholder="Delivery person"
-            components={animatedComponents}
-            value={user}
-            options={users}
-            onChange={(user) => setUser(user)}
-            styles={customStyles}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 0,
-              colors: {
-                ...theme.colors,
-                primary25: "AliceBlue",
-                primary: "lightBlue",
-              },
-            })}
-          />
-          <form>
+      <div className={styles.body}>
+        <div className={styles.updateOrder}>
+          <h4>UPDATE ORDER</h4>
+          <div className={styles.inputsWrapper}>
+            <Select
+              placeholder="Menu"
+              closeMenuOnSelect={false}
+              components={animatedComponents}
+              isMulti
+              value={products}
+              options={menu}
+              onChange={(products) => setProducts(products)}
+              styles={customStyles}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 30,
+                colors: {
+                  ...theme.colors,
+                  primary25: "AliceBlue",
+                  primary: "lightBlue",
+                },
+              })}
+            />
+            <Select
+              placeholder="Client"
+              components={animatedComponents}
+              value={client}
+              options={clients}
+              onChange={(client) => setClient(client)}
+              styles={customStyles}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 30,
+                colors: {
+                  ...theme.colors,
+                  primary25: "AliceBlue",
+                  primary: "lightBlue",
+                },
+              })}
+            />
+            <Select
+              placeholder="Delivery person"
+              components={animatedComponents}
+              value={user}
+              options={users}
+              onChange={(user) => setUser(user)}
+              styles={customStyles}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 30,
+                colors: {
+                  ...theme.colors,
+                  primary25: "AliceBlue",
+                  primary: "lightBlue",
+                },
+              })}
+            />
             <KeyboardDateTimePicker
+              className={styles.input}
               InputProps={{
                 disableUnderline: true,
               }}
-              style={{ fontFamily: "optima" }}
               value={selectedDate}
-              onChange={(date) => handleDateChange(date)}
+              onChange={(selectedDate) => handleDateChange(selectedDate)}
               onError={console.log}
               minDate={new Date()}
-              format="dd/MM/yyyy hh:mm a"
+              format="  dd/MM/yyyy   HH:mm"
             />
-          </form>
+          </div>
+          <Button text="Update Order" onClick={onSubmit} />
+          <h5 onClick={onDelete}>Delete Order</h5>
         </div>
-        <Button text="Update Order" onClick={onSubmit} />
-        <h5 onClick={onDelete}>Delete Order</h5>
       </div>
     </div>
   );

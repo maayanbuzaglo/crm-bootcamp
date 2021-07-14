@@ -3,7 +3,7 @@ import Input from "../Input/Input";
 import Button from "../Button/Button";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
-import "./UpdateProduct.scss";
+import styles from "./UpdateProduct.module.scss";
 
 const UpdateProduct = () => {
   const [form, setForm] = useState({
@@ -82,8 +82,8 @@ const UpdateProduct = () => {
   return (
     <div>
       <NavBar />
-      <div className="body">
-        <div className="update-client">
+      <div className={styles.body}>
+        <div className={styles.updateProduct}>
           <h4>UPDATE MEAL</h4>
           <Input
             placeholder="Product name"

@@ -1,6 +1,6 @@
-@import "/Users/maayanbuzaglo/Documents/Github/crm-bootcamp/8.frontend-react/src/styles/_base.scss";
+@import "../../styles/base";
 
-.products-type {
+.productsType {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,18 +22,18 @@
     background-color: white;
     padding: 4% 8%;
     border-radius: 20% 20% 20% 20%;
-  }
 
-  #type-link {
-    color: #002c9b77;
-    font-family: optima;
-    font-size: 2.5em !important;
-    padding-bottom: 30%;
-    padding-top: 10%;
-    text-decoration: none;
-  }
+    a:-webkit-any-link {
+      color: #002c9b77;
+      font-family: optima;
+      font-size: 2.5em !important;
+      padding-bottom: 30%;
+      padding-top: 10%;
+      text-decoration: none;
+    }
 
-  #type-link:hover {
-    color: $blue;
+    a:-webkit-any-link:hover {
+      color: $blue;
+    }
   }
 }

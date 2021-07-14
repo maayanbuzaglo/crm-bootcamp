@@ -7,7 +7,7 @@
   position: fixed;
 }
 
-.signUp {
+.users {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -22,6 +22,10 @@
   }
 
   h4 {
+    font-size: 20px;
+    color: lighten(black, 50%);
     margin-top: 2%;
+    letter-spacing: 1px;
+    word-spacing: 10px;
   }
 }
