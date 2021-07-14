@@ -27,6 +27,19 @@ const UpdateOrder = () => {
       ...styles,
       width: "100%",
     }),
+    control: (base, state) => ({
+      ...base,
+      boxShadow: state.isFocused ? 0 : 0,
+      borderColor: state.isFocused ? "black" : "lightBlue",
+      "&:hover": {
+        borderColor: state.isFocused ? "grey" : "grey",
+      },
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      color: "grey",
+      padding: 10,
+    }),
   };
 
   //Using useEffect to call the API once mounted and set the data
@@ -36,7 +49,6 @@ const UpdateOrder = () => {
         .post("http://localhost:9991//orders/getOrder/", { id: id })
         .then((result) => {
           const data = result.data.order;
-
           setProducts(
             data.map((product) => ({
               value: product.product_id,
@@ -46,19 +58,29 @@ const UpdateOrder = () => {
 
           setClient({
             value: data[0].client_id,
-            label: data[0].client_name.toUpperCase(),
+            label:
+              data[0].client_name.split(" ")[0].charAt(0).toUpperCase() +
+              data[0].client_name.split(" ")[0].slice(1) +
+              " " +
+              data[0].client_name.split(" ")[1].charAt(0).toUpperCase() +
+              data[0].client_name.split(" ")[1].slice(1),
           });
 
           setUser({
             value: data[0].user_id,
-            label: data[0].user_name.toUpperCase(),
+            label:
+              data[0].user_name.split(" ")[0].charAt(0).toUpperCase() +
+              data[0].user_name.split(" ")[0].slice(1) +
+              " " +
+              data[0].user_name.split(" ")[1].charAt(0).toUpperCase() +
+              data[0].user_name.split(" ")[1].slice(1),
           });
 
           handleDateChange(new Date(data[0].date));
         })
         .catch((err) => {});
     })();
-  }, []);
+  }, [id]);
 
   //Gets the menu options for the order.
   const [menu, setMenu] = useState();
@@ -89,13 +111,16 @@ const UpdateOrder = () => {
       axios
         .post("http://localhost:9991//clients/getClients/", { account_id })
         .then((result) => {
+          const data = result.data.clients;
           setClients(
-            result.data.clients.map((client) => ({
+            data.map((client) => ({
               value: client.id,
               label:
-                client.first_name.toUpperCase() +
+                client.first_name.charAt(0).toUpperCase() +
+                client.first_name.slice(1) +
                 " " +
-                client.last_name.toUpperCase(),
+                client.last_name.charAt(0).toUpperCase() +
+                client.last_name.slice(1),
             }))
           );
         })
@@ -114,13 +139,16 @@ const UpdateOrder = () => {
           account_id,
         })
         .then((result) => {
+          const data = result.data.deliveryPersons;
           setUsers(
-            result.data.deliveryPersons.map((user) => ({
+            data.map((user) => ({
               value: user.id,
               label:
-                user.first_name.toUpperCase() +
+                user.first_name.charAt(0).toUpperCase() +
+                user.first_name.slice(1) +
                 " " +
-                user.last_name.toUpperCase(),
+                user.last_name.charAt(0).toUpperCase() +
+                user.last_name.slice(1),
             }))
           );
         })
@@ -173,6 +201,15 @@ const UpdateOrder = () => {
             options={menu}
             onChange={(products) => setProducts(products)}
             styles={customStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "AliceBlue",
+                primary: "lightBlue",
+              },
+            })}
           />
           <Select
             placeholder="Client"
@@ -181,6 +218,15 @@ const UpdateOrder = () => {
             options={clients}
             onChange={(client) => setClient(client)}
             styles={customStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "AliceBlue",
+                primary: "lightBlue",
+              },
+            })}
           />
           <Select
             placeholder="Delivery person"
@@ -189,6 +235,15 @@ const UpdateOrder = () => {
             options={users}
             onChange={(user) => setUser(user)}
             styles={customStyles}
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "AliceBlue",
+                primary: "lightBlue",
+              },
+            })}
           />
           <form>
             <KeyboardDateTimePicker

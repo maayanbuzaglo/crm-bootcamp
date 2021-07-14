@@ -41,6 +41,19 @@ const Orders = () => {
       ...styles,
       width: "100%",
     }),
+    control: (base, state) => ({
+      ...base,
+      boxShadow: state.isFocused ? 0 : 0,
+      borderColor: state.isFocused ? "black" : "lightBlue",
+      "&:hover": {
+        borderColor: state.isFocused ? "grey" : "grey",
+      },
+    }),
+    menu: (provided, state) => ({
+      ...provided,
+      color: "grey",
+      padding: 10,
+    }),
   };
 
   const defaultMaterialTheme = createMuiTheme({
@@ -80,13 +93,16 @@ const Orders = () => {
       axios
         .post("http://localhost:9991//clients/getClients/", { account_id })
         .then((result) => {
+          const data = result.data.clients;
           setClients(
-            result.data.clients.map((client) => ({
+            data.map((client) => ({
               value: client.id,
               label:
-                client.first_name.toUpperCase() +
+                client.first_name.charAt(0).toUpperCase() +
+                client.first_name.slice(1) +
                 " " +
-                client.last_name.toUpperCase(),
+                client.last_name.charAt(0).toUpperCase() +
+                client.last_name.slice(1),
             }))
           );
         })
@@ -106,13 +122,16 @@ const Orders = () => {
           account_id,
         })
         .then((result) => {
+          const data = result.data.deliveryPersons;
           setUsers(
-            result.data.deliveryPersons.map((user) => ({
+            data.map((user) => ({
               value: user.id,
               label:
-                user.first_name.toUpperCase() +
+                user.first_name.charAt(0).toUpperCase() +
+                user.first_name.slice(1) +
                 " " +
-                user.last_name.toUpperCase(),
+                user.last_name.charAt(0).toUpperCase() +
+                user.last_name.slice(1),
             }))
           );
         })
@@ -121,7 +140,7 @@ const Orders = () => {
   }, [user]);
 
   const addOrder = () => {
-    if (client && user && products) {
+    if (client && user && products.length) {
       setIsInvalid(false);
       const formattedForm = {
         products: products,
@@ -165,6 +184,15 @@ const Orders = () => {
               options={menu}
               onChange={(products) => setProducts(products)}
               styles={customStyles}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: "AliceBlue",
+                  primary: "lightBlue",
+                },
+              })}
             />
             <Select
               placeholder="Client"
@@ -173,6 +201,15 @@ const Orders = () => {
               options={clients}
               onChange={(client) => setClient(client)}
               styles={customStyles}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: "AliceBlue",
+                  primary: "lightBlue",
+                },
+              })}
             />
             <Select
               placeholder="Delivery person"
@@ -181,6 +218,15 @@ const Orders = () => {
               options={users}
               onChange={(user) => setUser(user)}
               styles={customStyles}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: "AliceBlue",
+                  primary: "lightBlue",
+                },
+              })}
             />
             <ThemeProvider theme={defaultMaterialTheme}>
               <KeyboardDateTimePicker

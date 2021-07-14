@@ -16,9 +16,15 @@ const OrdersCalendar = () => {
       axios
         .post("http://localhost:9991//orders/getOrders/", { account_id })
         .then((result) => {
+          const data = result.data.orders;
           setEvents(
-            result.data.orders.map((event) => ({
-              title: event.client_name.toUpperCase(),
+            data.map((event) => ({
+              title:
+                event.client_name.split(" ")[0].charAt(0).toUpperCase() +
+                event.client_name.split(" ")[0].slice(1) +
+                " " +
+                event.client_name.split(" ")[1].charAt(0).toUpperCase() +
+                event.client_name.split(" ")[1].slice(1),
               start: event.date,
               end: event.date,
             }))
