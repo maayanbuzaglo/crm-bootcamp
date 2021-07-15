@@ -19,20 +19,36 @@ const OrdersCalendar = () => {
           const data = result.data.orders;
           setEvents(
             data.map((event) => ({
+              id: event.id,
               title:
                 event.client_name.split(" ")[0].charAt(0).toUpperCase() +
                 event.client_name.split(" ")[0].slice(1) +
                 " " +
                 event.client_name.split(" ")[1].charAt(0).toUpperCase() +
                 event.client_name.split(" ")[1].slice(1),
-              start: event.date,
-              end: event.date,
+              start: new Date(event.date),
+              end: new Date(event.date),
             }))
           );
         })
         .catch((err) => {});
     })();
   }, []);
+
+  const eventPropGetter = () => {
+    return {
+      style: {
+        border: "none",
+        backgroundColor: "lightBlue", //this works
+        color: "black",
+      },
+    };
+  };
+
+  const onSelectEvent = (e) => {
+    const order_id = e.id;
+    window.location.href = `http://localhost:3000/updateOrder?id=${order_id}&from=ordersCalendar`;
+  };
 
   return (
     <div>
@@ -42,13 +58,16 @@ const OrdersCalendar = () => {
           margin: "5%",
           fontFamily: "optima",
           fontSize: "100%",
-          height: 600,
+          height: 700,
           zIndex: -1,
         }}
+        views={["month", "week", "day"]}
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
+        eventPropGetter={eventPropGetter}
+        onSelectEvent={(e) => onSelectEvent(e)}
       />
     </div>
   );

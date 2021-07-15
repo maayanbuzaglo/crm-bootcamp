@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import SideBoardingClients from "./SideBoardingClients";
@@ -7,6 +7,8 @@ import axios from "axios";
 import styles from "./Clients.module.scss";
 
 const Clients = () => {
+  const [data, setData] = useState([]);
+
   const [form, setForm] = useState({
     first_name: {
       value: "",
@@ -33,6 +35,20 @@ const Clients = () => {
       value: "",
     },
   });
+
+  const fetchAllOrders = () => {
+    const account_id = window.localStorage.getItem("account_id");
+    axios
+      .post("http://localhost:9991//clients/getClients/", { account_id })
+      .then((result) => {
+        setData(result.data.clients);
+      })
+      .catch((err) => {});
+  };
+
+  useEffect(() => {
+    fetchAllOrders();
+  }, []);
 
   const onChange = (e) => {
     setForm({
@@ -79,7 +95,17 @@ const Clients = () => {
             });
           }
         }
-        if (invalid.length === 0) window.location.reload();
+        if (invalid.length === 0) {
+          fetchAllOrders();
+          setForm({
+            ...form,
+            first_name: { value: "", isInvalid: false },
+            last_name: { value: "", isInvalid: false },
+            phone: { value: "", isInvalid: false },
+            email: { value: "", isInvalid: false },
+            address: { value: "", isInvalid: false },
+          });
+        }
       })
       .catch(function () {});
   };
@@ -148,7 +174,7 @@ const Clients = () => {
           <Button text="Add Client" onClick={addClient} />
         </div>
         <div>
-          <SideBoardingClients />
+          <SideBoardingClients data={data} />
         </div>
       </div>
     </div>

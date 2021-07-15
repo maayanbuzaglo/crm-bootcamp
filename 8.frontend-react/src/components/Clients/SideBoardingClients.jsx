@@ -1,24 +1,8 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import Table from "../Table/Table";
-import axios from "axios";
 import styles from "./SideBoardingClients.module.scss";
 
-const SideBoardingClients = () => {
-  const [data, setData] = useState([]);
-
-  //Using useEffect to call the API once mounted and set the data.
-  useEffect(() => {
-    (async () => {
-      const account_id = window.localStorage.getItem("account_id");
-      axios
-        .post("http://localhost:9991//clients/getClients/", { account_id })
-        .then((result) => {
-          setData(result.data.clients);
-        })
-        .catch((err) => {});
-    })();
-  }, []);
-
+const SideBoardingClients = ({ data }) => {
   const update = (row) => {
     const client_id = row.original.id;
     window.location.href = `http://localhost:3000/updateClient?id=${client_id}`;

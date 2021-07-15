@@ -1,30 +1,11 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import Table from "../Table/Table";
-import axios from "axios";
 import styles from "./SideBoardingProducts.module.scss";
 
-const SideBoardingProducts = () => {
+const SideBoardingProducts = ({ data }) => {
   const product_type = new URLSearchParams(window.location.search).get(
     "productType"
   );
-  const [data, setData] = useState([]);
-
-  //Using useEffect to call the API once mounted and set the data.
-  useEffect(() => {
-    (async () => {
-      const account_id = window.localStorage.getItem("account_id");
-      axios
-        .post("http://localhost:9991//products/getProducts/", {
-          account_id,
-          product_type,
-        })
-        .then((result) => {
-          // console.log(result);
-          setData(result.data.products);
-        })
-        .catch((err) => {});
-    })();
-  }, [product_type]);
 
   const update = (row) => {
     const product_id = row.original.id;

@@ -5,7 +5,7 @@ import styles from "./SideBoardingOrders.module.scss";
 const SideBoardingOrders = ({ data }) => {
   const update = (row) => {
     const order_id = row.original.id;
-    window.location.href = `http://localhost:3000/updateOrder?id=${order_id}`;
+    window.location.href = `http://localhost:3000/updateOrder?id=${order_id}&from=orders`;
   };
 
   const columns = useMemo(

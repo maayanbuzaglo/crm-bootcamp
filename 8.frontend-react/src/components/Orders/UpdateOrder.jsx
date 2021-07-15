@@ -10,7 +10,10 @@ import styles from "./UpdateOrder.module.scss";
 
 const UpdateOrder = () => {
   const id = new URLSearchParams(window.location.search).get("id");
+  const from = new URLSearchParams(window.location.search).get("from");
+  console.log(from);
 
+  const [isInvalid, setIsInvalid] = useState(false);
   const [products, setProducts] = useState();
   const [client, setClient] = useState({
     value: "",
@@ -88,6 +91,7 @@ const UpdateOrder = () => {
 
   useEffect(() => {
     (async () => {
+      setIsInvalid(false);
       const account_id = window.localStorage.getItem("account_id");
       axios
         .post("http://localhost:9991//orders/getMenu/", { account_id })
@@ -108,6 +112,7 @@ const UpdateOrder = () => {
 
   useEffect(() => {
     (async () => {
+      setIsInvalid(false);
       const account_id = window.localStorage.getItem("account_id");
       axios
         .post("http://localhost:9991//clients/getClients/", { account_id })
@@ -134,6 +139,7 @@ const UpdateOrder = () => {
 
   useEffect(() => {
     (async () => {
+      setIsInvalid(false);
       const account_id = window.localStorage.getItem("account_id");
       axios
         .post("http://localhost:9991//users/getDeliveryPersons/", {
@@ -158,22 +164,27 @@ const UpdateOrder = () => {
   }, []);
 
   const onSubmit = () => {
-    const formattedForm = {
-      products: products,
-      client_id: client.value,
-      delivery_person_id: user.value,
-      date: selectedDate,
-      id: id,
-    };
-    console.log(formattedForm);
-    axios
-      .post("http://localhost:9991//orders/updateOrder/", {
-        form: formattedForm,
-      })
-      .then(function (response) {
-        window.location.href = `http://localhost:3000/orders`;
-      })
-      .catch(function () {});
+    if (client && user && products.length) {
+      setIsInvalid(false);
+      const formattedForm = {
+        products: products,
+        client_id: client.value,
+        delivery_person_id: user.value,
+        date: selectedDate,
+        id: id,
+      };
+      console.log(formattedForm);
+      axios
+        .post("http://localhost:9991//orders/updateOrder/", {
+          form: formattedForm,
+        })
+        .then(function (response) {
+          window.location.href = `http://localhost:3000/${from}`;
+        })
+        .catch(function () {});
+    } else {
+      setIsInvalid(true);
+    }
   };
 
   const onDelete = () => {
@@ -258,6 +269,9 @@ const UpdateOrder = () => {
               minDate={new Date()}
               format="  dd/MM/yyyy   HH:mm"
             />
+            <h5 className={styles.invalid}>
+              {isInvalid ? "Invalid order." : ""}
+            </h5>
           </div>
           <Button text="Update Order" onClick={onSubmit} />
           <h5 onClick={onDelete}>Delete Order</h5>

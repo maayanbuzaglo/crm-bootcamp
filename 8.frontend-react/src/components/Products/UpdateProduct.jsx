@@ -53,19 +53,31 @@ const UpdateProduct = () => {
   };
 
   const onSubmit = () => {
-    const formattedForm = {
-      product_name: form.product_name.value,
-      product_price: form.product_price.value,
-      id: id,
-    };
-    axios
-      .post("http://localhost:9991//products/updateProduct/", {
-        form: formattedForm,
-      })
-      .then(function (response) {
-        window.location.href = `http://localhost:3000/products?productType=${productType}`;
-      })
-      .catch(function () {});
+    if (!form.product_name.value) {
+      setForm({
+        ...form,
+        product_name: { value: form.product_name.value, isInvalid: true },
+      });
+    } else if (!form.product_price.value) {
+      setForm({
+        ...form,
+        product_price: { value: form.product_price.value, isInvalid: true },
+      });
+    } else {
+      const formattedForm = {
+        product_name: form.product_name.value,
+        product_price: form.product_price.value,
+        id: id,
+      };
+      axios
+        .post("http://localhost:9991//products/updateProduct/", {
+          form: formattedForm,
+        })
+        .then(function (response) {
+          window.location.href = `http://localhost:3000/products?productType=${productType}`;
+        })
+        .catch(function () {});
+    }
   };
 
   const onDelete = () => {

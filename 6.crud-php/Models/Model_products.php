@@ -75,19 +75,4 @@ class Model_products extends Model
                        ->query("UPDATE products SET product_name='$product_name', product_price='$product_price' WHERE id=$id");
         return $update;
     }
-
-    // public function validate($first_name, $last_name, $phone_number, $email_address, $address)
-    // {
-    //     $invalidInputs = array();
-    //     $phoneRegex = "/^05\d([-]{0,1})\d{7}$/"; //phone Regex.
-    //     $emailRegex = "/^([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)@(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,})$/"; //email Regex.
-      
-    //     if(!strlen($first_name)) array_push($invalidInputs, "first_name");   
-    //     if(!strlen($last_name)) array_push($invalidInputs, "last_name");   
-    //     if(!strlen($address)) array_push($invalidInputs, "address");   
-    //     if (!preg_match($phoneRegex, $phone_number)) array_push($invalidInputs, "phone");
-    //     if (!preg_match($emailRegex, $email_address)) array_push($invalidInputs, "email");   
-        
-    //     return $invalidInputs;
-    // }
 }

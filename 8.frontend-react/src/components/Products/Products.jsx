@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import SideBoardingProducts from "./SideBoardingProducts";
@@ -7,9 +7,11 @@ import axios from "axios";
 import styles from "./Products.module.scss";
 
 const Products = () => {
-  const productType = new URLSearchParams(window.location.search).get(
+  const product_type = new URLSearchParams(window.location.search).get(
     "productType"
   );
+
+  const [data, setData] = useState([]);
 
   const [form, setForm] = useState({
     product_name: {
@@ -25,28 +27,65 @@ const Products = () => {
     },
   });
 
+  const fetchAllOrders = () => {
+    const account_id = window.localStorage.getItem("account_id");
+    axios
+      .post("http://localhost:9991//products/getProducts/", {
+        account_id,
+        product_type,
+      })
+      .then((result) => {
+        setData(result.data.products);
+      })
+      .catch((err) => {});
+  };
+
+  useEffect(() => {
+    fetchAllOrders();
+  }, []);
+
   const onChange = (e) => {
     setForm({
       ...form,
+
       [e.target.name]: { value: e.target.value, isInvalid: false },
     });
   };
 
   const addProduct = () => {
-    const formattedForm = {
-      product_name: form.product_name.value,
-      product_price: form.product_price.value,
-      product_type: productType,
-      account_id: window.localStorage.getItem("account_id"),
-    };
-    axios
-      .post("http://localhost:9991//products/addProduct/", {
-        form: formattedForm,
-      })
-      .then(function (response) {
-        window.location.reload();
-      })
-      .catch(function () {});
+    if (!form.product_name.value) {
+      setForm({
+        ...form,
+        product_name: { value: form.product_name.value, isInvalid: true },
+      });
+    } else if (!form.product_price.value) {
+      setForm({
+        ...form,
+        product_price: { value: form.product_price.value, isInvalid: true },
+      });
+    } else {
+      if (form.product_name.value && form.product_price.value) {
+        const formattedForm = {
+          product_name: form.product_name.value,
+          product_price: form.product_price.value,
+          product_type: product_type,
+          account_id: window.localStorage.getItem("account_id"),
+        };
+        axios
+          .post("http://localhost:9991//products/addProduct/", {
+            form: formattedForm,
+          })
+          .then(function (response) {
+            fetchAllOrders();
+            setForm({
+              ...form,
+              product_name: { value: "", isInvalid: false },
+              product_price: { value: "", isInvalid: false },
+            });
+          })
+          .catch(function () {});
+      }
+    }
   };
 
   return (
@@ -54,7 +93,7 @@ const Products = () => {
       <NavBar />
       <div className={styles.body}>
         <div className={styles.products}>
-          <h4>ADD {productType.toUpperCase()}</h4>
+          <h4>ADD {product_type.toUpperCase()}</h4>
           <Input
             placeholder="Product name"
             type="text"
@@ -75,10 +114,10 @@ const Products = () => {
             }
             onChange={onChange}
           />
-          <Button text={`Add ${productType}`} onClick={addProduct} />
+          <Button text={`Add ${product_type}`} onClick={addProduct} />
         </div>
         <div>
-          <SideBoardingProducts />
+          <SideBoardingProducts data={data} />
         </div>
       </div>
     </div>
