@@ -58,11 +58,12 @@ app.get("/team", helpers.authenticateJWT, function (req, res) {
  **/
 app.post("/login", function (req, res) {
   let accountId = 0;
+  let type = null;
   const emailInput = req.body.form.email;
   password = req.body.form.password;
 
   connection.query(
-    `SELECT password, id, account_id FROM users WHERE email_address="${emailInput}"`,
+    `SELECT password, id, account_id, type FROM users WHERE email_address="${emailInput}"`,
     function (error, results, fields) {
       if (error) {
         res.send(400, error);
@@ -79,6 +80,8 @@ app.post("/login", function (req, res) {
       //If all details is correct.
       else {
         accountId = results[0].account_id;
+        type = results[0].type;
+
         const accessToken = jwt.sign(
           {
             username: emailInput,
@@ -90,6 +93,7 @@ app.post("/login", function (req, res) {
         return res.cookie("jwt", accessToken).json({
           accessToken,
           accountId,
+          type,
         });
       }
     }

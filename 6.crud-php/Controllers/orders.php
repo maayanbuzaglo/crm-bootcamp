@@ -22,6 +22,17 @@ class orders extends controller
     }
 
     /*
+    This function gets all the orders of a specific delivery person.
+    */
+    public function getOrdersDetails()
+    {
+        $delivery_person_id = $this->data->delivery_person_id;
+        $orders = $this->model->getOrdersDetailsHelp($delivery_person_id);
+        $this->response["orders"] = $orders;
+        return $this->response;
+    }
+
+    /*
     This function gets all the products.
     */
     public function getMenu()

@@ -13,6 +13,7 @@ import UpdateProduct from "./components/Products/UpdateProduct";
 import Orders from "./components/Orders/Orders";
 import UpdateOrder from "./components/Orders/UpdateOrder";
 import OrdersCalendar from "./components/OrdersCalendar/OrdersCalendar";
+import DeliveriesDetails from "./components/DeliveriesDetails/DeliveriesDetails";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns"; // choose your lib
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -36,6 +37,10 @@ function App() {
           <Route path="/orders" component={Orders} />
           <Route path="/updateOrder" component={UpdateOrder} />
           <Route path="/ordersCalendar" component={OrdersCalendar} />
+          <PrivateRoute
+            path="/deliveriesDetails"
+            component={DeliveriesDetails}
+          />
           <PrivateRoute path="/homePage" component={HomePage} />
         </Switch>
       </BrowserRouter>

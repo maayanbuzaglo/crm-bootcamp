@@ -9,9 +9,16 @@ import Button from "../Button/Button";
 import SideBoardingOrders from "./SideBoardingOrders";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import SlidingPane from "react-sliding-pane";
+import calendar from "../../styles/img/calendar.svg";
+import "react-sliding-pane/dist/react-sliding-pane.css";
 import styles from "./Orders.module.scss";
 
 const Orders = () => {
+  const [state, setState] = useState({
+    isPaneOpen: false,
+    isPaneOpenLeft: false,
+  });
   const [isInvalid, setIsInvalid] = useState(false);
   const [products, setProducts] = useState();
   const [client, setClient] = useState();
@@ -154,6 +161,7 @@ const Orders = () => {
           form: formattedForm,
         })
         .then(function (response) {
+          setState({ isPaneOpenLeft: false });
           fetchAllOrders();
           setProducts([]);
           setClient("");
@@ -172,82 +180,109 @@ const Orders = () => {
     <div>
       <NavBar />
       <div className={styles.body}>
-        <div className={styles.orders}>
-          <h4>ADD ORDER</h4>
-          <div className={styles.inputsWrapper}>
-            <Select
-              placeholder="Menu"
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              isMulti
-              value={products}
-              options={menu}
-              onChange={(products) => setProducts(products)}
-              styles={customStyles}
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 30,
-                colors: {
-                  ...theme.colors,
-                  primary25: "AliceBlue",
-                  primary: "lightBlue",
-                },
-              })}
+        <div className={styles.content}>
+          <div className={styles.buttons}>
+            <img
+              src={calendar}
+              alt="calendar"
+              style={{
+                display: "flex",
+                width: "30px",
+                cursor: "pointer",
+              }}
+              onClick={() =>
+                (window.location.href = `http://localhost:3000/ordersCalendar`)
+              }
             />
-            <Select
-              placeholder="Client"
-              components={animatedComponents}
-              value={client}
-              options={clients}
-              onChange={(client) => setClient(client)}
-              styles={customStyles}
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 30,
-                colors: {
-                  ...theme.colors,
-                  primary25: "AliceBlue",
-                  primary: "lightBlue",
-                },
-              })}
-            />
-            <Select
-              placeholder="Delivery person"
-              components={animatedComponents}
-              value={user}
-              options={users}
-              onChange={(user) => setUser(user)}
-              styles={customStyles}
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 30,
-                colors: {
-                  ...theme.colors,
-                  primary25: "AliceBlue",
-                  primary: "lightBlue",
-                },
-              })}
-            />
-            <ThemeProvider theme={defaultMaterialTheme}>
-              <KeyboardDateTimePicker
-                className={styles.input}
-                InputProps={{
-                  disableUnderline: true,
-                }}
-                value={selectedDate}
-                onChange={(selectedDate) => handleDateChange(selectedDate)}
-                onError={console.log}
-                minDate={new Date()}
-                format="  dd/MM/yyyy   HH:mm"
-              />
-            </ThemeProvider>
+            <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
           </div>
-          <h5 className={styles.invalid}>
-            {isInvalid ? "Invalid order." : ""}
-          </h5>
-          <Button type="reset" text="Add Order" onClick={addOrder} />
+          <SideBoardingOrders data={data} />
         </div>
-        <SideBoardingOrders data={data} />
+        <div>
+          <SlidingPane
+            closeIcon={<h4>Close</h4>}
+            isOpen={state.isPaneOpenLeft}
+            from="right"
+            width="400px"
+            onRequestClose={() => setState({ isPaneOpenLeft: false })}
+          >
+            <div className={styles.orders}>
+              <h4>ADD ORDER</h4>
+              <div className={styles.inputsWrapper}>
+                <Select
+                  placeholder="Menu"
+                  closeMenuOnSelect={false}
+                  components={animatedComponents}
+                  isMulti
+                  value={products}
+                  options={menu}
+                  onChange={(products) => setProducts(products)}
+                  styles={customStyles}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 30,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "AliceBlue",
+                      primary: "lightBlue",
+                    },
+                  })}
+                />
+                <Select
+                  placeholder="Client"
+                  components={animatedComponents}
+                  value={client}
+                  options={clients}
+                  onChange={(client) => setClient(client)}
+                  styles={customStyles}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 30,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "AliceBlue",
+                      primary: "lightBlue",
+                    },
+                  })}
+                />
+                <Select
+                  placeholder="Delivery person"
+                  components={animatedComponents}
+                  value={user}
+                  options={users}
+                  onChange={(user) => setUser(user)}
+                  styles={customStyles}
+                  theme={(theme) => ({
+                    ...theme,
+                    borderRadius: 30,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "AliceBlue",
+                      primary: "lightBlue",
+                    },
+                  })}
+                />
+                <ThemeProvider theme={defaultMaterialTheme}>
+                  <KeyboardDateTimePicker
+                    className={styles.input}
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    value={selectedDate}
+                    onChange={(selectedDate) => handleDateChange(selectedDate)}
+                    onError={console.log}
+                    minDate={new Date()}
+                    format="  dd/MM/yyyy   HH:mm"
+                  />
+                </ThemeProvider>
+              </div>
+              <h5 className={styles.invalid}>
+                {isInvalid ? "Invalid order." : ""}
+              </h5>
+              <Button type="reset" text="Add Order" onClick={addOrder} />
+            </div>
+          </SlidingPane>
+        </div>
       </div>
     </div>
   );

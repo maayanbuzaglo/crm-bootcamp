@@ -34,9 +34,13 @@ const Login = () => {
     axios
       .post("http://localhost:8005/login", { form: formattedForm })
       .then(function (response) {
+        const userType = response.data.type;
+
         window.localStorage.setItem("user_token", response.data.accessToken);
         window.localStorage.setItem("account_id", response.data.accountId);
-        window.location.href = "http://localhost:3000/homePage";
+        if (userType === "delivery person")
+          window.location.href = "http://localhost:3000/deliveriesDetails?id=7";
+        else window.location.href = "http://localhost:3000/homePage";
       })
       .catch(function (error) {
         //The incorrect input.

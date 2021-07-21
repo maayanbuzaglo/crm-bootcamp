@@ -4,9 +4,14 @@ import Button from "../Button/Button";
 import SideBoardingUsers from "./SideBoardingUsers";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import SlidingPane from "react-sliding-pane";
 import styles from "./Users.module.scss";
 
 const Users = () => {
+  const [state, setState] = useState({
+    isPaneOpen: false,
+    isPaneOpenLeft: false,
+  });
   const [form, setForm] = useState({
     first_name: {
       value: "",
@@ -46,6 +51,7 @@ const Users = () => {
     axios
       .post("http://localhost:8005/users", { form: formattedForm })
       .then(function (response) {
+        setState({ isPaneOpenLeft: false });
         window.location.reload();
       })
       .catch(function (error) {
@@ -77,54 +83,65 @@ const Users = () => {
     <div>
       <NavBar />
       <div className={styles.body}>
-        <div className={styles.users}>
-          <h4>ADD USER</h4>
-          <Input
-            placeholder="First name"
-            type="text"
-            value={form.first_name.value}
-            name={"first_name"}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Last name"
-            type="text"
-            value={form.last_name.value}
-            name={"last_name"}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Phone number"
-            type="phone"
-            value={form.phone.value}
-            name={"phone"}
-            isInvalid={form.phone.isInvalid}
-            text={
-              form.phone.value
-                ? "Invalid phone number."
-                : "A phone number is required."
-            }
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Email address"
-            type="email"
-            value={form.email.value}
-            name={"email"}
-            isExist={form.email.isExist}
-            textExist={"Account already exists"}
-            isInvalid={form.email.isInvalid}
-            text={
-              form.email.value
-                ? "Invalid email address."
-                : "An email address is required."
-            }
-            onChange={onChange}
-          />
-          <Button text="Add User" onClick={onSubmit} />
+        <div className={styles.content}>
+          <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
+          <SideBoardingUsers />
         </div>
         <div>
-          <SideBoardingUsers />
+          <SlidingPane
+            closeIcon={<h4>Close</h4>}
+            isOpen={state.isPaneOpenLeft}
+            from="right"
+            width="400px"
+            onRequestClose={() => setState({ isPaneOpenLeft: false })}
+          >
+            <div className={styles.users}>
+              <h4>ADD USER</h4>
+              <Input
+                placeholder="First name"
+                type="text"
+                value={form.first_name.value}
+                name={"first_name"}
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Last name"
+                type="text"
+                value={form.last_name.value}
+                name={"last_name"}
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Phone number"
+                type="phone"
+                value={form.phone.value}
+                name={"phone"}
+                isInvalid={form.phone.isInvalid}
+                text={
+                  form.phone.value
+                    ? "Invalid phone number."
+                    : "A phone number is required."
+                }
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Email address"
+                type="email"
+                value={form.email.value}
+                name={"email"}
+                isExist={form.email.isExist}
+                textExist={"Account already exists"}
+                isInvalid={form.email.isInvalid}
+                text={
+                  form.email.value
+                    ? "Invalid email address."
+                    : "An email address is required."
+                }
+                onChange={onChange}
+              />
+              <Button text="Add User" onClick={onSubmit} />
+            </div>
+          </SlidingPane>
         </div>
       </div>
     </div>

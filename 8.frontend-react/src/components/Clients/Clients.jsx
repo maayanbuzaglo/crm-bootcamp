@@ -4,9 +4,14 @@ import Button from "../Button/Button";
 import SideBoardingClients from "./SideBoardingClients";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import SlidingPane from "react-sliding-pane";
 import styles from "./Clients.module.scss";
 
 const Clients = () => {
+  const [state, setState] = useState({
+    isPaneOpen: false,
+    isPaneOpenLeft: false,
+  });
   const [data, setData] = useState([]);
 
   const [form, setForm] = useState({
@@ -96,6 +101,7 @@ const Clients = () => {
           }
         }
         if (invalid.length === 0) {
+          setState({ isPaneOpenLeft: false });
           fetchAllOrders();
           setForm({
             ...form,
@@ -114,67 +120,78 @@ const Clients = () => {
     <div>
       <NavBar />
       <div className={styles.body}>
-        <div className={styles.clients}>
-          <h4>ADD CLIENT</h4>
-          <Input
-            placeholder="First name"
-            type="text"
-            value={form.first_name.value}
-            name={"first_name"}
-            isInvalid={form.first_name.isInvalid}
-            text={form.first_name.value ? null : "First name is required."}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Last name"
-            type="text"
-            value={form.last_name.value}
-            name={"last_name"}
-            isInvalid={form.last_name.isInvalid}
-            text={form.last_name.value ? null : "Last name is required."}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Phone number"
-            type="phone"
-            value={form.phone.value}
-            name={"phone"}
-            isInvalid={form.phone.isInvalid}
-            text={
-              form.phone.value
-                ? "Invalid phone number."
-                : "A phone number is required."
-            }
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Email address"
-            type="email"
-            value={form.email.value}
-            name={"email"}
-            isExist={form.email.isExist}
-            textExist={"Account already exists"}
-            isInvalid={form.email.isInvalid}
-            text={
-              form.email.value
-                ? "Invalid email address."
-                : "An email address is required."
-            }
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Address"
-            type="address"
-            value={form.address.value}
-            name={"address"}
-            isInvalid={form.address.isInvalid}
-            text={form.address.value ? null : "An address is required."}
-            onChange={onChange}
-          />
-          <Button text="Add Client" onClick={addClient} />
+        <div className={styles.content}>
+          <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
+          <SideBoardingClients data={data} />
         </div>
         <div>
-          <SideBoardingClients data={data} />
+          <SlidingPane
+            closeIcon={<h4>Close</h4>}
+            isOpen={state.isPaneOpenLeft}
+            from="right"
+            width="400px"
+            onRequestClose={() => setState({ isPaneOpenLeft: false })}
+          >
+            <div className={styles.clients}>
+              <h4>ADD CLIENT</h4>
+              <Input
+                placeholder="First name"
+                type="text"
+                value={form.first_name.value}
+                name={"first_name"}
+                isInvalid={form.first_name.isInvalid}
+                text={form.first_name.value ? null : "First name is required."}
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Last name"
+                type="text"
+                value={form.last_name.value}
+                name={"last_name"}
+                isInvalid={form.last_name.isInvalid}
+                text={form.last_name.value ? null : "Last name is required."}
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Phone number"
+                type="phone"
+                value={form.phone.value}
+                name={"phone"}
+                isInvalid={form.phone.isInvalid}
+                text={
+                  form.phone.value
+                    ? "Invalid phone number."
+                    : "A phone number is required."
+                }
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Email address"
+                type="email"
+                value={form.email.value}
+                name={"email"}
+                isExist={form.email.isExist}
+                textExist={"Account already exists"}
+                isInvalid={form.email.isInvalid}
+                text={
+                  form.email.value
+                    ? "Invalid email address."
+                    : "An email address is required."
+                }
+                onChange={onChange}
+              />
+              <Input
+                placeholder="Address"
+                type="address"
+                value={form.address.value}
+                name={"address"}
+                isInvalid={form.address.isInvalid}
+                text={form.address.value ? null : "An address is required."}
+                onChange={onChange}
+              />
+              <Button text="Add Client" onClick={addClient} />
+            </div>
+          </SlidingPane>
         </div>
       </div>
     </div>

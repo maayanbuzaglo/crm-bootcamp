@@ -44,7 +44,7 @@ class products extends controller
         $account_id = $this->data->form->account_id;
 
         $insert = $this->model->addProductHelp($product_name, $product_price, $product_type, $account_id);
-        return $insert;   
+        return $insert;
     }
 
     /*
@@ -70,5 +70,18 @@ class products extends controller
         
         $update = $this->model->updateProductHelp($product_name, $product_price, $id);
         return $update;
+    }
+
+    /*
+    This function saves a product picture in server and in products table.
+    */
+    public function uploadProductImage()
+    {
+        $id = $_POST["id"];
+        $imageSrc = $_POST["imgSrc"];
+
+        $insert = $this->model->uploadProductImageHelp($imageSrc, $id);
+        move_uploaded_file($_FILES["image"]["tmp_name"], "img/" . $_FILES["image"]["name"]);
+        return $insert;
     }
 }

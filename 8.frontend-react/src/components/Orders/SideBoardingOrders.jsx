@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Table from "../Table/Table";
-import styles from "./SideBoardingOrders.module.scss";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const SideBoardingOrders = ({ data }) => {
   const update = (row) => {
@@ -35,10 +35,10 @@ const SideBoardingOrders = ({ data }) => {
   );
 
   return (
-    <div>
+    <>
+      <CssBaseline />
       <Table columns={columns} data={data} onClick={(row) => update(row)} />
-      <div className={styles.sideOrder}></div>
-    </div>
+    </>
   );
 };
 

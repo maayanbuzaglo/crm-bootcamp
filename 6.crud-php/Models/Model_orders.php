@@ -36,6 +36,23 @@ class Model_orders extends Model
     }
 
     /*
+    getOrdersDetails - help function.
+    select query to all orders of a specific delivery person.
+    */
+    public function getOrdersDetailsHelp($delivery_person_id)
+    {
+        $order = $this->getDB()
+                        ->query("SELECT first_name, last_name, location, date, total_price
+                                 FROM orders
+                                 JOIN clients AS deliveryDetails
+                                 Where  deliveryDetails.id = orders.client_id
+                                 AND delivery_person_id = $delivery_person_id
+                                 AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(CURDATE(), '%Y-%m-%d')")
+                        ->fetch_all(MYSQLI_ASSOC);
+        return $order;
+    }
+
+    /*
     getMenu - help function.
     select query to all products.
     */
@@ -59,7 +76,7 @@ class Model_orders extends Model
                         ->query("SELECT orders.id,
                                         CONCAT(clients.first_name, ' ', clients.last_name) AS client_name,
                                         CONCAT(users.first_name, ' ', users.last_name) AS user_name,
-                                        date,
+                                        DATE_FORMAT(date, '%Y-%m-%d %H:%i') AS date,
                                         total_price
                                  FROM  orders
                                  JOIN clients, users

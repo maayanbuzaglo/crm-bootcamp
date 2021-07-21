@@ -5,49 +5,78 @@
   background-color: lighten($blue, 60%);
   padding: 0.5rem 0rem;
   font-size: 2.5em;
-  margin: 0%;
+  margin: 0;
+  padding: 5px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-#link {
-  color: #002c9b77;
+#link,
+#dropdownLink {
+  color: rgba(0, 0, 0, 0.3);
   font-size: 0.5em !important;
-  margin-left: 6%;
   text-decoration: none;
+  float: left;
+  text-align: center;
+  padding: 14px 20px;
+  display: block;
 }
 
+// #link:first-child {
+//   background-color: lighten($bright-blue, 50%);
+// }
+
+#linkEnd:hover,
 #link:hover {
+  color: $blue;
+  background-color: #f1f1f1;
+}
+
+#dropdownLink:hover {
   color: $blue;
 }
 
+#setting {
+  opacity: 30%;
+  font-size: 0.5em !important;
+  margin-top: 0px;
+  // padding: 14px 20px;
+  // float: left;
+}
+
+#setting:hover {
+  opacity: 100%;
+}
+
 .dropLink {
-  border: none;
   position: relative;
   display: inline-block;
   cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdownContent {
+  display: inline-block;
   font-size: 1.5em;
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 200%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  right: 0;
+  bottom: 0;
+  transform: translateY(90%);
 }
 
 /* Links inside the dropdown */
 .dropdownContent a {
   text-decoration: none;
-  padding: 12px 16px;
   text-decoration: none;
   display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdownContent #link:hover {
-  background-color: lighten($bright-blue, 50%);
 }
 
 /* Show the dropdown menu on hover */

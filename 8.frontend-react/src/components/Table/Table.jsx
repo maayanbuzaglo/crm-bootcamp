@@ -1,19 +1,36 @@
 import React from "react";
-import { useTable } from "react-table";
+import { useTable, usePagination } from "react-table";
 import styles from "./Table.module.scss";
 
 export default function Table({ columns, data, onClick }) {
+  // Use the state and functions returned from useTable to build your UI
   const {
-    getTableProps, // table props from react-table
-    getTableBodyProps, // table body props from react-table
-    headerGroups, // headerGroups, if your table has groupings
-    rows, // rows for the table based on the data passed
-    prepareRow, // Prepare the row (this function needs to be called for each row before getting the row props)
-  } = useTable({
-    columns,
-    data,
-    onClick,
-  });
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    // The rest of these things are super handy, too ;)
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageIndex: 2 },
+    },
+    usePagination
+  );
 
   return (
     <table {...getTableProps()} className={styles.table}>

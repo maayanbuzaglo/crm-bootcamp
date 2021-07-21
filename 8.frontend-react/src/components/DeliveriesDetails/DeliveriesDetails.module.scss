@@ -1,0 +1,19 @@
+@import "../../styles/base";
+
+.deliveries {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: lighten($bright-blue, 50%);
+  width: 100%;
+  min-height: 100vh;
+
+  h5 {
+    margin-top: -25%;
+    font-family: optima;
+    font-size: 25px;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+  }
+}

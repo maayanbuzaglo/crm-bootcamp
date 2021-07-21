@@ -5,7 +5,7 @@ import styles from "./SideBoarding.module.scss";
 const SideBoarding = () => {
   return (
     <div>
-      <img src={logo} alt="logo" />
+      <img src={logo} alt="logo" id={styles.img} />
       <div className={styles.side}></div>
     </div>
   );

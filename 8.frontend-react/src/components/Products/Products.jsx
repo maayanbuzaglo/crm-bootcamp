@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import SideBoardingProducts from "./SideBoardingProducts";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
+import SlidingPane from "react-sliding-pane";
 import styles from "./Products.module.scss";
 
 const Products = () => {
   const product_type = new URLSearchParams(window.location.search).get(
     "productType"
   );
-
+  const [state, setState] = useState({
+    isPaneOpen: false,
+    isPaneOpenLeft: false,
+  });
   const [data, setData] = useState([]);
 
   const [form, setForm] = useState({
@@ -27,7 +32,7 @@ const Products = () => {
     },
   });
 
-  const fetchAllOrders = () => {
+  const fetchAllProducts = () => {
     const account_id = window.localStorage.getItem("account_id");
     axios
       .post("http://localhost:9991//products/getProducts/", {
@@ -41,7 +46,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    fetchAllOrders();
+    fetchAllProducts();
   }, []);
 
   const onChange = (e) => {
@@ -76,7 +81,8 @@ const Products = () => {
             form: formattedForm,
           })
           .then(function (response) {
-            fetchAllOrders();
+            fetchAllProducts();
+            setState({ isPaneOpenLeft: false });
             setForm({
               ...form,
               product_name: { value: "", isInvalid: false },
@@ -92,32 +98,49 @@ const Products = () => {
     <div>
       <NavBar />
       <div className={styles.body}>
-        <div className={styles.products}>
-          <h4>ADD {product_type.toUpperCase()}</h4>
-          <Input
-            placeholder="Product name"
-            type="text"
-            value={form.product_name.value}
-            name={"product_name"}
-            isInvalid={form.product_name.isInvalid}
-            text={form.product_name.value ? null : "Product name is required."}
-            onChange={onChange}
-          />
-          <Input
-            placeholder="Product price"
-            type="text"
-            value={form.product_price.value}
-            name={"product_price"}
-            isInvalid={form.product_price.isInvalid}
-            text={
-              form.product_price.value ? null : "Product price is required."
-            }
-            onChange={onChange}
-          />
-          <Button text={`Add ${product_type}`} onClick={addProduct} />
+        <div className={styles.content}>
+          <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
+          <SideBoardingProducts data={data} />
         </div>
         <div>
-          <SideBoardingProducts data={data} />
+          <div>
+            <SlidingPane
+              closeIcon={<h4>Close</h4>}
+              isOpen={state.isPaneOpenLeft}
+              from="right"
+              width="400px"
+              onRequestClose={() => setState({ isPaneOpenLeft: false })}
+            >
+              <div className={styles.products}>
+                <h4>ADD {product_type.toUpperCase()}</h4>
+                <Input
+                  placeholder="Product name"
+                  type="text"
+                  value={form.product_name.value}
+                  name={"product_name"}
+                  isInvalid={form.product_name.isInvalid}
+                  text={
+                    form.product_name.value ? null : "Product name is required."
+                  }
+                  onChange={onChange}
+                />
+                <Input
+                  placeholder="Product price"
+                  type="text"
+                  value={form.product_price.value}
+                  name={"product_price"}
+                  isInvalid={form.product_price.isInvalid}
+                  text={
+                    form.product_price.value
+                      ? null
+                      : "Product price is required."
+                  }
+                  onChange={onChange}
+                />
+                <Button text={`Add ${product_type}`} onClick={addProduct} />
+              </div>
+            </SlidingPane>
+          </div>
         </div>
       </div>
     </div>

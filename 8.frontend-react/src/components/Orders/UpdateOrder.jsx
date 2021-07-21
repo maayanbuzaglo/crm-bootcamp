@@ -191,7 +191,7 @@ const UpdateOrder = () => {
     axios
       .post("http://localhost:9991//orders/removeOrder/", { id: id })
       .then(function (response) {
-        window.location.href = `http://localhost:3000/orders`;
+        window.location.href = `http://localhost:3000/${from}`;
       })
       .catch(function (error) {
         console.log(error);

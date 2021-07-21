@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
 import Button from "../../components/Button/Button";
-import styles from "./SideBoardingUsers.module.scss";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const SideBoardingUsers = () => {
   const [data, setData] = useState([]);
@@ -71,8 +71,8 @@ const SideBoardingUsers = () => {
 
   return (
     <div>
+      <CssBaseline />
       <Table columns={columns} data={data} onClick={() => ""} />
-      <div className={styles.sideUser}></div>
     </div>
   );
 };

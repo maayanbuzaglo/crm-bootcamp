@@ -1,23 +1,20 @@
 @import "../../styles/base";
 
 .table {
-  margin-top: 10%;
-  margin-left: 10%;
   font-family: optima;
   font-size: 100%;
-  position: absolute;
-  width: 50%;
-  height: 40%;
   border-collapse: collapse;
+
+  width: 100%;
 
   th {
     color: $blue;
-    font-size: 100%;
-    padding: 3% 0% 3% 0%;
+    font-size: 20px;
+    background-color: lighten($blue, 65%);
   }
 
   td {
-    font-size: 80%;
+    font-size: 15px;
     padding: 1% 0% 1% 2%;
   }
 
@@ -25,15 +22,23 @@
     cursor: pointer;
   }
 
-  tr:hover {
-    background-color: lighten($blue, 60%);
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
   }
 
-  table,
+  tr:hover {
+    background-color: lighten(black, 90%);
+  }
+
+  thead:hover {
+    background-color: white !important;
+  }
+
   th,
   td {
-    border: 1px solid lighten($blue, 60%);
+    padding: 8px;
     text-align: left;
-    padding: 1%;
+    border-left: 1px solid lighten($blue, 65%);
+    border-right: 1px solid lighten($blue, 65%);
   }
 }

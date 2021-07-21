@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Table from "../Table/Table";
-import styles from "./SideBoardingClients.module.scss";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const SideBoardingClients = ({ data }) => {
   const update = (row) => {
@@ -36,8 +36,8 @@ const SideBoardingClients = ({ data }) => {
 
   return (
     <div>
+      <CssBaseline />
       <Table columns={columns} data={data} onClick={(row) => update(row)} />
-      <div className={styles.sideClient}></div>
     </div>
   );
 };
