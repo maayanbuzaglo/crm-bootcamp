@@ -38,7 +38,7 @@ app.get("/team", helpers.authenticateJWT, function (req, res) {
   const accountId = req.data.user_id;
 
   connection.query(
-    `SELECT id, first_name, last_name, phone_number, email_address, status FROM users WHERE account_id=${accountId}`,
+    `SELECT id, first_name, last_name, phone_number, email_address, status, type FROM users WHERE account_id=${accountId}`,
     function (error, results, fields) {
       if (error) {
         res.send(400, error);
@@ -204,7 +204,7 @@ app.post("/users", async function (req, res) {
     try {
       //Insert user to users.
       const results = await asyncConnection.queryAsync(
-        `INSERT INTO users (first_name, last_name, phone_number, email_address, reset_token, account_id) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${accessToken}", "${accountId}")`
+        `INSERT INTO users (first_name, last_name, phone_number, email_address, reset_token, account_id, type) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${accessToken}", "${accountId}", "delivery person")`
       );
     } catch (err) {
       res.status(500).send(err.sqlMessage);

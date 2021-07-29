@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import SideBoardingProducts from "./SideBoardingProducts";

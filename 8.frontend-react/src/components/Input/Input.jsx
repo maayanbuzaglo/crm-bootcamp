@@ -11,6 +11,7 @@ const Input = ({
   isInvalid,
   textExist,
   isExist,
+  extraStyle,
 }) => {
   return (
     <div className={styles.invalidInput}>
@@ -23,6 +24,7 @@ const Input = ({
         name={name}
         value={value}
         autoComplete={"off"}
+        style={extraStyle}
       />
 
       <h5 className={styles.invalid} name={placeholder}>

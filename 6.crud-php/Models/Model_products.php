@@ -87,4 +87,15 @@ class Model_products extends Model
                        ->query("UPDATE products SET image='$imageSrc' WHERE id=$id");
         return $insert;
     }
+
+    /*
+    deleteProductImage - help function.
+    deletes the img src of specific product from db.
+    */
+    public function deleteProductImageHelp($id)
+    {
+        $delete = $this->getDB()
+                       ->query("UPDATE products SET image='' WHERE id=$id");
+        return $delete;
+    }
 }

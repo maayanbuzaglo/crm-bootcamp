@@ -24,10 +24,6 @@
   display: block;
 }
 
-// #link:first-child {
-//   background-color: lighten($bright-blue, 50%);
-// }
-
 #linkEnd:hover,
 #link:hover {
   color: $blue;
@@ -38,16 +34,22 @@
   color: $blue;
 }
 
-#setting {
+#setting,
+#chat {
   opacity: 30%;
   font-size: 0.5em !important;
   margin-top: 0px;
-  // padding: 14px 20px;
-  // float: left;
+  margin-right: 14px;
 }
 
-#setting:hover {
+#setting:hover,
+#chat:hover {
   opacity: 100%;
+}
+
+.rightLinks {
+  display: flex;
+  align-items: center;
 }
 
 .dropLink {
@@ -70,13 +72,6 @@
   right: 0;
   bottom: 0;
   transform: translateY(90%);
-}
-
-/* Links inside the dropdown */
-.dropdownContent a {
-  text-decoration: none;
-  text-decoration: none;
-  display: block;
 }
 
 /* Show the dropdown menu on hover */

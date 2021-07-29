@@ -14,7 +14,7 @@ const OrdersCalendar = () => {
     (async () => {
       const account_id = window.localStorage.getItem("account_id");
       axios
-        .post("http://localhost:9991//orders/getOrders/", { account_id })
+        .post("http://localhost:9991//orders/getAllOrders/", { account_id })
         .then((result) => {
           const data = result.data.orders;
           setEvents(

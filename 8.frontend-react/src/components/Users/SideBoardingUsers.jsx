@@ -43,6 +43,10 @@ const SideBoardingUsers = () => {
         accessor: "last_name",
       },
       {
+        Header: "User type",
+        accessor: "type",
+      },
+      {
         Header: "Phone number",
         accessor: "phone_number",
       },

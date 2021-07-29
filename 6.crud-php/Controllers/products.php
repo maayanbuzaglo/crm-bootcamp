@@ -84,4 +84,15 @@ class products extends controller
         move_uploaded_file($_FILES["image"]["tmp_name"], "img/" . $_FILES["image"]["name"]);
         return $insert;
     }
+
+    /*
+    This function delete the img src of specific product from db.
+    */
+    public function deleteProductImage()
+    {
+        $id = $this->data->id;
+
+        $delete = $this->model->deleteProductImageHelp($id);
+        return $delete;
+    }
 }

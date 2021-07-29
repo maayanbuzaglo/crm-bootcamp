@@ -14,6 +14,7 @@ const UpdateOrder = () => {
   console.log(from);
 
   const [isInvalid, setIsInvalid] = useState(false);
+  const [status, setStatus] = useState(0);
   const [products, setProducts] = useState();
   const [client, setClient] = useState({
     value: "",
@@ -80,6 +81,7 @@ const UpdateOrder = () => {
               data[0].user_name.split(" ")[1].slice(1),
           });
 
+          setStatus(data[0].status);
           handleDateChange(new Date(data[0].date));
         })
         .catch((err) => {});
@@ -166,12 +168,17 @@ const UpdateOrder = () => {
   const onSubmit = () => {
     if (client && user && products.length) {
       setIsInvalid(false);
+      document.getElementById("paid").checked = true
+        ? setStatus(1)
+        : setStatus(0);
+      console.log(status);
       const formattedForm = {
         products: products,
         client_id: client.value,
         delivery_person_id: user.value,
         date: selectedDate,
         id: id,
+        status: status,
       };
       console.log(formattedForm);
       axios
@@ -269,6 +276,17 @@ const UpdateOrder = () => {
               minDate={new Date()}
               format="  dd/MM/yyyy   HH:mm"
             />
+            <div className={styles.checkbox}>
+              <input
+                type="checkbox"
+                id="paid"
+                checked={status === 1 ? true : false}
+                onClick={() => {
+                  setStatus(!status);
+                }}
+              />
+              <label for="scales">Paid</label>
+            </div>
             <h5 className={styles.invalid}>
               {isInvalid ? "Invalid order." : ""}
             </h5>

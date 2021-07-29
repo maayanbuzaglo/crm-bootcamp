@@ -23,7 +23,8 @@ class Model_orders extends Model
                                  users.id AS user_id,
                                  products.product_name,
                                  products.id AS product_id,
-                                 date
+                                 date,
+                                 orders.status
                                  FROM  orders
                                  JOIN clients, users, orders_products, products
                                  WHERE orders.client_id = clients.id
@@ -42,12 +43,13 @@ class Model_orders extends Model
     public function getOrdersDetailsHelp($delivery_person_id)
     {
         $order = $this->getDB()
-                        ->query("SELECT first_name, last_name, location, date, total_price
+                        ->query("SELECT first_name, last_name, location, date, total_price, status
                                  FROM orders
                                  JOIN clients AS deliveryDetails
                                  Where  deliveryDetails.id = orders.client_id
                                  AND delivery_person_id = $delivery_person_id
-                                 AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(CURDATE(), '%Y-%m-%d')")
+                                 AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+                                 ORDER BY date")
                         ->fetch_all(MYSQLI_ASSOC);
         return $order;
     }
@@ -68,7 +70,7 @@ class Model_orders extends Model
 
     /*
     getOrders - help function.
-    select query to all orders.
+    select query to all next orders.
     */
     public function getOrdersHelp($account_id)
     {
@@ -89,6 +91,27 @@ class Model_orders extends Model
     }
 
     /*
+    getOrders - help function.
+    select query to all orders.
+    */
+    public function getAllOrdersHelp($account_id)
+    {
+        $orders = $this->getDB()
+                        ->query("SELECT orders.id,
+                                        CONCAT(clients.first_name, ' ', clients.last_name) AS client_name,
+                                        CONCAT(users.first_name, ' ', users.last_name) AS user_name,
+                                        DATE_FORMAT(date, '%Y-%m-%d %H:%i') AS date,
+                                        total_price
+                                 FROM  orders
+                                 JOIN clients, users
+                                 WHERE orders.client_id = clients.id
+                                 AND orders.delivery_person_id = users.id
+                                 ORDER BY date")
+                        ->fetch_all(MYSQLI_ASSOC);
+        return $orders;
+    }
+
+    /*
     addOrder - help function.
     inserts to db the new order.
     */
@@ -103,14 +126,15 @@ class Model_orders extends Model
         $location = $address[0]["address"];
         //Inserts all the values except total price to orders.
         $insert = $this->getDB()
-                       ->query("INSERT INTO orders (account_id, client_id, delivery_person_id, location, date)
-                                VALUES ('$account_id', '$client_id', '$delivery_person_id', '$location', '$date')");
-        if($insert)
+                       ->query("INSERT INTO orders (account_id, client_id, delivery_person_id, location, date, status)
+                                VALUES ('$account_id', '$client_id', '$delivery_person_id', '$location', CONVERT_TZ('$date','+00:00','+3:00'), 0)");
+
         {
             $lastId = mysqli_insert_id($this->getDB());
             //Insert al the products of the order to orders_products table.
             foreach($products as $product)
             {
+                if($insert)
                 $insertProducts = $this->getDB()
                                        ->query("INSERT INTO orders_products (order_id, product_id)
                                                 VALUES ('$lastId', '$product->value')");  
@@ -153,7 +177,7 @@ class Model_orders extends Model
     updateOrder - help function.
     update an order in db.
     */
-    public function updateOrderHelp($order_id,  $client_id, $delivery_person_id, $date, $products)
+    public function updateOrderHelp($order_id,  $client_id, $delivery_person_id, $date, $products, $status)
     {
         //Gets the client address.
         $address = $this->getDB()
@@ -167,7 +191,7 @@ class Model_orders extends Model
                        ->query("UPDATE orders
                                 SET client_id='$client_id',
                                 delivery_person_id='$delivery_person_id',
-                                location='$location', date='$date'
+                                location='$location', date=CONVERT_TZ('$date','+00:00','+3:00'), status='$status'
                                 WHERE id=$order_id");
         if($update)
         {

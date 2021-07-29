@@ -42,6 +42,11 @@
     }
   }
 
+  .checkbox {
+    display: flex;
+    justify-content: center;
+  }
+
   .invalid {
     margin-bottom: 2%;
   }

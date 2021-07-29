@@ -44,12 +44,23 @@ class orders extends controller
     }
 
     /*
-    This function gets all the orders.
+    This function gets all the next orders.
     */
     public function getOrders()
     {
         $account_id = $this->data->account_id;
         $orders = $this->model->getOrdersHelp($account_id);
+        $this->response["orders"] = $orders;
+        return $this->response;
+    }
+
+    /*
+    This function gets all the orders.
+    */
+    public function getAllOrders()
+    {
+        $account_id = $this->data->account_id;
+        $orders = $this->model->getAllOrdersHelp($account_id);
         $this->response["orders"] = $orders;
         return $this->response;
     }
@@ -91,8 +102,9 @@ class orders extends controller
         $delivery_person_id = $this->data->form->delivery_person_id;
         $date = $this->data->form->date;
         $products = $this->data->form->products;
+        $status = $this->data->form->status;
         
-        $update = $this->model->updateOrderHelp($order_id, $client_id, $delivery_person_id, $date, $products);
+        $update = $this->model->updateOrderHelp($order_id, $client_id, $delivery_person_id, $date, $products, $status);
         return $update;
     }
 }

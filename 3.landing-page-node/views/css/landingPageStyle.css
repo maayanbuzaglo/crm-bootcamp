@@ -1,254 +1,374 @@
 body {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    font-family: optima;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: optima;
 }
 
-
 /*--- Section 1 ---*/
-
 
 /* For the background img */
 
 .section1-form {
-    display: flex;
-    flex-direction: column;
-    background: url("../img/meal.png");
-    height: 800px;
-    padding-left: 10%;
-    font-family: optima;
-    font-size: 40px;
-    background-size: cover;
+  display: flex;
+  flex-direction: column;
+  background: url("../img/meal.png");
+  height: 800px;
+  padding-left: 10%;
+  font-family: optima;
+  font-size: 40px;
+  background-size: cover;
 }
-
 
 /* edit logo img */
 
 #logo-img {
-    height: 220px;
-    /* position: fixed; */
-    top: 0;
+  height: 220px;
+  /* position: fixed; */
+  top: 0;
 }
 
 #flag-img {
-    height: 25px;
-    margin-right: 10px;
+  height: 25px;
+  margin-right: 10px;
 }
 
 .userDetails {
-    position: absolute;
-    letter-spacing: 1.5px;
-    word-spacing: 6px;
-    font-size: 30px;
-    font-weight: 2px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: -20px;
+  position: absolute;
+  letter-spacing: 1.5px;
+  word-spacing: 6px;
+  font-size: 30px;
+  font-weight: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: -20px;
 }
-
 
 /* row 1 */
 
 #row1-h2 {
-    color: #002C9B;
-    letter-spacing: 2px;
-    padding-top: 0%;
-    margin-top: 70px;
+  color: #002c9b;
+  letter-spacing: 2px;
+  padding-top: 0%;
+  margin-top: 70px;
 }
-
 
 /* row 2 */
 
 #row2-h1 {
-    color: #0884d6;
-    margin-top: -40px;
+  color: #0884d6;
+  margin-top: -40px;
 }
-
 
 /* row 3 */
 
 #row3-p {
-    font-size: 14px;
-    width: 400px;
-    line-height: 30px;
-    letter-spacing: 2px;
+  font-size: 14px;
+  width: 400px;
+  line-height: 30px;
+  letter-spacing: 2px;
 }
-
 
 /* edit view button */
 
 #view-btn {
-    background: #002C9B;
-    color: rgb(255, 255, 255)!important;
-    font-weight: 700;
-    height: 2.8125rem;
-    width: 11.25rem;
-    border-radius: 40px;
-    border: 0px;
-    letter-spacing: 2px;
-    transition: all 0.25s;
+  background: #002c9b;
+  color: rgb(255, 255, 255) !important;
+  font-weight: 700;
+  height: 2.8125rem;
+  width: 11.25rem;
+  border-radius: 40px;
+  border: 0px;
+  letter-spacing: 2px;
+  transition: all 0.25s;
 }
 
 #view-btn:hover {
-    background-color: #0884d6;
-    transform: translateY(-0.25em);
+  background-color: #0884d6;
+  transform: translateY(-0.25em);
 }
 
-
 /*--- Section 2 ---*/
-
 
 /* edit quote */
 
 .quote-div {
-    color: #0884d6;
-    line-height: 2;
-    font-size: 30px;
-    text-align: center;
-    padding-top: 10%;
-    padding-bottom: 10%;
-    padding: 100px;
+  color: #0884d6;
+  line-height: 2;
+  font-size: 30px;
+  text-align: center;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  padding: 100px;
 }
 
 #writer-span {
-    color: #0884d6;
-    font-size: 15px;
-    padding-left: 30%;
-    padding-top: 0%;
-    font-weight: unset;
+  color: #0884d6;
+  font-size: 15px;
+  padding-left: 30%;
+  padding-top: 0%;
+  font-weight: unset;
 }
 
-
 /*--- Section 3 ---*/
-
 
 /* For the background img and flex items */
 
 .submit-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 800px;
-    background: url("../img/footer.jpeg");
-    background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 800px;
+  background: url("../img/footer.jpeg");
+  background-size: cover;
 }
-
 
 /* For the white background border */
 
 #submit-span {
-    height: 43%;
-    border-style: outset;
-    background: white;
-    border: none;
-    padding: 5% 16% 5% 16%;
-    margin-top: 170px;
-    border-radius: 100px 100px 100px 100px;
+  height: 43%;
+  border-style: outset;
+  background: white;
+  border: none;
+  padding: 5% 16% 5% 16%;
+  margin-top: 170px;
+  border-radius: 100px 100px 100px 100px;
 }
-
 
 /* row 1 */
 
 #submit-h1 {
-    color: #002C9B;
-    text-align: center;
-    margin-top: 0px;
-    letter-spacing: 1px;
+  color: #002c9b;
+  text-align: center;
+  margin-top: 0px;
+  letter-spacing: 1px;
 }
-
 
 /* row 1 */
 
 #submit-h1:nth-of-type(2) {
-    color: #0884d6;
-    font-size: 30px;
-    word-spacing: 2px;
-    letter-spacing: 3px;
-    font-weight: 600;
-    margin-top: -5px;
+  color: #0884d6;
+  font-size: 30px;
+  word-spacing: 2px;
+  letter-spacing: 3px;
+  font-weight: 600;
+  margin-top: -5px;
 }
-
 
 /* invalid text */
 
 #invalid {
-    color: red;
-    font-family: Didot;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: -5%;
-    margin-bottom: 2%;
-    text-align: center;
+  color: red;
+  font-family: Didot;
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: -5%;
+  margin-bottom: 2%;
+  text-align: center;
 }
-
 
 /* connect the submit input buttons in columns */
 
 .submit-details-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
 }
-
 
 /* edit name input border */
 
 #input {
-    color: rgb(106, 109, 117);
-    border-color: rgb(177, 181, 189);
-    font-weight: 400;
-    border-radius: 30px 30px 30px 30px;
-    height: 2rem;
-    width: 10rem;
-    padding-left: 1.25rem;
-    margin-bottom: 0.5em;
-    outline: none;
+  color: rgb(106, 109, 117);
+  border-color: rgb(177, 181, 189);
+  font-weight: 400;
+  border-radius: 30px 30px 30px 30px;
+  height: 2rem;
+  width: 10rem;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5em;
+  outline: none;
 }
 
 #input:focus {
-    border-color: #002C9B;
+  border-color: #002c9b;
 }
-
 
 /* edit submit button */
 
 #submit-btn {
-    background: #002C9B;
-    color: rgb(255, 255, 255)!important;
-    font-weight: 700;
-    height: 2.4rem;
-    width: 7.4375rem;
-    border-radius: 30px 30px 30px 30px;
-    white-space: normal;
-    background-color: #002C9B;
-    letter-spacing: 2px;
-    border: none;
-    margin-bottom: 0px;
+  background: #002c9b;
+  color: rgb(255, 255, 255) !important;
+  font-weight: 700;
+  height: 2.4rem;
+  width: 7.4375rem;
+  border-radius: 30px 30px 30px 30px;
+  white-space: normal;
+  background-color: #002c9b;
+  letter-spacing: 2px;
+  border: none;
+  margin-bottom: 0px;
 }
 
 #submit-btn:hover {
-    background-color: #0884d6;
-    transform: translateX(-0.25em);
+  background-color: #0884d6;
+  transform: translateX(-0.25em);
 }
-
 
 /* relative text to page size */
 
-@media (max-width:650px) {
-    #logo-img {
-        height: 3em;
-    }
-    h1,
-    h2,
-    p,
-    .quote-div,
-    #submit-h1:nth-of-type(2) {
-        font-size: 1em;
-    }
-    #writer-span {
-        font-size: 0.3em;
-    }
+@media (max-width: 650px) {
+  #logo-img {
+    height: 3em;
+  }
+  h1,
+  h2,
+  p,
+  .quote-div,
+  #submit-h1:nth-of-type(2) {
+    font-size: 1em;
+  }
+  #writer-span {
+    font-size: 0.3em;
+  }
+}
+
+/*--- Chat ---*/
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+  font-family: optima;
+  font-size: 18px;
+  background-color: #0884d6;
+  color: white;
+  padding: 20px 0px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 200px;
+  border-radius: 30px 30px 30px 30px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  border-radius: 30px;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  padding: 10px;
+  /* background-color: white; */
+}
+
+/* Full-width textarea */
+.form-container ul {
+  height: 285px;
+  overflow: scroll;
+  padding: 0%;
+  list-style-type: none;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+.message-input {
+  display: flex;
+  justify-items: center;
+}
+
+.cancel-div {
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  font-family: optima;
+  font-size: 18px;
+  background-color: red;
+  color: white;
+  padding: 10px 0px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  bottom: 23px;
+  right: 28px;
+  width: 100px;
+  border-radius: 30px 30px 30px 30px;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+#chat-input {
+  color: rgb(106, 109, 117);
+  font-weight: 400;
+  border-style: solid;
+  border-radius: 30px 30px 30px 30px;
+  border-color: aliceblue;
+  height: 2rem;
+  width: 15rem;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5em;
+  outline: none;
+}
+
+#chat-input:focus {
+  border-color: #002c9b;
+}
+
+#chat-submit-btn {
+  font-size: 12px;
+  margin-left: 0.5em;
+  background: #002c9b;
+  color: rgb(255, 255, 255) !important;
+  font-weight: 700;
+  height: 2.2rem;
+  width: 5rem;
+  border-radius: 30px 30px 30px 30px;
+  white-space: normal;
+  background-color: #002c9b;
+  letter-spacing: 2px;
+  border: none;
+}
+
+#chat-submit-btn:hover {
+  background-color: #0884d6;
+  transform: translateX(-0.25em);
+  cursor: pointer;
+}
+
+#messages > li {
+  padding: 0.5rem 1rem;
+}
+
+#messages > li:nth-child(odd) {
+  background: white;
+}
+
+#typing {
+  position: absolute;
+  margin-top: 240px;
+  margin-left: 20px;
+  font-size: 20px;
+  display: none;
 }

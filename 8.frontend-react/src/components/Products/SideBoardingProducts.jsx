@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import Table from "../Table/Table";
 import axios from "axios";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,7 +19,20 @@ const SideBoardingProducts = ({ data }) => {
 
     axios
       .post("http://localhost:9991/products/uploadProductImage/", fd)
-      .then((res) => {});
+      .then((res) => {
+        window.location.reload();
+      });
+  };
+
+  const deleteImg = (id) => {
+    const r = window.confirm("Are you sure to delete this product image?");
+    if (r === true) {
+      axios
+        .post("http://localhost:9991/products/deleteProductImage/", { id })
+        .then((res) => {
+          window.location.reload();
+        });
+    }
   };
 
   const update = (row) => {
@@ -36,10 +49,15 @@ const SideBoardingProducts = ({ data }) => {
           row.original.image ? (
             <img
               src={row.original.image}
+              alt="product img"
               style={{
                 width: "50px",
                 height: "50px",
                 borderRadius: "16px",
+              }}
+              onClick={(event) => {
+                event.stopPropagation();
+                deleteImg(row.original.id);
               }}
             ></img>
           ) : (

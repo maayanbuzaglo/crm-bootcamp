@@ -22,6 +22,18 @@ class Model_clients extends Model
     }
 
     /*
+    getClient - help function.
+    select query to a specific client.
+    */
+    public function getClientByMailHelp($email)
+    {
+        $client = $this->getDB()
+                        ->query("SELECT CONCAT(first_name, ' ', last_name) AS name FROM  clients WHERE email_address='$email'")
+                        ->fetch_all(MYSQLI_ASSOC);
+        return $client;
+    }
+
+    /*
     getClients - help function.
     select query to all clients.
     */

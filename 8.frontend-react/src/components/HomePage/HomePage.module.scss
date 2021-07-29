@@ -1,3 +1,31 @@
-.container a {
-  color: white;
+.body {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 1300px;
+  flex-wrap: wrap;
+
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 100px;
+    width: 100%;
+    > * {
+      width: 45%;
+    }
+
+    .pie {
+      max-width: 550px;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

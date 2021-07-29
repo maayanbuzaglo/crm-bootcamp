@@ -13,6 +13,17 @@ class clients extends controller
     /*
     This function gets a specific client.
     */
+    public function getClientByMail()
+    {
+        $email = $this->data->email;
+        $client = $this->model->getClientByMailHelp($email);
+        $this->response["client"] = $client;
+        return $this->response;
+    }
+
+    /*
+    This function gets a specific client by mail.
+    */
     public function getClient()
     {
         $id = $this->data->id;

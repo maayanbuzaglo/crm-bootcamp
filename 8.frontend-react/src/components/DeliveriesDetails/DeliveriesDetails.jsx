@@ -23,8 +23,6 @@ const DeliveriesDetails = () => {
     })();
   }, []);
 
-  console.log(orders);
-
   return (
     <div>
       <NavBar userType="delivery person" />
@@ -34,10 +32,15 @@ const DeliveriesDetails = () => {
           {orders.map((order) => {
             return (
               <Delivery
-                name={order.first_name + " " + order.last_name}
+                name={
+                  order.first_name.toUpperCase() +
+                  " " +
+                  order.last_name.toUpperCase()
+                }
                 address={order.location}
                 time={order.date}
                 payment={order.total_price}
+                status={order.status}
               />
             );
           })}

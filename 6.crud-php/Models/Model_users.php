@@ -16,7 +16,10 @@ class Model_users extends Model
     public function getDeliveryPersonsHelp($account_id)
     {
         $clients = $this->getDB()
-                        ->query("SELECT * FROM  users WHERE account_id=$account_id")
+                        ->query("SELECT *
+                                 FROM  users
+                                 WHERE account_id=$account_id
+                                 AND type='delivery person'")
                         ->fetch_all(MYSQLI_ASSOC);
         return $clients;
     }
