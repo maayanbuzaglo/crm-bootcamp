@@ -7,24 +7,18 @@
   min-width: 100vw;
   justify-content: center;
 
-  h7 {
+  h6 {
+    margin-bottom: 0px;
+    margin-top: 0px;
     display: flex;
     font-size: 60px;
     color: lighten($blue, 55%);
   }
 
-  h7:hover {
+  h6:hover {
     color: $blue;
     cursor: pointer;
   }
-}
-
-.img {
-  opacity: 30%;
-}
-
-.img:hover {
-  opacity: 100%;
 }
 
 .orders {
@@ -54,16 +48,26 @@
     }
   }
 }
-
 .content {
   display: flex;
   flex-direction: column;
   width: 70%;
   margin-top: 40px;
+
   .buttons {
+    margin-top: 40px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     width: 100%;
+
+    .img {
+      opacity: 30%;
+      height: 85px;
+      margin-bottom: 0px;
+    }
+
+    .img:hover {
+      opacity: 100%;
+    }
   }
 }

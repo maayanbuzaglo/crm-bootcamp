@@ -112,10 +112,8 @@ const Chat = () => {
 
   const isTyping = (e) => {
     setInputMessage(e.target.value);
-    console.log(selectedSocketId);
     socket.emit("crm-typing", selectedSocketId);
   };
-  console.log(messages);
 
   useEffect(() => {
     const tmpMessages = {};
@@ -126,7 +124,6 @@ const Chat = () => {
           messages: res.data[key].messages,
         };
       }
-      console.log(tmpMessages);
       setMessages(tmpMessages);
     });
 
@@ -190,7 +187,7 @@ const Chat = () => {
         setSelectedSocketId(id);
       }
     });
-  }, []);
+  });
 
   const setMessagesHelp = (msg, id, name) => {
     setMessages((prevMessages) => {
@@ -283,8 +280,10 @@ const Chat = () => {
             </div>
             <div className={styles.sendMessage}>
               <Input
+                tabIndex="0"
                 placeholder="Type your message here..."
                 value={inputMessage}
+                // onKeyPress={(e) => isTyping(e)}
                 onChange={(e) => isTyping(e)}
                 extraStyle={{
                   width: "600px",

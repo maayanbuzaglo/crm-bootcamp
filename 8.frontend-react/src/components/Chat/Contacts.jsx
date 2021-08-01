@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styles from "./Chat.module.scss";
 
 const Contacts = ({ data, func, func2 }) => {
@@ -8,6 +7,7 @@ const Contacts = ({ data, func, func2 }) => {
       {Object.keys(messages).map((socketId) => (
         <div
           tabIndex="1"
+          key={socketId}
           className={styles.messageBorder}
           onClick={() => {
             func(socketId);

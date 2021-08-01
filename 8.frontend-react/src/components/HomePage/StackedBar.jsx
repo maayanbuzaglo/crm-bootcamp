@@ -26,7 +26,7 @@ const StackedBar = ({ id }) => {
         setLastWeekTotal(setLastWeekTotalTmp);
       })
       .catch((err) => {});
-  }, []);
+  }, [id]);
 
   const dashboardData = {
     labels: ["Sales"],

@@ -52,7 +52,6 @@ module.exports.authenticateJWT = (req, res, next) => {
     const details = jwt.verify(token, accessTokenSecret);
 
     if (!details) {
-      // console.log(err);
       return res.sendStatus(403);
     }
     req.data = details;

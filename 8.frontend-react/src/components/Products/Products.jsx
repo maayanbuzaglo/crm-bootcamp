@@ -45,8 +45,17 @@ const Products = () => {
   };
 
   useEffect(() => {
-    fetchAllProducts();
-  }, []);
+    const account_id = window.localStorage.getItem("account_id");
+    axios
+      .post("http://localhost:9991//products/getProducts/", {
+        account_id,
+        product_type,
+      })
+      .then((result) => {
+        setData(result.data.products);
+      })
+      .catch((err) => {});
+  }, [product_type]);
 
   const onChange = (e) => {
     setForm({
@@ -98,7 +107,7 @@ const Products = () => {
       <NavBar />
       <div className={styles.body}>
         <div className={styles.content}>
-          <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
+          <h6 onClick={() => setState({ isPaneOpenLeft: true })}>+</h6>
           <ProductsTable data={data} />
         </div>
         <div>

@@ -168,7 +168,7 @@ const UpdateOrder = () => {
   const onSubmit = () => {
     if (client && user && products.length) {
       setIsInvalid(false);
-      document.getElementById("paid").checked == true
+      document.getElementById("paid").checked === true
         ? setStatus(1)
         : setStatus(0);
       const formattedForm = {
@@ -278,10 +278,9 @@ const UpdateOrder = () => {
               <input
                 type="checkbox"
                 id="paid"
-                checked={status == 1 ? true : false}
+                checked={Number(status) === 1 ? true : false}
                 onClick={() => {
                   setStatus(1 - status);
-                  console.log(status);
                 }}
               />
               <label for="scales">Paid</label>

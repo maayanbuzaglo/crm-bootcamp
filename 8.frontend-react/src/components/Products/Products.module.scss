@@ -14,14 +14,16 @@
     flex-direction: column;
   }
 
-  h7 {
+  h6 {
+    margin-bottom: 0px;
+    margin-top: 40px;
     display: flex;
     font-size: 60px;
     color: lighten($blue, 55%);
     margin-left: auto;
   }
 
-  h7:hover {
+  h6:hover {
     color: $blue;
     cursor: pointer;
   }

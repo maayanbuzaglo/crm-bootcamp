@@ -18,7 +18,7 @@ const LineChart = ({ id }) => {
         setData(daysOrders);
       })
       .catch((err) => {});
-  }, []);
+  }, [id]);
 
   const dashboardData = {
     labels: ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"],

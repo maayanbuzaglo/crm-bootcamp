@@ -21,7 +21,7 @@ const DeliveriesDetails = () => {
         })
         .catch((err) => {});
     })();
-  }, []);
+  }, [id]);
 
   return (
     <div>

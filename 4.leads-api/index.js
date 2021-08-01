@@ -52,7 +52,6 @@ app.post("/getAllLeads", function (req, res) {
   const query = `SELECT * from leads ORDER BY ${sorted_column || "id"} ${
     isDesc ? "DESC" : "ASC"
   }`;
-  console.log(query);
   connection.query(query, function (error, results, fields) {
     if (results) res.json(results);
     if (error) res.status(500).send("error");

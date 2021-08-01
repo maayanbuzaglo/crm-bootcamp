@@ -22,7 +22,7 @@ const PieChart = ({ id }) => {
         setDeliveriesNumber(deliveriesNum);
       })
       .catch((err) => {});
-  }, []);
+  }, [id]);
 
   const dashboardData = {
     labels: deliveriesPersonsName,

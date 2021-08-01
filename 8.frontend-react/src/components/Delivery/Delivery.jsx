@@ -11,7 +11,7 @@ const Delivery = ({ name, address, time, payment, status }) => {
         <h4>{name}</h4>
         <h4>{address}</h4>
         <h4>{Moment(time).format("HH:mm")}</h4>
-        {status == 1 ? (
+        {status === "1" ? (
           <h4 style={{ color: "green", fontSize: "22px" }}>{payment}</h4>
         ) : (
           <h4 style={{ color: "red", fontSize: "22px" }}>{payment}</h4>

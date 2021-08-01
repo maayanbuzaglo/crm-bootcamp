@@ -19,7 +19,7 @@ const VerticalBar = ({ id }) => {
         setData(relativeNumOfType);
       })
       .catch((err) => {});
-  }, []);
+  }, [id]);
 
   const dashboardData = {
     labels: ["Breakfast", "Lunch", "Dinner"],

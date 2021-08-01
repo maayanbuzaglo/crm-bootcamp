@@ -16,11 +16,17 @@ import OrdersCalendar from "./components/OrdersCalendar/OrdersCalendar";
 import DeliveriesDetails from "./components/DeliveriesDetails/DeliveriesDetails";
 import Chat from "./components/Chat/Chat";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import DateFnsUtils from "@date-io/date-fns"; // choose your lib
+import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { initEventHandler } from "./9.event-handler/eventHandler";
 import "./styles/_base.scss";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    initEventHandler(window);
+  }, []);
+
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <BrowserRouter>

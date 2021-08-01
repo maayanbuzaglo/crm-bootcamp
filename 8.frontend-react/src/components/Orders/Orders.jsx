@@ -183,6 +183,7 @@ const Orders = () => {
         <div className={styles.content}>
           <div className={styles.buttons}>
             <img
+              className={styles.img}
               src={calendar}
               alt="calendar"
               style={{
@@ -194,7 +195,7 @@ const Orders = () => {
                 (window.location.href = `http://localhost:3000/ordersCalendar`)
               }
             />
-            <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
+            <h6 onClick={() => setState({ isPaneOpenLeft: true })}>+</h6>
           </div>
           <OrdersTable data={data} />
         </div>

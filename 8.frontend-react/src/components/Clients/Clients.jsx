@@ -121,7 +121,7 @@ const Clients = () => {
       <NavBar />
       <div className={styles.body}>
         <div className={styles.content}>
-          <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
+          <h6 onClick={() => setState({ isPaneOpenLeft: true })}>+</h6>
           <ClientsTable data={data} />
         </div>
         <div>
