@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 
-const StackedBar = () => {
+const StackedBar = ({ id }) => {
   const [todayTotal, setTodayTotal] = useState([]); //Today total sales.
   const [lastWeekTotal, setLastWeekTotal] = useState([]); //This day last week total sales.
 
   useEffect(() => {
     axios
-      .post("http://localhost:9991//dashboard/getTodayTotalSales/")
+      .post("http://localhost:9991//dashboard/getTodayTotalSales/", { id })
       .then((result) => {
         const res = result.data.dashboard;
         const todayTotalTmp = [];
@@ -18,7 +18,7 @@ const StackedBar = () => {
       .catch((err) => {});
 
     axios
-      .post("http://localhost:9991//dashboard/getLastWeekTotalSales/")
+      .post("http://localhost:9991//dashboard/getLastWeekTotalSales/", { id })
       .then((result) => {
         const res = result.data.dashboard;
         const setLastWeekTotalTmp = [];

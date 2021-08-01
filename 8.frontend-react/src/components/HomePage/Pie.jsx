@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import axios from "axios";
 
-const PieChart = () => {
+const PieChart = ({ id }) => {
   const [deliveriesPersonsName, setDeliveriesPersonsName] = useState([]);
   const [deliveriesNumber, setDeliveriesNumber] = useState([]);
 
   useEffect(() => {
     axios
-      .post("http://localhost:9991//dashboard/getDeliveriesDayDetails/")
+      .post("http://localhost:9991//dashboard/getDeliveriesDayDetails/", { id })
       .then((result) => {
         const res = result.data.dashboard;
         const names = []; //Deliveries persons name.

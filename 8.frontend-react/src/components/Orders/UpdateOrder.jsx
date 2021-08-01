@@ -5,16 +5,16 @@ import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import Button from "../Button/Button";
 import NavBar from "../NavBar/NavBar";
+import ConfirmAlert from "../ConfirmAlert/ConfirmAlert";
 import axios from "axios";
 import styles from "./UpdateOrder.module.scss";
 
 const UpdateOrder = () => {
   const id = new URLSearchParams(window.location.search).get("id");
   const from = new URLSearchParams(window.location.search).get("from");
-  console.log(from);
 
   const [isInvalid, setIsInvalid] = useState(false);
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState(false);
   const [products, setProducts] = useState();
   const [client, setClient] = useState({
     value: "",
@@ -168,10 +168,9 @@ const UpdateOrder = () => {
   const onSubmit = () => {
     if (client && user && products.length) {
       setIsInvalid(false);
-      document.getElementById("paid").checked = true
+      document.getElementById("paid").checked == true
         ? setStatus(1)
         : setStatus(0);
-      console.log(status);
       const formattedForm = {
         products: products,
         client_id: client.value,
@@ -180,7 +179,6 @@ const UpdateOrder = () => {
         id: id,
         status: status,
       };
-      console.log(formattedForm);
       axios
         .post("http://localhost:9991//orders/updateOrder/", {
           form: formattedForm,
@@ -280,9 +278,10 @@ const UpdateOrder = () => {
               <input
                 type="checkbox"
                 id="paid"
-                checked={status === 1 ? true : false}
+                checked={status == 1 ? true : false}
                 onClick={() => {
-                  setStatus(!status);
+                  setStatus(1 - status);
+                  console.log(status);
                 }}
               />
               <label for="scales">Paid</label>
@@ -292,7 +291,11 @@ const UpdateOrder = () => {
             </h5>
           </div>
           <Button text="Update Order" onClick={onSubmit} />
-          <h5 onClick={onDelete}>Delete Order</h5>
+          <ConfirmAlert
+            onClick={onDelete}
+            title="Delete this order?"
+            text="Delete Order"
+          />
         </div>
       </div>
     </div>

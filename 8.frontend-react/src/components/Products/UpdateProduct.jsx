@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import NavBar from "../NavBar/NavBar";
+import ConfirmAlert from "../ConfirmAlert/ConfirmAlert";
 import axios from "axios";
 import styles from "./UpdateProduct.module.scss";
 
@@ -118,7 +119,11 @@ const UpdateProduct = () => {
             onChange={onChange}
           />
           <Button text="Update Meal" onClick={onSubmit} />
-          <h5 onClick={onDelete}>Delete Meal</h5>
+          <ConfirmAlert
+            onClick={onDelete}
+            title="Delete this meal?"
+            text="Delete Meal"
+          />
         </div>
       </div>
     </div>

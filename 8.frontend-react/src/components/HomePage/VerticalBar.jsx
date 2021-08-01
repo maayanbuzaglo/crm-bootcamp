@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 
-const VerticalBar = () => {
+const VerticalBar = ({ id }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .post("http://localhost:9991//dashboard/getProductsTypesDetails/")
+      .post("http://localhost:9991//dashboard/getProductsTypesDetails/", { id })
       .then((result) => {
         const res = result.data.dashboard;
         const sum = res.reduce((a, v) => (a = a + Number(v.numOfType)), 0); //The 100% of all the ordered product type.

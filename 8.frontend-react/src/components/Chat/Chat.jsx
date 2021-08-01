@@ -270,7 +270,7 @@ const Chat = () => {
           </div>
         </div>
         <div className={styles.container}>
-          <div className={styles.massages}>
+          <div className={styles.messages}>
             <Contacts
               data={messages}
               func={setSelectedSocketId}
@@ -278,10 +278,10 @@ const Chat = () => {
             />
           </div>
           <div className={styles.chat}>
-            <div className={styles.chatMassages}>
+            <div className={styles.chatMessages}>
               <Conversation data={messages} id={selectedSocketId} />
             </div>
-            <div className={styles.sendMassage}>
+            <div className={styles.sendMessage}>
               <Input
                 placeholder="Type your message here..."
                 value={inputMessage}

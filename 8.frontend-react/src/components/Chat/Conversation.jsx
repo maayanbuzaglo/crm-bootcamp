@@ -10,7 +10,7 @@ const Conversation = ({ data, id }) => {
       {selectedSocketId &&
         messages[selectedSocketId].messages.map((message) =>
           message.isCrmSender ? (
-            <div className={styles.myMassage}>
+            <div className={styles.myMessage}>
               <p
                 style={{
                   backgroundColor: "#002c9b",
@@ -21,7 +21,7 @@ const Conversation = ({ data, id }) => {
               <h4>{Moment(message.date).format("DD MMM HH:hh")}</h4>
             </div>
           ) : (
-            <div className={styles.massage}>
+            <div className={styles.message}>
               <h4>{Moment(message.date).format("DD MMM HH:hh")}</h4>
 
               <p

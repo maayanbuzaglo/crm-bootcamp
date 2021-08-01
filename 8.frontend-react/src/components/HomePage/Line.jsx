@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
 
-const LineChart = () => {
+const LineChart = ({ id }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios
-      .post("http://localhost:9991//dashboard/getWeekOrdersDetails/")
+      .post("http://localhost:9991//dashboard/getWeekOrdersDetails/", { id })
       .then((result) => {
         const res = result.data.dashboard;
         const daysOrders = [0, 0, 0, 0, 0, 0, 0];

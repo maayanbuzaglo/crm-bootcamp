@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import NavBar from "../NavBar/NavBar";
+import ConfirmAlert from "../ConfirmAlert/ConfirmAlert";
 import axios from "axios";
 import styles from "./UpdateClient.module.scss";
 
@@ -185,7 +186,11 @@ const UpdateClient = () => {
           onChange={onChange}
         />
         <Button text="Update" onClick={onSubmit} />
-        <h5 onClick={onDelete}>Delete Client</h5>
+        <ConfirmAlert
+          onClick={onDelete}
+          title="Delete this client?"
+          text="Delete Client"
+        />
       </div>
     </div>
   );

@@ -79,10 +79,11 @@ class Model_orders extends Model
                                         CONCAT(clients.first_name, ' ', clients.last_name) AS client_name,
                                         CONCAT(users.first_name, ' ', users.last_name) AS user_name,
                                         DATE_FORMAT(date, '%Y-%m-%d %H:%i') AS date,
-                                        total_price
+                                        total_price,
+                                        orders.status
                                  FROM  orders
                                  JOIN clients, users
-                                 WHERE orders.client_id = clients.id
+                                 WHERE orders.client_id = clients.id AND orders.account_id = $account_id
                                  AND orders.delivery_person_id = users.id
                                  AND date >=  NOW()
                                  ORDER BY date")
@@ -104,7 +105,7 @@ class Model_orders extends Model
                                         total_price
                                  FROM  orders
                                  JOIN clients, users
-                                 WHERE orders.client_id = clients.id
+                                 WHERE orders.client_id = clients.id AND orders.account_id = $account_id
                                  AND orders.delivery_person_id = users.id
                                  ORDER BY date")
                         ->fetch_all(MYSQLI_ASSOC);

@@ -30,6 +30,10 @@ const OrdersTable = ({ data }) => {
         Header: "Total",
         accessor: "total_price",
       },
+      {
+        Header: "Status",
+        accessor: "status",
+      },
     ],
     []
   );

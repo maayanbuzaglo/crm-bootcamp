@@ -285,7 +285,8 @@ app.post("/", async function (req, res) {
     try {
       //Insert admin to users.
       const results = await asyncConnection.queryAsync(
-        `INSERT INTO users (first_name, last_name, phone_number, email_address, password, account_id, status) VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${password}", "${accountId}", ${1})`
+        `INSERT INTO users (first_name, last_name, phone_number, email_address, password, type, account_id, status)
+         VALUES ("${firstName}", "${lastName}", "${phoneNumber}", "${emailAddress}", "${password}", "manager", "${accountId}", ${1})`
       );
     } catch (err) {
       res.status(500).send(err.sqlMessage);

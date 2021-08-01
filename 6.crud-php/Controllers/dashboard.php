@@ -15,7 +15,8 @@ class dashboard extends controller
     */
     public function getProductsTypesDetails()
     {
-        $productsTypesDetails = $this->model->getProductsTypesDetailsHelp();
+        $accountId = $this->data->id;
+        $productsTypesDetails = $this->model->getProductsTypesDetailsHelp($accountId);
         $this->response["dashboard"] = $productsTypesDetails;
         return $this->response;
     }
@@ -25,7 +26,8 @@ class dashboard extends controller
     */
     public function getWeekOrdersDetails()
     {
-        $ordersDetails = $this->model->getWeekOrdersDetailsHelp();
+        $accountId = $this->data->id;
+        $ordersDetails = $this->model->getWeekOrdersDetailsHelp($accountId);
         $this->response["dashboard"] = $ordersDetails;
         return $this->response;
     }
@@ -35,7 +37,8 @@ class dashboard extends controller
     */
     public function getDeliveriesDayDetails()
     {
-        $deliveriesDetails = $this->model->getDeliveriesDayDetailsHelp();
+        $accountId = $this->data->id;
+        $deliveriesDetails = $this->model->getDeliveriesDayDetailsHelp($accountId);
         $this->response["dashboard"] = $deliveriesDetails;
         return $this->response;
     }
@@ -45,7 +48,8 @@ class dashboard extends controller
     */
     public function getTodayTotalSales()
     {
-        $todayTotal = $this->model->getTodayTotalSalesHelp();
+        $accountId = $this->data->id;
+        $todayTotal = $this->model->getTodayTotalSalesHelp($accountId);
         $this->response["dashboard"] = $todayTotal;
         return $this->response;
     }
@@ -55,7 +59,8 @@ class dashboard extends controller
     */
     public function getLastWeekTotalSales()
     {
-        $lastWeekTotal = $this->model->getLastWeekTotalSalesHelp();
+        $accountId = $this->data->id;
+        $lastWeekTotal = $this->model->getLastWeekTotalSalesHelp($accountId);
         $this->response["dashboard"] = $lastWeekTotal;
         return $this->response;
     }

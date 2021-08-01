@@ -1,7 +1,8 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Table from "../Table/Table";
+import Button from "../Button/Button";
+import ConfirmAlert from "../ConfirmAlert/ConfirmAlert";
 import axios from "axios";
-import Button from "../../components/Button/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 const UsersTable = () => {
@@ -62,10 +63,10 @@ const UsersTable = () => {
         Header: "",
         accessor: "id",
         Cell: ({ row }) => (
-          <Button
-            extraStyles={{ width: "80px", height: "30px" }}
+          <ConfirmAlert
             onClick={(e) => onDelete(row.original.id)}
-            text="delete"
+            title="Delete this user?"
+            text="Delete"
           />
         ),
       },
