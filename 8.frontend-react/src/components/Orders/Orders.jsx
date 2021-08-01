@@ -6,7 +6,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import Button from "../Button/Button";
-import SideBoardingOrders from "./SideBoardingOrders";
+import OrdersTable from "./OrdersTable";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 import SlidingPane from "react-sliding-pane";
@@ -196,7 +196,7 @@ const Orders = () => {
             />
             <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
           </div>
-          <SideBoardingOrders data={data} />
+          <OrdersTable data={data} />
         </div>
         <div>
           <SlidingPane

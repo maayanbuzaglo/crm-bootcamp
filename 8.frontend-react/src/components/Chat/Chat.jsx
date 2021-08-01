@@ -112,6 +112,7 @@ const Chat = () => {
 
   const isTyping = (e) => {
     setInputMessage(e.target.value);
+    console.log(selectedSocketId);
     socket.emit("crm-typing", selectedSocketId);
   };
   console.log(messages);

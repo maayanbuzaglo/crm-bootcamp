@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import SideBoardingUsers from "./SideBoardingUsers";
+import UsersTable from "./UsersTable";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 import SlidingPane from "react-sliding-pane";
@@ -85,7 +85,7 @@ const Users = () => {
       <div className={styles.body}>
         <div className={styles.content}>
           <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
-          <SideBoardingUsers />
+          <UsersTable />
         </div>
         <div>
           <SlidingPane

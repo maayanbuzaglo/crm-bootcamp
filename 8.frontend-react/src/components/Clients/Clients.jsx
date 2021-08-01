@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import SideBoardingClients from "./SideBoardingClients";
+import ClientsTable from "./ClientsTable";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 import SlidingPane from "react-sliding-pane";
@@ -122,7 +122,7 @@ const Clients = () => {
       <div className={styles.body}>
         <div className={styles.content}>
           <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
-          <SideBoardingClients data={data} />
+          <ClientsTable data={data} />
         </div>
         <div>
           <SlidingPane

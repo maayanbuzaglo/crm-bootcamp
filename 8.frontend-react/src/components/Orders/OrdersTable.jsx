@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Table from "../Table/Table";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-const SideBoardingOrders = ({ data }) => {
+const OrdersTable = ({ data }) => {
   const update = (row) => {
     const order_id = row.original.id;
     window.location.href = `http://localhost:3000/updateOrder?id=${order_id}&from=orders`;
@@ -42,4 +42,4 @@ const SideBoardingOrders = ({ data }) => {
   );
 };
 
-export default SideBoardingOrders;
+export default OrdersTable;

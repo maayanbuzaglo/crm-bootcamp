@@ -86,8 +86,8 @@ io.on("connection", (socket) => {
   });
 
   //client is typing.
-  socket.on("client-typing", () => {
-    io.to("crm").emit("client-typing", socket.id);
+  socket.on("client-typing", (id) => {
+    io.to("crm").emit("client-typing", id);
   });
 
   //crm is typing.

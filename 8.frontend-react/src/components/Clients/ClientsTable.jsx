@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Table from "../Table/Table";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-const SideBoardingClients = ({ data }) => {
+const ClientsTable = ({ data }) => {
   const update = (row) => {
     const client_id = row.original.id;
     window.location.href = `http://localhost:3000/updateClient?id=${client_id}`;
@@ -42,4 +42,4 @@ const SideBoardingClients = ({ data }) => {
   );
 };
 
-export default SideBoardingClients;
+export default ClientsTable;

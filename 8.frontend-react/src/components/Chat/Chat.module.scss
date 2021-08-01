@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 63px);
 
   .chatBar {
     display: flex;
@@ -135,7 +135,17 @@
       .massage {
         display: flex;
         justify-content: flex-end;
+        justify-items: center;
         padding-right: 40px;
+      }
+
+      h4 {
+        display: flex;
+        justify-items: center;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-right: 10px;
+        color: lighten(black, 50%);
       }
 
       p {

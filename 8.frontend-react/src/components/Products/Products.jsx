@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
-import SideBoardingProducts from "./SideBoardingProducts";
+import ProductsTable from "./ProductsTable";
 import NavBar from "../NavBar/NavBar";
 import axios from "axios";
 import SlidingPane from "react-sliding-pane";
@@ -99,7 +99,7 @@ const Products = () => {
       <div className={styles.body}>
         <div className={styles.content}>
           <h7 onClick={() => setState({ isPaneOpenLeft: true })}>+</h7>
-          <SideBoardingProducts data={data} />
+          <ProductsTable data={data} />
         </div>
         <div>
           <div>

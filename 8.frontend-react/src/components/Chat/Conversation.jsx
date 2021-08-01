@@ -1,4 +1,5 @@
 import styles from "./Chat.module.scss";
+import Moment from "moment";
 
 const Conversation = ({ data, id }) => {
   const messages = data;
@@ -17,9 +18,12 @@ const Conversation = ({ data, id }) => {
               >
                 {message.message}
               </p>
+              <h4>{Moment(message.date).format("DD MMM HH:hh")}</h4>
             </div>
           ) : (
             <div className={styles.massage}>
+              <h4>{Moment(message.date).format("DD MMM HH:hh")}</h4>
+
               <p
                 style={{
                   backgroundColor: "grey",

@@ -1,5 +1,4 @@
 var socket = io("http://localhost:2000");
-
 var messages = document.getElementById("messages");
 var form = document.getElementById("chat-form");
 var input = document.getElementById("chat-input");
@@ -21,7 +20,7 @@ form.addEventListener("submit", function (e) {
 });
 
 input.onchange = () => {
-  socket.emit("client-typing");
+  socket.emit("client-typing", id);
 };
 
 let messagesArr = ["Please write your mail to start..."];

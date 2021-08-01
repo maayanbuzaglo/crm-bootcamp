@@ -4,7 +4,7 @@ import axios from "axios";
 import Button from "../../components/Button/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-const SideBoardingUsers = () => {
+const UsersTable = () => {
   const [data, setData] = useState([]);
   // Using useEffect to call the API once mounted and set the data
   useEffect(() => {
@@ -81,4 +81,4 @@ const SideBoardingUsers = () => {
   );
 };
 
-export default SideBoardingUsers;
+export default UsersTable;
