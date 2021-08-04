@@ -69,7 +69,7 @@ app.get("/admin", async function (req, res) {
   res.render("leadsPage", data);
 });
 
-//Gets the leads page.
+//Gets the chat.
 app.get("/chat", async function (req, res) {
   res.render("chat");
 });

@@ -1,6 +1,6 @@
 const axios = require("axios");
 const app = require("express")();
-const io = require("socket.io")(2000, {
+const io = require("socket.io")(2200, {
   cors: {
     origin: [
       "http://localhost:3000",

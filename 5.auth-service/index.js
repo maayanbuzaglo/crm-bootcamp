@@ -30,10 +30,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /**
+ * user_token post
+ **/
+app.post("/userToken", function (req, res) {
+  const userToken = req.body.accountToken;
+  const accountDetails = jwt.verify(userToken, accessTokenSecret);
+  res.status(200).send(accountDetails);
+});
+
+/**
  * TEAM get
  * @returns users table - only visible to authenticated users.
  **/
-//, helpers.authenticateJWT
 app.get("/team", helpers.authenticateJWT, function (req, res) {
   const accountId = req.data.user_id;
 

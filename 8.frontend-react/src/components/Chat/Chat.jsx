@@ -9,7 +9,7 @@ import styles from "./Chat.module.scss";
 import { io } from "socket.io-client";
 import Conversation from "./Conversation";
 
-const socket = io("http://localhost:2000");
+const socket = io("http://localhost:2200");
 
 const Chat = () => {
   const [state, setState] = useState({
@@ -55,6 +55,7 @@ const Chat = () => {
       ...form,
       [e.target.name]: { value: e.target.value, isInvalid: false },
     });
+    setInputMessage(e.target.value);
   };
 
   const addClient = () => {
@@ -111,7 +112,6 @@ const Chat = () => {
   };
 
   const isTyping = (e) => {
-    setInputMessage(e.target.value);
     socket.emit("crm-typing", selectedSocketId);
   };
 
@@ -187,7 +187,7 @@ const Chat = () => {
         setSelectedSocketId(id);
       }
     });
-  });
+  }, []);
 
   const setMessagesHelp = (msg, id, name) => {
     setMessages((prevMessages) => {
@@ -280,11 +280,16 @@ const Chat = () => {
             </div>
             <div className={styles.sendMessage}>
               <Input
-                tabIndex="0"
+                type="text"
                 placeholder="Type your message here..."
                 value={inputMessage}
-                // onKeyPress={(e) => isTyping(e)}
-                onChange={(e) => isTyping(e)}
+                // onKeyPress={(e) => {
+                //   isTyping(e);
+                // }}
+                onKeyDown={(e) => {
+                  isTyping(e);
+                }}
+                onChange={(e) => onChange(e)}
                 extraStyle={{
                   width: "600px",
                   height: "50px",

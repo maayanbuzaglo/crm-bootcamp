@@ -3,6 +3,8 @@ import styles from "./Input.module.scss";
 
 const Input = ({
   onChange,
+  onKeyPress,
+  onKeyDown,
   onClick,
   placeholder,
   value,
@@ -18,6 +20,8 @@ const Input = ({
       <input
         className={styles.input}
         onChange={onChange}
+        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
         onClick={onClick}
         type={name}
         placeholder={placeholder}

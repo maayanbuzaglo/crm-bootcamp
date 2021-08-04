@@ -18,13 +18,32 @@ import Chat from "./components/Chat/Chat";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import DateFnsUtils from "@date-io/date-fns";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { initEventHandler } from "./9.event-handler/eventHandler";
 import "./styles/_base.scss";
 import { useEffect } from "react";
+import axios from "axios";
+import moment from "moment";
 
 function App() {
   useEffect(() => {
-    initEventHandler(window);
+    const accountToken = window.localStorage.user_token;
+    axios
+      .post("http://localhost:8005/userToken", { accountToken })
+      .then(function (response) {
+        const userDetails = response.data;
+
+        window.addEventListener("click", (event) => {
+          axios.post("http://localhost:3200/api/v1/domEvents", {
+            user_email: userDetails.username,
+            user_id: userDetails.user_id,
+            account_id: userDetails.account_id,
+            event_type: "click",
+            class_id_name: event.target.className
+              ? event.target.className.split("_")[0]
+              : event.target.id.split("_")[0],
+            time: moment(new Date()).format("yyyy-MM-DD HH:mm:ss"),
+          });
+        });
+      });
   }, []);
 
   return (

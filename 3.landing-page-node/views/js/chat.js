@@ -1,4 +1,4 @@
-var socket = io("http://localhost:2000");
+var socket = io("http://localhost:2200");
 var messages = document.getElementById("messages");
 var form = document.getElementById("chat-form");
 var input = document.getElementById("chat-input");
@@ -6,12 +6,25 @@ var typing = document.getElementById("typing");
 let firstMessage = true;
 let id = "";
 
+const onRender = async () => {
+  const room = window.localStorage.getItem("room");
+  // axios
+  //   .post("http://localhost:9090/chat/clientMessages", {
+  //     email: room,
+  //   })
+  //   .then(function (response) {
+  //     console.log(response);
+  //   })
+  //   .catch(function () {});
+};
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   if (input.value) {
     if (firstMessage) {
       id = input.value;
       firstMessage = false;
+      window.localStorage.setItem("room", input.value);
     }
     socket.emit("join-room", id);
     socket.emit("send-message", input.value, id);
