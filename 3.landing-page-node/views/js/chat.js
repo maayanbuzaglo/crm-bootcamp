@@ -207,8 +207,9 @@ input.onchange = () => {
 /**
  * This function handles typing message while the crm is typing.
  */
-socket.on("crm-typing", () => {
-  typing.style.display = "block";
+socket.on("crm-typing", (type) => {
+  if (type) typing.style.display = "block";
+  else typing.style.display = "none";
 });
 
 /**

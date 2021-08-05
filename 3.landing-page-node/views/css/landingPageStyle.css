@@ -366,8 +366,8 @@ body {
 
 #typing {
   position: absolute;
-  margin-top: 240px;
+  margin-top: 260px;
   margin-left: 20px;
-  font-size: 20px;
+  font-size: 15px;
   display: none;
 }

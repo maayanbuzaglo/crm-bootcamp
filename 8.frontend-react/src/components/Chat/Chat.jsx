@@ -111,8 +111,26 @@ const Chat = () => {
       .catch(function () {});
   };
 
+  //Join to crm room.
+  socket.emit("join-room", "crm");
+
+  /**
+   * Handles client typing message.
+   */
+  socket.on("client-typing", (socketId) => {
+    setTyping({ socketId: socketId, isTyping: true });
+  });
+
+  /**
+   * Handles crm typing message.
+   */
+  let timeEvent = 0;
   const isTyping = (e) => {
-    socket.emit("crm-typing", selectedSocketId);
+    clearTimeout(timeEvent);
+    socket.emit("crm-typing", selectedSocketId, true);
+    timeEvent = setTimeout(() => {
+      socket.emit("crm-typing", selectedSocketId, false);
+    }, 1000);
   };
 
   useEffect(() => {
@@ -125,12 +143,6 @@ const Chat = () => {
         };
       }
       setMessages(tmpMessages);
-    });
-
-    socket.emit("join-room", "crm");
-
-    socket.on("client-typing", (socketId) => {
-      setTyping({ socketId: socketId, isTyping: true });
     });
 
     socket.on("receive-message", (msg) => {
