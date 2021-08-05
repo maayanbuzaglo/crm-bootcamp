@@ -7,11 +7,11 @@ var typing = document.getElementById("typing");
 let id = "";
 let conversation = [];
 
-/*
- This function creates a message on the chat.
-*/
+/**
+ * This function creates a message on the chat.
+ */
 const createMessage = (tmpMessage) => {
-  //If message send to me.
+  //If message send to me - message grey and right.
   if (!tmpMessage.isCrmSender) {
     var div = document.createElement("div");
     div.style.display = "flex";
@@ -36,13 +36,12 @@ const createMessage = (tmpMessage) => {
       dateTmp.getMinutes();
     date.style.color = "grey";
     date.style.fontSize = "10px";
-    date.style.marginLeft = "10px";
-    date.style.marginRight = "10px";
+    date.style.marginLeft = "4px";
 
     div.appendChild(item);
     div.appendChild(date);
     messages.appendChild(div);
-    //If I send the message.
+    //If I send the message - message blue and left.
   } else {
     typing.style.display = "none";
 
@@ -70,8 +69,7 @@ const createMessage = (tmpMessage) => {
       dateTmp.getMinutes();
     date.style.color = "grey";
     date.style.fontSize = "10px";
-    date.style.marginLeft = "10px";
-    date.style.marginRight = "10px";
+    date.style.marginRight = "4px";
 
     div.appendChild(date);
     div.appendChild(item);
@@ -79,6 +77,10 @@ const createMessage = (tmpMessage) => {
   }
 };
 
+/**
+ * This function gets all the conversation when the page reload.
+ * It gets the room from local storage.
+ */
 const onRender = () => {
   const room = window.localStorage.getItem("room");
   axios
@@ -93,9 +95,16 @@ const onRender = () => {
       }
     })
     .catch(function () {});
+  scroll();
 };
 
+/**
+ * This function listen to send button,
+ * and send the input message to the crm.
+ */
 form.addEventListener("submit", function (e) {
+  console.log(messages.scrollHeight);
+
   e.preventDefault();
   if (input.value) {
     if (!window.localStorage.getItem("room")) {
@@ -108,12 +117,8 @@ form.addEventListener("submit", function (e) {
   }
 });
 
-input.onchange = () => {
-  socket.emit("client-typing", id);
-};
-
+//First message for email request:
 let messagesArr = ["Please write your mail to start..."];
-
 var div = document.createElement("div");
 div.style.display = "flex";
 div.style.justifyContent = "flex-end";
@@ -128,9 +133,9 @@ div.appendChild(item);
 messages.appendChild(div);
 
 socket.on("receive-message", (msg) => {
-  console.log(msg);
-  //If message send to me.
+  //If message send to me - message grey and right.
   if (!msg.isCrmSender) {
+    console.log(msg);
     var div = document.createElement("div");
     div.style.display = "flex";
     div.style.margin = "10px";
@@ -141,24 +146,16 @@ socket.on("receive-message", (msg) => {
     item.style.padding = "10px";
     item.style.borderRadius = "10px";
     var date = document.createElement("div");
-    // var dateTmp = Date.now();
-    date.textContent = Date.now();
-    // dateTmp.split(" ")[1] +
-    //   " " +
-    //   dateTmp.split(" ")[2] +
-    //   " " +
-    //   dateTmp.getHours() +
-    //   ":" +
-    //   dateTmp.getMinutes();
+    var dateTmp = new Date(Date.now());
+    date.textContent = dateTmp.getHours() + ":" + dateTmp.getMinutes();
     date.style.color = "grey";
     date.style.fontSize = "10px";
-    date.style.marginLeft = "10px";
-    date.style.marginRight = "10px";
+    date.style.marginLeft = "4px";
 
     div.appendChild(item);
     div.appendChild(date);
     messages.appendChild(div);
-    //If I send the message.
+    //If I send the message - message blue and left.
   } else {
     typing.style.display = "none";
     var div = document.createElement("div");
@@ -172,35 +169,55 @@ socket.on("receive-message", (msg) => {
     item.style.padding = "10px";
     item.style.borderRadius = "10px";
     var date = document.createElement("div");
-    // var dateTmp = Date.now();
-    date.textContent = Date.now();
-    // msg.date.split(" ")[1] +
-    // " " +
-    // msg.date.split(" ")[2] +
-    // " " +
-    // dateTmp.getHours() +
-    // ":" +
-    // dateTmp.getMinutes();
+    var dateTmp = new Date(Date.now());
+    date.textContent = dateTmp.getHours() + ":" + dateTmp.getMinutes();
     date.style.color = "grey";
     date.style.fontSize = "10px";
-    date.style.marginLeft = "10px";
-    date.style.marginRight = "10px";
+    date.style.marginRight = "4px";
 
     div.appendChild(date);
     div.appendChild(item);
     messages.appendChild(div);
   }
+  scroll();
 });
 
+/**
+ * This  function scroll to last message in chat.
+ */
+const scroll = () => {
+  messages.scrollTop = messages.scrollHeight;
+};
+
+/**
+ * This function listen to click event,
+ * and when click on chat - scroll to last message.
+ */
+window.addEventListener("click", function () {
+  messages.scrollTop = messages.scrollHeight;
+});
+
+/**
+ * This function handles typing message while the client is typing.
+ */
+input.onchange = () => {
+  socket.emit("client-typing", id);
+};
+
+/**
+ * This function handles typing message while the crm is typing.
+ */
 socket.on("crm-typing", () => {
   typing.style.display = "block";
 });
 
+/**
+ * This functions handles the open and close of the chat box
+ */
 function openForm() {
   document.getElementById("myForm").style.display = "block";
   document.getElementById("openBtn").style.display = "none";
 }
-
 function closeForm() {
   document.getElementById("myForm").style.display = "none";
   document.getElementById("openBtn").style.display = "block";

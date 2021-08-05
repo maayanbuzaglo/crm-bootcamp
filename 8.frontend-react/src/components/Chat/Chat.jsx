@@ -3,11 +3,11 @@ import SlidingPane from "react-sliding-pane";
 import axios from "axios";
 import NavBar from "../NavBar/NavBar";
 import Contacts from "./Contacts";
+import Conversation from "./Conversation";
 import Input from "../Input/Input";
 import Button from "../Button/Button";
 import styles from "./Chat.module.scss";
 import { io } from "socket.io-client";
-import Conversation from "./Conversation";
 
 const socket = io("http://localhost:2200");
 
@@ -226,17 +226,18 @@ const Chat = () => {
       }
       return tmpMessages;
     });
-    setSenderName(name);
     setSelectedSocketId(id);
   };
 
   const onSubmit = () => {
-    //Sends the message to server.
-    socket.emit("send-message-crm", {
-      message: inputMessage,
-      receiverId: selectedSocketId,
-    });
-    setInputMessage("");
+    if (inputMessage) {
+      //Sends the message to server.
+      socket.emit("send-message-crm", {
+        message: inputMessage,
+        receiverId: selectedSocketId,
+      });
+      setInputMessage("");
+    }
   };
 
   return (
