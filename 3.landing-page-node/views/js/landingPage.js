@@ -8,7 +8,6 @@ function validateEmail(e) {
       email: document.form1.email.value, //gets the email.
     })
     .then(function (response) {
-      console.log(response);
       alert("We sent the details to your email \n Have a nice day :)");
       location.reload();
     })

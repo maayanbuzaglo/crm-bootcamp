@@ -103,8 +103,6 @@ const onRender = () => {
  * and send the input message to the crm.
  */
 form.addEventListener("submit", function (e) {
-  console.log(messages.scrollHeight);
-
   e.preventDefault();
   if (input.value) {
     if (!window.localStorage.getItem("room")) {
@@ -135,7 +133,6 @@ messages.appendChild(div);
 socket.on("receive-message", (msg) => {
   //If message send to me - message grey and right.
   if (!msg.isCrmSender) {
-    console.log(msg);
     var div = document.createElement("div");
     div.style.display = "flex";
     div.style.margin = "10px";
@@ -200,14 +197,20 @@ window.addEventListener("click", function () {
 /**
  * This function handles typing message while the client is typing.
  */
-input.onchange = () => {
-  socket.emit("client-typing", id);
+let timeEvent = 0;
+input.onkeypress = () => {
+  clearTimeout(timeEvent);
+  socket.emit("client-typing", id, true);
+  timeEvent = setTimeout(() => {
+    socket.emit("client-typing", id, false);
+  }, 1000);
 };
 
 /**
  * This function handles typing message while the crm is typing.
  */
 socket.on("crm-typing", (type) => {
+  console.log("here"); //Not good!!!!
   if (type) typing.style.display = "block";
   else typing.style.display = "none";
 });

@@ -117,15 +117,16 @@ const Chat = () => {
   /**
    * Handles client typing message.
    */
-  socket.on("client-typing", (socketId) => {
-    setTyping({ socketId: socketId, isTyping: true });
+  socket.on("client-typing", (socketId, type) => {
+    if (type) setTyping({ socketId: socketId, isTyping: true });
+    else setTyping({ socketId: socketId, isTyping: false });
   });
 
   /**
    * Handles crm typing message.
    */
   let timeEvent = 0;
-  const isTyping = (e) => {
+  const isTyping = () => {
     clearTimeout(timeEvent);
     socket.emit("crm-typing", selectedSocketId, true);
     timeEvent = setTimeout(() => {
