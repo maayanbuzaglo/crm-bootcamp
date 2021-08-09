@@ -1,5 +1,8 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Image} from 'react-native';
+import Input from './Input';
+import SubmitButton from './SubmitButton';
+import logo from './img/logo.svg';
 import axios from 'axios';
 import {goHome} from './navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -20,10 +23,19 @@ export default class SignIn extends React.Component {
     return login;
   };
 
+  /**
+   * This function handles on change input sign in details.
+   * While changing - shows the input on screen,
+   * and save the values.
+   */
   onChangeText = async (key, value) => {
     this.setState({[key]: value});
   };
 
+  /**
+   * This function handles on click login button.
+   * Checks if user exist.
+   */
   signIn = async () => {
     const formattedForm = {
       email: this.state.username,
@@ -63,43 +75,39 @@ export default class SignIn extends React.Component {
       <Home />
     ) : (
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="Username"
+        <Image
+          source={require('./img/logo.svg')}
+          style={styles.logo}
+          resizeMode={'cover'}
+        />
+        <Input
+          placeholder="Email address"
           autoCapitalize="none"
           autoCorrect={false}
-          placeholderTextColor="white"
+          placeholderTextColor="grey"
           onChangeText={val => this.onChangeText('username', val)}
         />
-        <TextInput
-          style={styles.input}
+        <Input
           placeholder="Password"
           autoCapitalize="none"
           secureTextEntry={true}
-          placeholderTextColor="white"
+          placeholderTextColor="grey"
           onChangeText={val => this.onChangeText('password', val)}
         />
-        <Button title="Sign In" onPress={this.signIn} />
+        <SubmitButton title="LOGIN" onPress={this.signIn} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  input: {
-    width: 350,
-    fontSize: 18,
-    fontWeight: '500',
-    height: 55,
-    backgroundColor: '#42A5F5',
-    margin: 10,
-    color: 'white',
-    padding: 8,
-    borderRadius: 14,
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  logo: {
+    width: 50,
+    height: 50,
   },
 });
