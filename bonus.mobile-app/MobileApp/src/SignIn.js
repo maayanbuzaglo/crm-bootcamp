@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import Input from './Input';
 import SubmitButton from './SubmitButton';
-import logo from './img/logo.svg';
+import logo from './img/logo.jpeg';
 import axios from 'axios';
 import {goHome} from './navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -47,8 +47,7 @@ export default class SignIn extends React.Component {
         const userType = response.data.type; //Gets the user type.
         const accessToken = response.data.accessToken;
 
-        // window.localStorage.setItem('account_id', response.data.accountId);
-
+        AsyncStorage.setItem('userId', accessToken);
         AsyncStorage.setItem('userToken', accessToken);
         if (userType === 'delivery person') {
           goHome();
@@ -75,11 +74,7 @@ export default class SignIn extends React.Component {
       <Home />
     ) : (
       <View style={styles.container}>
-        <Image
-          source={require('./img/logo.svg')}
-          style={styles.logo}
-          resizeMode={'cover'}
-        />
+        <Image source={logo} style={styles.logo} resizeMode={'cover'} />
         <Input
           placeholder="Email address"
           autoCapitalize="none"
@@ -107,7 +102,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 50,
-    height: 50,
+    opacity: 0.5,
+    marginBottom: 50,
+    width: 150,
+    height: 150,
   },
 });

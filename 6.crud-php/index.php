@@ -1,4 +1,4 @@
-<?php 
+<?php
 DEFINE('BASE_PATH',__DIR__);
 ini_set('html_errors', 0);
 ini_set("xdebug.overload_var_dump", "off");//Disable XDEBUG pretty error
@@ -37,3 +37,4 @@ catch(Exception $e)
         "error"=>"something went wrong"
     ]));
 }
+

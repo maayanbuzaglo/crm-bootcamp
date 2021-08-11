@@ -88,6 +88,7 @@ app.post("/login", function (req, res) {
       //If all details is correct.
       else {
         accountId = results[0].account_id;
+        userId = results[0].id;
         type = results[0].type;
 
         const accessToken = jwt.sign(
@@ -101,6 +102,7 @@ app.post("/login", function (req, res) {
         return res.cookie("jwt", accessToken).json({
           accessToken,
           accountId,
+          userId,
           type,
         });
       }
