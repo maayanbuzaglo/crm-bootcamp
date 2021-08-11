@@ -43,12 +43,32 @@ class Model_orders extends Model
     public function getOrdersDetailsHelp($delivery_person_id)
     {
         $order = $this->getDB()
-                        ->query("SELECT first_name, last_name, location, date, total_price, status
+                        ->query("SELECT orders.id, first_name, last_name, location, date, total_price, status
                                  FROM orders
                                  JOIN clients AS deliveryDetails
                                  Where  deliveryDetails.id = orders.client_id
                                  AND delivery_person_id = $delivery_person_id
                                  AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+                                 AND orders.delivered != 1
+                                 ORDER BY date")
+                        ->fetch_all(MYSQLI_ASSOC);
+        return $order;
+    }
+
+    /*
+    getDeliveredOrders - help function.
+    select query to all orders of a specific delivery person he has already delivered.
+    */
+    public function getDeliveredOrdersHelp($delivery_person_id)
+    {
+        $order = $this->getDB()
+                        ->query("SELECT orders.id, first_name, last_name, location, date, total_price, status
+                                 FROM orders
+                                 JOIN clients AS deliveryDetails
+                                 Where  deliveryDetails.id = orders.client_id
+                                 AND delivery_person_id = $delivery_person_id
+                                 AND DATE_FORMAT(date, '%Y-%m-%d') = DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+                                 AND orders.delivered = 1
                                  ORDER BY date")
                         ->fetch_all(MYSQLI_ASSOC);
         return $order;
@@ -127,8 +147,8 @@ class Model_orders extends Model
         $location = $address[0]["address"];
         //Inserts all the values except total price to orders.
         $insert = $this->getDB()
-                       ->query("INSERT INTO orders (account_id, client_id, delivery_person_id, location, date, status)
-                                VALUES ('$account_id', '$client_id', '$delivery_person_id', '$location', CONVERT_TZ('$date','+00:00','+3:00'), 0)");
+                       ->query("INSERT INTO orders (account_id, client_id, delivery_person_id, location, date, status, delivered)
+                                VALUES ('$account_id', '$client_id', '$delivery_person_id', '$location', CONVERT_TZ('$date','+00:00','+3:00'), 0, 0)");
 
         {
             $lastId = mysqli_insert_id($this->getDB());
@@ -225,6 +245,18 @@ class Model_orders extends Model
                                      WHERE id=$order_id");
         }
         return $update;
+    }
+
+    /*
+    orderDelivered - help function.
+    order delivered = 1.
+    */
+    public function orderDeliveredHelp($order_id)
+    {
+        $delivered = $this->getDB()->query("UPDATE orders
+                                            SET delivered=1, status=1
+                                            WHERE id = '$order_id'");
+        return $delivered;
     }
 
 }

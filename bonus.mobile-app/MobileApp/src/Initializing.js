@@ -1,19 +1,17 @@
 import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import Transition from './Transition';
-import logo from './img/logo.jpeg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {goToAuth, goHome} from './navigation';
 
-import {USER_KEY} from './config';
-
-export default class Initialising extends React.Component {
+export default class Initializing extends React.Component {
   async componentDidMount() {
     setTimeout(async () => {
       try {
-        const user = await AsyncStorage.getItem(USER_KEY);
-        console.log('user: ', user);
-        if (user) {
+        const login = await AsyncStorage.getItem('userToken');
+        console.log('login; ', login);
+        if (login) {
           goHome();
         } else {
           goToAuth();

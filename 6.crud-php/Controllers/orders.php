@@ -33,6 +33,17 @@ class orders extends controller
     }
 
     /*
+    This function gets all the orders of a specific delivery person he has already delivered.
+    */
+    public function getDeliveredOrders()
+    {
+        $delivery_person_id = $this->data->delivery_person_id;
+        $orders = $this->model->getDeliveredOrdersHelp($delivery_person_id);
+        $this->response["orders"] = $orders;
+        return $this->response;
+    }
+
+    /*
     This function gets all the products.
     */
     public function getMenu()
@@ -92,7 +103,7 @@ class orders extends controller
         return $this->response;
     }
 
-        /*
+    /*
     This function adds a new client to clients table.
     */
     public function updateOrder()
@@ -106,5 +117,16 @@ class orders extends controller
         
         $update = $this->model->updateOrderHelp($order_id, $client_id, $delivery_person_id, $date, $products, $status);
         return $update;
+    }
+
+    /*
+    This function sets order delivered to 1.
+    */
+    public function orderDelivered()
+    {
+        $order_id = $this->data->orderId;
+        
+        $delivered = $this->model->orderDeliveredHelp($order_id);
+        return $delivered;
     }
 }

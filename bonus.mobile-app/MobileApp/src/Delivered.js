@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {goToAuth} from './navigation';
 import axios from 'axios';
 
-export default class Home extends React.Component {
+export default class Delivered extends React.Component {
   static get options() {
     return {
       topBar: {
@@ -23,22 +23,6 @@ export default class Home extends React.Component {
   async componentDidMount() {
     await this.deliveries();
   }
-
-  showAlert = id => {
-    return Alert.alert('', 'It has been delivered', [
-      {
-        text: 'Yes',
-        onPress: () => {
-          axios.post('http://localhost:9991//orders/orderDelivered/', {
-            orderId: id,
-          });
-        },
-      },
-      {
-        text: 'No',
-      },
-    ]);
-  };
 
   /**
    * This function handles user logout.
@@ -60,10 +44,11 @@ export default class Home extends React.Component {
     const id = await AsyncStorage.getItem('userId');
 
     await axios
-      .post('http://localhost:9991//orders/getOrdersDetails/', {
+      .post('http://localhost:9991//orders/getDeliveredOrders/', {
         delivery_person_id: id,
       })
       .then(result => {
+        console.log(result.data.orders);
         const ordersDetails = result.data.orders;
         this.setState({orders: ordersDetails});
       })
@@ -73,7 +58,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>YOUR UPCOMING ORDERS</Text>
+        <Text style={styles.title}>YOUR PREVIOUS ORDERS</Text>
         <View>
           {this.state.orders.map(order => {
             return (
@@ -99,11 +84,11 @@ export default class Home extends React.Component {
             onPress={() => {
               Navigation.push(this.props.componentId, {
                 component: {
-                  name: 'Delivered',
+                  name: 'Home',
                 },
               });
             }}
-            title="Delivered orders"
+            title="next orders"
           />
           <SubmitButton onPress={this.logout} title="Sign Out" />
         </View>

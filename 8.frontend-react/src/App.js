@@ -37,9 +37,9 @@ function App() {
             user_id: userDetails.user_id,
             account_id: userDetails.account_id,
             event_type: "click",
-            class_id_name: event.target.className
-              ? event.target.className.split("_")[0]
-              : event.target.id.split("_")[0],
+            class_id_name: event.target.className,
+            // ? event.target.className.split("_")[0]
+            // : event.target.id.split("_")[0],
             time: moment(new Date()).format("yyyy-MM-DD HH:mm:ss"),
           });
         });

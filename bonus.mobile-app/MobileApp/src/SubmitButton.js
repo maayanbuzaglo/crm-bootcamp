@@ -11,18 +11,23 @@ const SubmitButton = ({title, onPress}) => {
 
 const styles = StyleSheet.create({
   appButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     color: 'red',
     marginTop: 10,
     backgroundColor: '#002c9b',
     borderRadius: 30,
-    paddingTop: 15,
-    paddingBottom: 15,
-    width: 150,
-    height: 50,
+    width: 140,
+    maxWidth: 150,
+    minHeight: 40,
+    maxHeight: 40,
+    overflow: 'scroll',
   },
   appButtonText: {
     fontFamily: 'Optima',
-    fontSize: 18,
+    fontSize: 15,
+    fontWeight: '500',
     letterSpacing: 2,
     color: 'white',
     alignSelf: 'center',
